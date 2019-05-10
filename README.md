@@ -1,2 +1,2 @@
 # ejemplos-js
-Se crea directorio
+Directorio de ejemplos js para desarrollo.
