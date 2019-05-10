@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<input type="checkbox" class="check" name="vehicle1" value="Bike" > I have a bike<br>
+<input type="checkbox" class="check" name="vehicle2" value="Car"> I have a car<br>
+<input type="checkbox" class="check" name="vehicle3" value="Boat" checked ="checked"> I have a boat<br>
+
+<a href="pagina2.html">link</a>
+
+<script type="text/javascript">
+	var clist = document.getElementsByClassName("check");
+for (var i = 0; i < clist.length; ++i) { 
+	clist[i].checked = false;
+	 console.log(clist[i] + '' +'no hay click' );
+
+};
+
+</script>
+</body>
+</html>

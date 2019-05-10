@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es-Es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Eduardo Palma">
+    <meta name="Title" content="sitio de prueba">
+    <meta name="Description" content="sitio de prueba para diseñador front-end">
+    <meta name="Robots" content="All">
+
+    <title>regex-punto</title>
+</head>
+<body>
+
+        <script type="text/javascript">
+// AGREGAR PUNTO *********************************************	
+Number.prototype.format = function(){
+   		return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+	};
+
+function point(precio) {
+    // precio = typeof precio !== 'undefined' ?  precio : null;
+    // return precio
+     if (precio !== null|| typeof precio !== 'undefined') {
+        return precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        }else {
+            console.log('haz nada');
+            // return false
+        }
+         
+    
+}
+
+function punto(precio) {
+    // precio = typeof precio !== 'undefined' ?  precio : null;
+    // return precio
+
+        return precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); 
+}
+
+	// cierre AGREGAR PUNTO ***************************************
+     var precioUno = 1234912;
+console.log(punto(precioUno));
+    //  var ofertaPrecioUno = precioUno.format();
+
+    function convertir(precio) {
+        var ofertaprecio = precio.format()
+        return ofertaprecio;
+
+        // if (precio) {
+        //     var ofertaprecio = precio.format();
+        //     return ofertaprecio;
+        // } else if (precio == 'undefined') {
+        //     console.log('dato es undefined');
+
+        // } else if (precio == null) {
+        //     console.log('dato es null');
+ 
+        // }
+        // else {
+        //     console.log('haz nada');
+        //     // return false
+        // }
+    }
+    
+    
+    
+</script>
+
+</body>
+</html>
+

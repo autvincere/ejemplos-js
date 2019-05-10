@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>constructor</title>
+</head>
+
+<body>
+  <article id="app"></article>
+
+  <script>
+    var carros = [{
+        make: 'Acura',
+        year: 2012
+      },
+      {
+        make: 'Aston Martin',
+        year: 2010
+      },
+      {
+        make: 'BMW',
+        year: 2009
+      },
+      {
+        make: 'Ford',
+        year: 2012
+      },
+      {
+        make: 'Honda',
+        year: 2015
+      },
+      {
+        make: 'maruti',
+        year: 2012
+      },
+      {
+        make: 'lada',
+        year: 2012
+      },
+      {
+        make: 'suzuki',
+        year: 2012
+      },
+      {
+        make: 'chery',
+        year: 2012
+      },
+      {
+        make: 'Toyota',
+        year: 2012
+      },
+      {
+        make: 'autofeo',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'suzuki',
+        year: 2012
+      },
+      {
+        make: 'chery',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      }
+    ];
+
+    let
+      numeroMaxPorVista = 4
+    numeroElementos = carros.length
+    // console.log(numeroElementos);
+    // console.log(numeroMaxPorVista);
+
+    if (numeroElementos > numeroMaxPorVista) {
+      let
+        grupos = numeroElementos / numeroMaxPorVista
+      grupoUno = carros.slice(0, numeroMaxPorVista)
+      grupoDos = carros.slice(numeroMaxPorVista, numeroMaxPorVista * 2)
+      grupotres = carros.slice(numeroMaxPorVista * 2, numeroMaxPorVista * 3)
+
+      // console.log(grupoUno)
+      // console.log(grupoDos)
+      // console.log(grupotres)
+
+    } else {
+      //console.log(`nada`);
+
+    }
+
+    // let
+    // mitad = numeroElementos / 2
+
+    // inicio = carros.slice(0,mitad)
+    // final = carros.slice(mitad)
+
+    //console.log(inicio)
+
+    //console.log('Segunda parte', final.toString())
+    //console.log('Array original', alumnos.toString());
+
+
+
+    let filtro = carros.filter(c => c.make.length <= 4);
+    //console.log(filtro);
+
+
+
+
+    //  function separar(base, max) {
+    //     var res = [];
+
+    //     for (var i = 0; i < base.length; i = i+(max-1)) {
+    //       res.push(base.slice(i,(i+max)));
+    //     }
+    //     res[res.length-1].push(base[0]);
+    //     return res;
+    //   }
+
+    function separar(base, maximo) {
+      var resultado = [[]];
+      var grupo = 0;
+
+      for (var i = 0; i < base.length; i++) {
+        if (resultado[grupo] === undefined) {
+          resultado[grupo] = [];
+        }
+
+        resultado[grupo].push(base[i]);
+
+        if ((i + 1) % maximo === 0) {
+          grupo = grupo + 1;
+        }
+      }
+      return resultado;
+    }
+
+    var miArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    /*separo meu array em grupos de 3 chaves*/
+    let 
+    productosPorPagina = 10
+    divisionPaginas = separar(carros, productosPorPagina)
+    indicePaginas = divisionPaginas.length
+
+    let element = [];
+    for (let i = 0; i < indicePaginas.length; i++) {
+     element.push(array[i]);
+      console.log(element);
+      
+    }
+    // console.log(indicePaginas);
+    // console.log(divisionPaginas);
+    // console.log(divisionPaginas);
+
+     var botones = carros.map(function(almuerzo){
+        return 2
+     })
+    // let element = 0;
+    // for (let i = 0; i < indicePaginas; i++) {
+    //   element += indicePaginas[i];
+      
+    // }
+    // console.log(element);
+    
+    // console.log(divididoTres[1]);
+  </script>
+</body>
+
+</html>

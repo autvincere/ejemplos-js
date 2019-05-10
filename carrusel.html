@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+          ul {
+               text-decoration: none;
+               list-style: none;
+               padding: 0px;
+               text-align: center;
+          }
+
+          li {
+               display: inline-block;
+               margin: 10px;
+          }
+
+          .mask {
+               width: 1040px;
+               height: 150px;
+               overflow: hidden;
+               margin: 0 auto;
+          }
+
+          .container {
+               margin: 0 auto;
+               max-width: 1200px;
+               position: relative;
+          }
+          .anterior{
+               position: absolute;
+               left: 0;
+               top: 85px;
+          }
+          .siguiente{
+               position: absolute;
+               right: 0;
+               top: 85px;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="container">
+          <div class="mask">
+               <ul id="contenedor">
+                    <!-- <li><img src="https://via.placeholder.com/150?text=1" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=2" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=3" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=4" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=5" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=6" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=7" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=8" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=9" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=10" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=11" alt=""></li>
+                    <li><img src="https://via.placeholder.com/150?text=12" alt=""></li> -->
+               </ul>
+          </div>
+          <a id="anterior" href="#" class="anterior">&#10094;</a>
+          <a id="siguiente" href="#" class="siguiente">&#10095;</a>
+     </div>
+     <script>
+          const 
+          contenedor = document.getElementById('contenedor')
+          anterior = document.getElementById('anterior')
+          siguiente = document.getElementById('siguiente')
+
+          let 
+          img = [
+          '<li><img src="https://via.placeholder.com/150?text=1" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=2" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=3" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=4" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=5" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=6" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=7" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=8" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=9" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=10" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=11" alt=""></li>'
+          ,'<li><img src="https://via.placeholder.com/150?text=12" alt=""></li>'
+          ]
+          contenedor.innerHTML = img.join('');
+          
+          // arr = [1, 2, 3, 4, 5, 6]
+          // colores = ['rojo', 'azul', 'verde', 'amarillo','purpura','cyan'];
+          console.log(img);
+
+          let left = (n) => () => {
+              let 
+                    corte = n.splice(0,1).toString(),
+                    resultado = n.push(corte);
+                    console.log(n); 
+                    return contenedor.innerHTML = n.join('');
+                        
+          }
+
+          let right = (n) => () => {
+              let 
+                    division = n.splice(n.length - 1,n.length).toString()
+                    resultado = n.unshift(division);
+                    console.log(n); 
+                    return contenedor.innerHTML = n.join('');
+                    
+               
+          }
+
+          anterior.addEventListener('click', left(img))
+          siguiente.addEventListener('click',right(img)) 
+          
+
+
+
+// console.log(left(arr));
+
+
+     </script>
+</body>
+
+</html>

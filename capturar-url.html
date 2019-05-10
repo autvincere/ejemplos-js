@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+</head>
+
+<body>
+
+     <script>
+          function ultimoElemento() {
+          var URLactual = window.location.href;
+          var newArr = URLactual.slice(0, -1);
+          var separados = newArr.split("/");
+          var ultimoItem = separados.pop ();
+          console.log(ultimoItem);  
+          }
+          ultimoElemento();
+          
+          //ej: http://localhost:8888/wordpress-gulp-master/horeca/
+          var URLactual = window.location.href;
+          var newArr = URLactual.slice(0, -1);
+
+          //resultado: http://localhost:8888/wordpress-gulp-master/horeca
+          //console.log(newArr);
+
+          // se crea un string con elementos separados por "/"
+          var separados = newArr.split("/");
+          //console.log(separados);
+          
+          // apra obtener el ultimo elemento de un string se ocupa el metodo "pop"
+          var ultimoItem = separados.pop ();
+          console.log(ultimoItem);
+          
+     </script>
+</body>
+
+</html>

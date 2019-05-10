@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>fecha</title>
+</head>
+
+<body>
+
+     <script>
+          
+          //CAPTURAR FECHA Y HORA
+          function captureDate() {
+               const
+                    date = new Date(),
+                    year = date.getFullYear(),
+                    month = date.getMonth(),
+                    day = date.getUTCDate(),
+                    months = 
+                    ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre","octubre", "noviembre", "diciembre"];
+                    hour = date.getHours();
+                    minutes = date.getMinutes();
+                    //     console.log(year);
+                    //     console.log(months[month]);
+                    //     console.log(day);
+                    console.log(hour + ':' + minutes);
+          }
+          captureDate();
+          //CIERRE CAPTURAR FECHA Y HORA
+
+     </script>
+</body>
+
+</html>

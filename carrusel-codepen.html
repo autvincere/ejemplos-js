@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+          body {
+               background: #181818;
+               text-align: center;
+               position: relative;
+          }
+
+          .container {
+               position: relative;
+               white-space: nowrap;
+               overflow-x: hidden;
+               height: 14.4em;
+               width: 41.5em;
+               top: 50vh;
+               margin: auto;
+               transform: translateY(-7.2em);
+          }
+
+          .inner {
+               position: absolute;
+               transition: transform 0.3s ease;
+          }
+
+          .card {
+               font-family: sans-serif;
+               line-height: 12em;
+               width: 8em;
+               height: 12em;
+               background: white;
+               border-radius: 2px;
+               box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.4);
+               display: inline-block;
+               margin: 0 0.05em;
+               position: relative;
+               bottom: -1.2em;
+               transition: transform 0.3s ease, background 0.2s ease, box-shadow 0.2s ease;
+          }
+
+          .card:hover {
+               background: #e2e2e2;
+               box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.4);
+          }
+
+          .card[data-scale="0"],
+          .card[data-scale="4"] {
+               transform: scale(1);
+               z-index: 0;
+          }
+
+          .card[data-scale="1"],
+          .card[data-scale="3"] {
+               transform: scale(1.1);
+               z-index: 1;
+          }
+
+          .card[data-scale="2"] {
+               transform: scale(1.2);
+               z-index: 2;
+          }
+
+          .btn {
+               position: absolute;
+               top: 0;
+               cursor: pointer;
+               background: rgba(255, 255, 255, 0.1);
+               padding: 0 2em;
+               line-height: 100vh;
+               transition: background 0.3s ease;
+          }
+
+          .btn svg {
+               fill: white;
+               width: 3em;
+               height: 3em;
+          }
+
+          .btn.next {
+               right: 0;
+          }
+
+          .btn.prev {
+               left: 0;
+          }
+
+          .btn:hover {
+               background: rgba(255, 255, 255, 0.2);
+          }
+     </style>
+</head>
+
+<body>
+     <div class="btn prev">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+               <path
+                    d="M14 20c0.128 0 0.256-0.049 0.354-0.146 0.195-0.195 0.195-0.512 0-0.707l-8.646-8.646 8.646-8.646c0.195-0.195 0.195-0.512 0-0.707s-0.512-0.195-0.707 0l-9 9c-0.195 0.195-0.195 0.512 0 0.707l9 9c0.098 0.098 0.226 0.146 0.354 0.146z">
+               </path>
+          </svg>
+     </div>
+     <div class="container">
+          <div class="inner">
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+               <div class="card"></div>
+          </div>
+     </div>
+     <div class="btn next">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+               <path
+                    d="M5 20c-0.128 0-0.256-0.049-0.354-0.146-0.195-0.195-0.195-0.512 0-0.707l8.646-8.646-8.646-8.646c-0.195-0.195-0.195-0.512 0-0.707s0.512-0.195 0.707 0l9 9c0.195 0.195 0.195 0.512 0 0.707l-9 9c-0.098 0.098-0.226 0.146-0.354 0.146z">
+               </path>
+          </svg>
+     </div>
+     <script>
+          let scale = 0;
+          const cards = Array.from(document.getElementsByClassName("card"));
+          const inner = document.querySelector(".inner");
+          const nextBtn = document.querySelector(".next");
+          const prevBtn = document.querySelector(".prev");
+
+          function slideAndScale() {
+               cards.map((card, i) => {
+                    card.setAttribute("data-scale", i + scale);
+                    inner.style.transform = "translateX(" + scale * 8.5 + "em)";
+               });
+          }
+
+          (function init() {
+               slideAndScale();
+               cards.map((card, i) => {
+                    card.textContent = i;
+                    card.addEventListener("click", () => {
+                         const id = card.getAttribute("data-scale");
+                         if (id !== 2) {
+                              scale -= id - 2;
+                              slideAndScale();
+                         }
+                    }, false);
+               });
+
+               nextBtn.addEventListener("click", () => {
+                    if (cards[cards.length - 1].getAttribute("data-scale") != 2) {
+                         scale--;
+                    }
+                    slideAndScale();
+               }, false);
+               prevBtn.addEventListener("click", () => {
+                    if (cards[0].getAttribute("data-scale") < 2) {
+                         scale++;
+                    }
+                    slideAndScale();
+               }, false);
+          })();
+     </script>
+</body>
+
+</html>

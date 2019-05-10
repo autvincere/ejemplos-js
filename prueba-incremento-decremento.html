@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+          form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+     </style>
+</head>
+
+<body>
+     <form method="POST" action="enviar.php?action=placeOrder">
+          <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+          <input type="number" id="number" name="number" value="0" />
+          <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+
+          <a href="#" id="enviar">enviar</a>
+          <!-- <input id="enviar" type="submit" value="Submit" name="submit" onclick="setValue();" > -->
+          
+     </form>
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+     <script>
+      //  $(document).ready(function(){
+
+      // document.getElementById('id1').value='text to be displayed' ; 
+          function increaseValue() {
+               var value = document.getElementById('number').value;
+               value++;
+               document.getElementById('number').value = value;
+               console.log(value);
+          }
+
+          function decreaseValue() {
+               var value = document.getElementById('number').value;
+               value--;
+               document.getElementById('number').value = value;
+               console.log(value);
+          }
+          // function setValue(e){
+          //      e.preventDefault()
+          //      document.getElementById("number").value = number;
+          //      sessionStorage.setItem("cantidad", number);
+          // }
+
+          // $('a#enviar').on('click',function(e) {
+          //   e.preventDefault;
+          //   var value = document.getElementById('number').value;
+          //   sessionStorage.setItem("cantidad", value)
+          //   console.log(value);
+          // })
+            
+
+          document.getElementById('enviar').addEventListener("click",function (e) {
+            e.preventDefault()
+               var value = document.getElementById('number').value;
+                  sessionStorage.setItem("cantidad", value)
+                  console.log(value);
+          });
+
+     </script>
+</body>
+
+</html>

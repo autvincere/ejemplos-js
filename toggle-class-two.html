@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+               .marcador {
+                 width: 100%;
+                 padding: 25px;
+                 background-color: coral;
+                 color: white;
+                 font-size: 25px;
+                 box-sizing: border-box;
+               }
+               </style>
+</head>
+<body>
+          <p>Click the "Try it" button to toggle between adding and removing the "mystyle" class name of the DIV element:</p>
+          
+     
+          <button id="button">Try it</button> 
+
+          <div id="myDIV" class="auto">
+                    This is a DIV element.
+          </div>
+          <script>
+                    const
+                    contenido = document.getElementById("myDIV"),
+                    btn = document.getElementById("button");
+     
+                    let mystyle = "marcador";
+
+                    let cli = (n) => () => contenido.classList.toggle(n);
+               // let cli = (n)=>
+               //    function() { 
+               //      contenido.classList.toggle(n);
+               //      }
+               
+
+               btn.addEventListener("click", cli(mystyle));
+          </script>
+</body>
+</html>

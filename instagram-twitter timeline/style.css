@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10pt;
+  color: #333;
+  line-height: normal;
+  font-smoothing: antialiased;
+  
+     -ms-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
+     box-sizing: border-box;
+     -ms-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+     -webkit-text-size-adjust: 100%;
+     font-size-adjust: 100%;
+     /* background-color: #f3f3f3; */
+     background: white url('bkg.jpg') no-repeat fixed center;
+     background-size: cover;
+     color: #fff;
+     margin: 0px;
+
+}
+#header {
+  position: relative;
+  width: 100vw;
+  height: 66vh;
+  padding: 25px;
+  border-top: 10px solid #d0362e;
+}
+#header h1 {
+     font-size: 2em;
+     color: #ffffff;
+     font-weight: 100;
+}
+#content {
+     display: inline-block;
+     width: 49%;
+     vertical-align: top;
+  /* position: relative;
+  width: 100vw;
+  display: flex;
+  flex-flow: row wrap; */
+}
+#content .post {
+  /* position: relative;
+  width: 25vw;
+  height: 25vw;
+  background: #000;
+  display: block;
+  overflow: hidden; */
+  position: relative;
+    width: 100%;
+    max-height: 200px;
+    background: #000;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 328px;
+    height: 202px;
+}
+#content .post .image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: center;
+  background-size: cover;
+  transition: all 0.15s ease-in-out;
+}
+#content .post ul {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: #ffffffb3; 
+  display: flex;
+  justify-content: space-around;
+  transform: translateY(-100%);
+  transition: all 0.15s ease-in-out;
+  color: #d0362e;
+  margin: 8px;
+}
+#content .post ul li {
+  text-align: center;
+  line-height: 50px;
+}
+#content .post:hover .image {
+  opacity: 0.5;
+  transform: scale(1.15) translate3d(0, 0, 0);
+}
+#content .post:hover ul {
+  /* transform: translateX(0); */
+}
+.center {
+     text-align: center;
+ }
+ .line-title {
+     height: 1px;
+     background-color: white;
+     width: 17%;
+     display: inline-block;
+     vertical-align: middle;
+ }
+ .title-count {
+     font-size: 20px;
+     font-family: 'Clarendon LT Std', serif;
+     font-weight: 100;
+     display: inline-block;
+     padding: 0px 12px;
+     background-color: #fd3234;
+ }
+ .line-title {
+     height: 1px;
+     background-color: white;
+     width: 17%;
+     display: inline-block;
+     vertical-align: middle;
+ }

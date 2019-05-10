@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+      <div id="prueba"></div>
+    <!-- <select id="regiones"> </select> -->
+
+    <select id="comunas"> </select>
+
+    <script>
+      const 
+        url = "regiones.json",
+        prueba = document.getElementById("prueba")
+        // selectRegiones = document.getElementById("regiones")
+        //selectComunas = document.getElementById("comunas");
+
+      fetch(url)
+        .then(res => res.json())
+        .then(region =>
+             cargaSelect(region)
+            // console.log(region)
+            )
+        .catch(err => console.log(err));
+
+
+        let templateRegion = reg =>`<option class="optionRegion" value="${reg.NombreRegion}">${reg.NombreRegion}</option>`
+
+        let templateComuna = reg =>`<option class="optionRegion" value="${reg.comunas}">${reg.comunas}</option>`
+        let comunasRegistradas = reg => reg.comunas
+
+        function cargaSelect(region){
+            //console.log(region.length); 
+            prueba.innerHTML = 
+            `
+                <select id="regiones"> 
+                <option value="" disabled selected>Seleccione una Region...</option>
+                ${region.map(templateRegion).join('')}
+                </select>
+                <select id="comunas"> 
+                <option value="">Seleccione una Comuna...</option>
+                <option value="">Seleccione una Comuna...</option>
+                <option value="">Seleccione una Comuna...</option>
+                
+                </select>
+            `; 
+            // ${region.map(templateComuna).join('')}
+            // selectComunas = document.getElementById("comunas");
+            let selectRegiones = document.getElementById("regiones");
+
+        function cargaComunas(){
+            let padre = this.value
+            // console.log(padre);
+            console.log(padre.padre);
+            
+            //console.log(region.map(comunasRegistradas));
+            
+            // if (padre == ) {
+                
+            // } else {
+                
+            // }
+            // selectComunas.innerHTML =`<div>${region.map(function(com){console.log(com.comunas)}).join('')}</div>`
+        }
+
+        selectRegiones.addEventListener("change", cargaComunas, false);  
+    }
+        
+
+// selectRegiones.addEventListener("change", function cargaComunas(){console.log('data');}, false);
+//       let optionTemplate = region =>
+//         `
+//         <option class="optionRegion" value="${region.NombreRegion.toLowerCase()}">${
+//           region.NombreRegion
+//         }</option>
+//         `;
+      // ${RegionesYcomunas.map(optionTemplate).join('')}
+      // selectRegiones.innerHTML = `
+      // <option value="" disabled selected>Seleccione una Region...</option>
+
+      // </select>
+      // `
+
+
+      
+    </script>
+  </body>
+</html>

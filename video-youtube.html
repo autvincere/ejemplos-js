@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es-Es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Eduardo Palma">
+    <meta name="Title" content="sitio de prueba">
+    <meta name="Description" content="sitio de prueba para diseñador front-end">
+    <meta name="Robots" content="All">
+
+    <title>Beetrack || sitio de prueba </title>
+</head>
+<body>
+ <section id="video">
+        <div class="youtube-container">
+            <div class="youtube-player" data-id="iBI5HAFjAjI"></div>
+            <figure class='parche'><div class='left'></div><div class='right'><img src='https://img.youtube.com/vi/ZArm6B3dRcQ/0.jpg'></div><div class='description'><p><strong>Artista:</strong> Marcos Cobo</p><p><strong>Canción:</strong>  Hoy que suene tu Bip!</p></div><div class='select'></div></figure> 
+        </div>
+    </section>
+
+        <script type="text/javascript">
+
+(function() {
+    var v = document.getElementsByClassName("youtube-player");
+    for (var n = 0; n < v.length; n++) {
+        var p = document.createElement("div");
+        p.innerHTML = labnolThumb(v[n].dataset.id);
+        p.onclick = labnolIframe;
+        v[n].appendChild(p);
+    }
+})();
+
+//LLamado a youtube
+function labnolThumb(id) {
+    return '<img class="youtube-thumb" src="//i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play-button"></div>';
+}
+
+function labnolIframe() {
+    var iframe = document.createElement("iframe");
+    iframe.setAttribute("src", "//www.youtube.com/embed/" + this.parentNode.dataset.id + "?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0");
+    iframe.setAttribute("frameborder", "0");
+    iframe.setAttribute("id", "youtube-iframe");
+    this.parentNode.replaceChild(iframe, this);
+}
+</script>
+
+</body>
+</html>
+

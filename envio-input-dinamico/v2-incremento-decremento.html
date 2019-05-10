@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+     </style>
+</head>
+
+<body>
+  <ul>
+    <li>
+      <form id="formulario">
+        <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+        <input type="hidden" name="action" value="placeOrder" />
+        <input class="number" type="number" id="number" name="number" value="1" />
+        <div class="increase value-button" id="increase" value="Increase Value">+</div>
+        <input id="enviar" class="enviar" type="submit" value="Submit" />
+      </form>
+    </li>
+    <li>
+      <form id="formulario">
+        <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+        <input type="hidden" name="action" value="placeOrder" />
+        <input class="number" type="number" id="number" name="number" value="1" />
+        <div class="increase value-button" id="increase" value="Increase Value">+</div>
+        <input id="enviar" class="enviar" type="submit" value="Submit" />
+      </form>
+    </li>
+    <li>
+      <form id="formulario" name="form">
+        <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+        <input type="hidden" name="action" value="placeOrder" />
+        <input class="number" type="number" id="number" name="number" value="1" />
+        <div class="increase value-button" id="increase" value="Increase Value">+</div>
+        <input id="enviar" class="enviar" type="submit" value="Submit" />
+      </form>
+    </li>
+  </ul>
+
+  <script>
+
+
+    const increaseValue = () => {
+      let value = document.getElementById('number').value;
+      value++;
+      //para que no suba de cierta cantidad
+      //value > 10 ? value = 10 : '';
+      this.document.getElementById('number').value = value;
+      console.log(value);
+    }
+
+    const decreaseValue = () => {
+      let value = document.getElementById('number').value;
+      value--;
+      value < 1 ? value = 1 : '';
+      document.getElementById('number').value = value;
+      //console.log(value);
+    }
+
+    const enviarInput = (e) => {
+      e.preventDefault();
+      let value = document.getElementById('number').value;
+      sessionStorage.setItem("cantidad", value)
+    
+      let datos = new FormData(document.getElementById("formulario"));
+      fetch('enviar.php', {
+          method: 'POST',
+          body: datos
+        })
+        .then(ajaxPositive)
+        .catch(showError);
+
+      resetInput();
+    }
+
+    const resetInput = () => {
+      document.getElementById('number').value = 1;
+    }
+    const ajaxPositive = (response) => {
+      console.log('response.ok: ', response.ok);
+      if (response.ok) {
+        response.text().then(showResult);
+      } else {
+        showError('status code: ' + response.status);
+      }
+    }
+
+    const showResult = (txt) => {
+      console.log('muestro respuesta: ', txt);
+    }
+
+    const showError = (err) => {
+      console.log('muestro error', err);
+    }
+    
+    var btnIncrease = document.getElementsByClassName("increase");
+    for(var i=0; i<btnIncrease.length; i++){
+         btnIncrease[i].addEventListener("click", increaseValue);
+    }
+
+    // document.getElementById('increase').addEventListener("click", increaseValue);
+
+    var btnDecrease = document.getElementsByClassName("decrease");
+    for(var i=0; i<btnDecrease.length; i++){
+      btnDecrease[i].addEventListener("click", decreaseValue);
+    }
+
+    // document.getElementById('decrease').addEventListener("click", decreaseValue);
+
+    var btnEnviar = document.getElementsByClassName("enviar");
+    for(var i=0; i<btnEnviar.length; i++){
+      btnEnviar[i].addEventListener("click", enviarInput);
+    }
+
+    // document.getElementById('enviar').addEventListener("click", enviarInput);
+  </script>
+</body>
+
+</html>

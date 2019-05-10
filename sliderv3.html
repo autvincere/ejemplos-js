@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+          .slider-content {
+			position: relative;
+			width: 700px;
+			height: 300px;
+			background-color: black;
+			border-radius: 15px;
+		}
+		
+		.imagen {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			visibility: hidden;
+			opacity: 0;
+		}
+		
+		.imagen img {
+			height: 100%;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		.texto {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			top: 85%;
+			color: white;
+			font-weight: bold;
+		}
+		
+		.slider-content a{
+			position: absolute;
+			text-decoration: none;
+			color: white;
+			font-size: 36px;
+			top : 50%;
+			transform: translateY(-50%);
+		}
+		.siguiente {
+			left: 97%;
+		}
+		
+		.boton {
+			position: absolute;
+			top: 5%;
+			left: 95%;
+		}
+		
+		.puntos {
+			position: absolute;
+			top: 88%;
+			width: 100%;
+			text-align: center;
+		}
+		.punto {
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			background-color: white;
+			border-radius: 50%;
+			margin-right: 5px;
+		}
+		.punto:hover {
+			cursor: pointer;
+			background-color: gray;
+		}
+		.slider-content a:hover {
+			color: gray;
+		}
+		
+		.actual {
+			visibility: visible;
+			opacity: 1;
+			transition: visibility 1s, opacity 1s;
+		}
+		.activo {
+			background-color: gray;
+		}
+          ol{
+               position: absolute;
+          }
+		ol > *{
+			display: inline-block;
+		}
+     </style>
+</head>
+
+<body>
+     <div id="sliderContent" class="slider-content">
+
+          <div class="imagen actual">
+               <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 1!
+               </div>
+		</div>
+		
+          <div class="imagen">
+               <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 2!
+               </div>
+		</div>
+		
+          <div class="imagen">
+                    <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 3!
+               </div>
+		</div>
+		
+          <div class="imagen">
+                    <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 4!
+               </div>
+          </div>
+          
+	</div>
+     
+     <div id="sliderContentB" class="slider-content">
+
+          <div class="imagen actual">
+               <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 1!
+               </div>
+		</div>
+		
+          <div class="imagen">
+               <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 2!
+               </div>
+		</div>
+		
+          <div class="imagen">
+                    <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 3!
+               </div>
+		</div>
+		
+          <div class="imagen">
+                    <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" alt="">
+               <div class="texto">
+                    Collect gems and water points 4!
+               </div>
+          </div>
+          
+	</div>
+     <script>
+  let
+   sliderA = document.getElementById('sliderContent')
+   sliderB = document.getElementById('sliderContentB')
+//    imagenes = sliderA.children
+//    array =  [...imagenes]
+//    str = array.pop()
+//    console.log(str);
+   
+
+   puntos = document.getElementsByClassName('punto') 
+
+
+
+class slider {
+     constructor(slider){
+     this.slider = slider
+     this.hijos = slider.children
+     this.puntos = document.getElementsByClassName('punto')
+     }
+
+     mostrar(n) {
+          console.log('hiceClick')
+          // for (let i = 0; i < this.hijos.length; i++) {
+          //      // console.log(imagenes[i]);
+               				
+          //      if (this.hijos[i].classList.contains('actual')) {
+		// 		this.hijos[i].classList.remove('actual')
+          //      }   
+          // }
+		// this.hijos[n].classList.add('actual');
+
+		//  //PUNTOS
+		// for (let i = 0; i < puntos.length; i++) {
+          //      if (this.puntos[i].classList.contains('activo')) {
+		// 		this.puntos[i].classList.remove('activo')
+          //      }   
+          // }
+		// this.puntos[n].classList.add('activo');
+		
+		// actual = n;
+     }
+
+     addPoints(){
+          let hijo = this.hijos
+          let click = this.mostrar()
+          let ol = document.createElement('ol')
+          console.log(hijo)
+          for (let i = 0; i < hijo.length; i++) {
+          // let click = `<li><span class="punto" onclick="click(${i})"></span></li>`
+          ol.innerHTML += `<li><span class="punto" onclick="${this.mostrar({i})}"></span></li>`
+          
+          // `<li><span class="punto" onclick="${this.mostrar(${i})}"></span></li>`
+          // console.log(click)
+          this.slider.appendChild(ol)
+          // console.log(this.hijos);
+
+          
+      }
+
+     }
+}
+
+let banners = new slider(sliderA)
+
+
+
+// addPoints(sliderA)
+// addPoints(sliderB)
+     </script>
+</body>
+
+</html>

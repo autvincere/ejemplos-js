@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>capturar-hora</title>
+</head>
+
+<body>
+
+     <!-- <div class="open">Shop is open</div>
+     <div class="closed">Shop is closed</div> -->
+
+     <script>
+          function addZero(i) {
+               if (i < 10) {
+                    i = "0" + i;
+               }
+               return i;
+          }
+
+          const
+               date = new Date(),
+               añoActual = date.getFullYear(),
+               month = date.getMonth(),
+               diaActual = date.getUTCDate(),
+               meses = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12],
+               mesActual = meses[month],
+               horaActual = date.getHours(),
+               minutes = addZero(date.getMinutes())
+               ;
+
+          const 
+               horaPublicacion = 12,
+               horaDespublicacion = 20,
+
+               diaPublicacion = 30,
+               diaDespublicacion = 31,
+
+               mesPublicacion = 1,
+               mesDespublicacion = 2,
+               
+               añoPublicacion = 2019,
+               añoDesPublicacion = 2019
+          ;
+          
+               console.log(añoActual);
+          if (
+                horaActual >= horaPublicacion && horaActual <= horaDespublicacion 
+                &&
+                diaActual  >= diaPublicacion && diaActual <= diaDespublicacion
+                &&
+                mesActual >= mesPublicacion && mesActual <= mesDespublicacion
+                &&
+                añoActual >= añoPublicacion && añoActual <= añoDesPublicacion
+               ) {
+               console.log('abierto');
+          } else {
+               console.log('cerrado');
+          }
+     </script>
+</body>
+
+</html>

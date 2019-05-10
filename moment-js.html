@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>moment</title>
+</head>
+
+<body>
+
+
+     <!-- <div class="open">Shop is open</div>
+     <div class="closed">Shop is closed</div> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
+
+     <script>
+          const
+               date = '2018-02-03',
+               format = 'LLLL',
+               result = moment(date).format(format),
+          //console.log(result);
+
+               fechaActual = moment().format('L'),
+               fechaJson = "02/03/2015",
+               convert = moment(fechaJson,'DD/MM/YYYY')
+               differenceYears = moment().diff(convert,'years')
+               ;
+
+
+          console.log(differenceYears);
+          
+     </script>
+</body>
+
+</html>

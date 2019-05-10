@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+          .container {
+               /* display: flex; */
+               width: 100%;
+               height: 100vh;
+               justify-content: center;
+               align-items: center;
+               perspective: 1000px;
+               text-align: center;
+    vertical-align: text-bottom;
+    padding-top: 30px;
+          }
+
+          .card {
+               position: relative;
+               width: 180px;
+               height: 300px;
+               margin: 0.5rem;
+               text-align: center;
+               line-height: 8rem;
+               color: #ecf0f1;
+               border-radius: 0.8rem;
+               transform-style: preserve-3d;
+               display: inline-block;
+          }
+
+          .face {
+               display: block;
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+               border-radius: 0.8rem;
+               background-size: cover;
+               background-position: center center;
+               backface-visibility: hidden;
+               transition: transform 0.5s ease-in-out;
+          }
+
+          .face--front {
+               background: #2c3e50;
+               font-size: 3rem;
+          }
+
+          .face--back {
+               background: #2c3e50;
+               font-size: 1.5rem;
+               transform: rotateY(180deg);
+          }
+
+          .card:hover .face--front {
+               transform: rotateY(-180deg);
+          }
+
+          .card:hover .face--back {
+               transform: rotateY(0deg);
+          }
+
+          img {
+               max-width: 90px;
+               max-height: 90px;
+               width: 100%;
+          }
+          figure{
+               display: inline-block;
+               vertical-align: text-top
+          }
+     </style>
+</head>
+
+<body>
+     <div id="cartas" class="container">
+          <!-- <div class="card">
+               <div class="face face--front">
+                    <figure>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Unimarc_logo.svg"
+                         alt=""/>
+                    </figure>
+                    </div>
+               <div class="face face--back">facebook</div>
+          </div>
+          <div class="card">
+               <div class="face face--front"><i class="fa fa-twitter"></i></div>
+               <div class="face face--back">twitter</div>
+          </div>
+          <div class="card">
+               <div class="face face--front"><i class="fa fa-linkedin"></i></div>
+               <div class="face face--back">linkedin</div>
+          </div> -->
+     </div>
+     <div id="contenido"></div>
+     <script>
+     var cartas = 3;
+     var intentos = 4;
+     let contenido = document.querySelector('#contenido');
+     var foto = null;
+
+class carta{
+     constructor(i,o){
+     this.imagen = i;
+     this.oferta = o;
+     }
+     oferta(){
+          fetch('https://randomuser.me/api')
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.results[0].name.first);
+            contenido.innerHTML = `
+            <img src="${res.results[0].picture.large}" alt="${res.results[0].name.first}" class="img-fluid rounded-circle">
+            <p>Nombre: ${res.results[0].name.first}</p>`
+        });
+     }
+}
+
+let imagenJson = () =>{
+     fetch('https://randomuser.me/api')
+        .then(res => res.json())
+        .then(res => {
+        
+          //   console.log(
+          //       img = res.results[0].picture.large
+          //        );
+
+                 //return res.results[0].picture.large;
+            var foto = `${res.results[0].picture.large};`
+            //console.log(foto);
+            
+        });
+}
+ imagenJson();
+console.log(foto);
+     let carta =  `<div class="card">
+               <div class="face face--front">
+                    <figure>
+                    <img src=""
+                         alt=""/>
+                    </figure>
+                    </div>
+               <div class="face face--back">facebook</div>
+          </div>`;
+
+     for (i = 0; i <= intentos; i++) {
+          //const element = cartas[i];
+          //console.log(i);
+          document.getElementById('cartas').innerHTML=`
+          <div class="card">
+               <div class="face face--front">
+                    <figure>
+                    <img src=""
+                         alt=""/>
+                    </figure>
+                    </div>
+               <div class="face face--back">facebook</div>
+          </div>
+          <div class="card">
+               <div class="face face--front"><i class="fa fa-twitter"></i></div>
+               <div class="face face--back">twitter</div>
+          </div>
+          <div class="card">
+               <div class="face face--front"><i class="fa fa-linkedin"></i></div>
+               <div class="face face--back">linkedin</div>
+          </div>
+          `;
+
+          
+     }
+     
+     </script>
+</body>
+
+</html>

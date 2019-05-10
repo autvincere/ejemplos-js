@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>nodos</title>
+</head>
+
+<body>
+     <ul class="padre">
+          <li>
+               <a href="https://efectusmagnus.github.io/html/arcade-game.html" style="width: 100%;">
+                    <img class="image-100" src="https://reactiveprogramming.io/public/books/patterns/img/cs.png" alt="Frogger with lady-bug."/>
+               </a>
+          </li>
+          <li>
+                    <a href="https://efectusmagnus.github.io/html/arcade-game.html" style="width: 100%;">
+                         <img class="image-100" src="https://reactiveprogramming.io/public/books/patterns/img/cs.png" alt="Frogger with lady-bug."/>
+                    </a>
+               </li>
+               <ol class="dots"></ol>
+     </ul>
+
+     <ul class="padre">
+               <li>
+                         <a href="https://efectusmagnus.github.io/html/arcade-game.html" style="width: 100%;">
+                              <img class="image-100" src="https://reactiveprogramming.io/public/books/patterns/img/cs.png" alt="Frogger with lady-bug."/>
+                         </a>
+               </li>
+               <li>
+                              <a href="https://efectusmagnus.github.io/html/arcade-game.html" style="width: 100%;">
+                                   <img class="image-100" src="https://reactiveprogramming.io/public/books/patterns/img/cs.png" alt="Frogger with lady-bug."/>
+                              </a>
+               </li>
+                         <ol class="dots"></ol>
+     </ul>
+
+
+     <script>
+     let 
+          padres = document.querySelectorAll('#padre')
+          dots = document.querySelectorAll('.dots')
+
+     for (let i = 0; i < padres.length; i++) {
+          
+          let hijos = padres[i].children;
+
+          // console.log(hijos);
+          // console.log(hijos.document.querySelector('li'));
+          
+          //al dar como respuesta en consola un HTMLCollection() se recorre nuevamente para obtener al hijo
+          for (let i = 0; i < hijos.length; i++) {
+               hijos[i].innerHTML= `caca`
+               let 
+                    // hijosElegidos = hijos[i].childNodes
+                    hijosSeleccionados = hijos[i].querySelectorAll('li')
+               console.log(hijosSeleccionados)
+    
+          }
+          
+          // padres[i].children.innerHTML=`caca`
+          
+     }
+
+
+
+     </script>
+</body>
+
+</html>

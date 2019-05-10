@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+         * {
+  box-sizing: border-box;
+}
+
+/*-- Slideshow container --*/
+.slideshow-ctn {
+  width: 100%;
+  position: relative;
+  margin: auto;
+  border: 1px solid #7d97ad;
+  
+}
+.center{
+  margin: 0px auto;
+  text-align: center;
+}
+.my-slides {
+  display: none;
+  width: 100%;
+  margin: 0.5em;
+}
+
+.slide-img {
+  vertical-align: middle;
+  max-width: 400px;
+  width: 70%;
+  max-height: 266px;
+  text-align: center;
+  padding: 0.5em;
+  background-color: white;
+}
+
+/*-- The dots/buttons/indocators --*/
+.dot-ctn {
+  position: relative;
+  bottom: 5px;
+  padding-left: 20px;
+  text-align: center;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.6s ease;
+}
+:focus {
+    outline: none;
+  }
+
+.active {
+  background-color: #717171;
+}
+
+/*--  Fading animation --*/
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+@keyframes fade {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+/*-- Featured Work --*/
+.middle-title {
+  color: #7d97ad;
+}
+.featured-work {
+  margin: 0;
+  padding: 0;
+}
+.project-ctn {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1000px;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: outside none none;
+  grid-gap: 0.3em;
+}
+.project-list {
+  border: 1px solid #ccc;
+  margin: 0;
+  text-align: center;
+  line-height: 1em;
+  text-decoration: none;
+}
+.project-img {
+  max-width: 400px;
+  width: 100%;
+  padding: 0.5em;
+}
+.project-name {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 1.3em;
+  color: black;
+}
+.project-link {
+  position: relative;
+  bottom: 0;
+  font-size: 1em;
+  color: #2d3c49;
+}
+a {
+  text-decoration: none currentcolor solid;
+  color: orange;
+}
+
+/*-- On smaller screens, decrease text size --*/
+
+@media only screen and (min-width: 0) and (max-width: 640px){
+  .slideshow-ctn {
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 641px) {
+  .side-div {
+    float: right;
+    width: calc(100% - 400px);
+  }
+  .big-title {
+    padding-top: 6vh;
+    font-size: 2em;
+    line-height: 1em;
+  }
+  .text {
+    font-size: 1.3em;
+    line-height: 1em;
+  }
+  .slideshow-ctn {
+    padding-left: 5vw;
+    padding-right: 4vw;
+    padding-bottom: 1vh;
+  }
+  .project-ctn {
+  grid-template-columns: repeat(3, 1fr);
+}
+}
+@media only screen and (min-width: 765px) {
+  .big-title {
+    font-size: 3em;
+  }
+}
+     </style>
+</head>
+<body>
+          <section>
+                    <div class="slideshow-ctn"></div>
+          </section>
+
+   <script>
+
+// CONSTANTES   
+    const 
+    content = document.querySelector('.slideshow-ctn')
+    datos = {
+               projects: [
+                    {
+                         name: 'Arcade Game',
+                         image: 'https://efectusmagnus.github.io/images/arcade-game.png',
+                         attribute: 'Frogger with lady-bug.',
+                         enlace: 'https://efectusmagnus.github.io/html/arcade-game.html',
+                         code: '#',
+                         caption: 'Collect gems and water points!'
+                    },
+                    {
+                         name: 'Memory Game',
+                         image: 'https://efectusmagnus.github.io/images/brain-game.png',
+                         attribute: 'An icon of a brain.',
+                         enlace: 'https://efectusmagnus.github.io/html/memory-game.html',
+                         code: 'https://github.com/efectusmagnus/memory-game',
+                         caption: 'Have fun trainning your brain!'
+                    },
+                    {
+                         name: 'Neighborhood Map',
+                         image: 'https://efectusmagnus.github.io/images/neighborhood-map.png',
+                         attribute: "An icon of a map's marker.",
+                         enlace: 'https://efectusmagnus-map.surge.sh/',
+                         code: 'https://github.com/efectusmagnus/neighborhood-map-udacity-p8',
+                         caption: "Museums in Paderborn!"
+                    }
+               ]
+           }
+
+           content.innerHTML = `${datos.projects.map(slideshow => 
+           `
+               <div class="my-slides center fade">
+               <a href="${slideshow.enlace}">
+                    <img src="${slideshow.image}" alt="${slideshow.attribute}">
+               </a>
+               </div>
+               `).join('')}
+               <div class="dot-ctn">
+               ${Array(datos.projects.length).fill().map((item, i) => `
+                    <span class="dot" onclick="currentSlide(${i+1})" tabindex="0"></span>
+               `).join('')}
+               </div>
+               `
+
+          /*-- Slideshow --*/
+/*-- Source: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow_auto --*/
+/*-- Source: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow --*/
+const 
+  slides = document.getElementsByClassName("my-slides")
+  dots = document.getElementsByClassName("dot")
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+  // Change image every 3 seconds
+  setTimeout(showSlides, 5000);
+}
+
+showOnClick(slideIndex);
+
+function currentSlide(n) {
+  showOnClick(slideIndex = n);
+}
+
+function showOnClick(n) {
+  let i;
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "")
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+}     
+          </script>
+</body>
+</html>

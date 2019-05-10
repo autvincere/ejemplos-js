@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+         
+     </style>
+</head>
+
+<body>
+     <div id="Father">
+      <a href="#" id="one" data-cat="caca">one</a>
+      <a href="#" id="two">two</a>
+      <a href="#" id="three">three</a>
+      <a href="#" id="four">four</a>
+      <a href="#" id="five">five</a>
+      <a href="#" id="six">six</a>
+
+     </div>
+
+     <script>
+     var $father = document.querySelector('#Father');
+     $father.addEventListener('click',doSomething,false);
+
+     function doSomething(e) {
+      console.dir(event.target);
+      console.log(event.target.dataset.cat);
+       console.log(event.target.parentElement.id);
+       if (e.target !== e.currentTarget) {
+          var clickedItem = e.target.id;
+          console.log(`hello ${clickedItem}`);
+       }
+       e.stopPropagation();
+     }
+
+     </script>
+</body>
+
+</html>

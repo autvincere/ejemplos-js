@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+     </style>
+</head>
+
+<body>
+  <ul>
+    <li>
+      <form id="formulario" class="formulario">
+        <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+        <input type="hidden" name="action" value="placeOrder" />
+        <input type="hidden" id="id" name="id" value="1" />
+        <input class="number" type="number" id="number" name="number" value="1" />
+        <div class="increase value-button" id="increase" value="Increase Value">+</div>
+        <input class="enviar" id="enviar" type="submit" value="Submit" />
+      </form>
+    </li>
+
+    <li>
+      <form id="formulario" class="formulario">
+        <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+        <input type="hidden" name="action" value="placeOrder" />
+        <input type="hidden" id="id" name="id" value="2" />
+        <input class="number" type="number" id="number" name="number" value="1" />
+        <div class="increase value-button" id="increase" value="Increase Value">+</div>
+        <input class="enviar" id="enviar" type="submit" value="Submit" />
+      </form>
+    </li>
+
+    <li>
+      <form id="formulario" class="formulario">
+        <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+        <input type="hidden" name="action" value="placeOrder" />
+        <input type="hidden" id="id" name="id" value="3" />
+        <input class="number" type="number" id="number" name="number" value="1" />
+        <div class="increase value-button" id="increase" value="Increase Value">+</div>
+        <input class="enviar" id="enviar" type="submit" value="Submit" />
+      </form>
+    </li>
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <script>
+      $(function () {
+        $('.increase').on('click', function () {
+          var $qty = $(this).closest('#formulario').find('input#number');
+          var currentVal = parseInt($qty.val());
+
+          if (!isNaN(currentVal)) {
+            $qty.val(currentVal + 1);
+          }
+          console.log(currentVal);
+        });
+
+        $('.decrease').on('click', function () { 
+          var $qty = $(this).closest('#formulario').find('input#number');
+          var currentVal = parseInt($qty.val());
+          if (!isNaN(currentVal) && currentVal > 0) {
+            $qty.val(currentVal - 1);
+          }
+          console.log(currentVal);
+        });
+
+        $('.enviar').on('click', function (e) {
+          e.preventDefault();
+          var $selectId = $(this).closest('#formulario').find('input#id');
+          var id = parseInt($selectId.attr('value'));
+          console.log(id);
+
+          var $qty = $(this).closest('#formulario').find('input#number');
+          var currentVal = parseInt($qty.val());
+          console.log(currentVal);
+
+          $.ajax({
+            url: 'enviar.php',
+            type: 'post',
+            data: {
+              "number" : currentVal, 
+              "action" : "addToCart", 
+              "id" : id
+            },
+            success: function(currentVal) {
+              console.log(currentVal);
+            },
+            error: function() {
+                  console.log("No se ha podido obtener la información");
+              }
+          });
+            
+          $(this).closest('#formulario').find('input#number').val(1);  
+        });
+
+      });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>indice</title>
+</head>
+
+<body>
+  <article id="app">
+     
+  </article>
+
+  <script>
+
+var app = document.getElementById('app');
+	var content = document.createElement("div");
+     content.setAttribute("id", "contenido");
+     app.appendChild(content);
+
+     var lista = document.createElement("div");
+     lista.setAttribute("id", "lista");
+     app.appendChild(lista);
+	
+    let contenido = document.getElementById('contenido');
+
+    var carros = [{
+        make: 'Acura',
+        year: 2012
+      },
+      {
+        make: 'Aston Martin',
+        year: 2010
+      },
+      {
+        make: 'BMW',
+        year: 2009
+      },
+      {
+        make: 'Ford',
+        year: 2012
+      },
+      {
+        make: 'Honda',
+        year: 2015
+      },
+      {
+        make: 'maruti',
+        year: 2012
+      },
+      {
+        make: 'lada',
+        year: 2012
+      },
+      {
+        make: 'suzuki',
+        year: 2012
+      },
+      {
+        make: 'chery',
+        year: 2012
+      },
+      {
+        make: 'Toyota',
+        year: 2012
+      },
+      {
+        make: 'autofeo',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'suzuki',
+        year: 2012
+      },
+      {
+        make: 'chery',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      },
+      {
+        make: 'Jeep',
+        year: 2012
+      }
+    ];
+      
+    function separar(base, maximo) {
+      var resultado = [[]];
+      var grupo = 0;
+
+      for (var i = 0; i < base.length; i++) {
+        if (resultado[grupo] === undefined) {
+          resultado[grupo] = [];
+        }
+
+        resultado[grupo].push(base[i]);
+
+        if ((i + 1) % maximo === 0) {
+          grupo = grupo + 1;
+        }
+      }
+      return resultado;
+    }
+
+    let 
+    productosPorPagina = 10
+    divisionPaginas = separar(carros, productosPorPagina)
+    indicePaginas = divisionPaginas.length
+    console.log(divisionPaginas);
+
+    for (let i = 0; i < divisionPaginas.length; i++) {
+     lista.innerHTML += `<button class="indice" id="${[i]}">nº ${[i+1]}</button>`
+    }
+    const indice = document.getElementsByClassName('indice');
+
+    for (i = 0; i < indice.length; i++) {
+     indice[i].addEventListener("click", getProduct,false);
+     }
+
+     function getProduct(idBtn) {
+          let valorId = this.getAttribute('id');
+          let numero = parseInt(valorId)
+          //console.log(numero )
+          contenido.innerHTML = ``;
+
+          for (let make of divisionPaginas[numero]) { 
+               contenido.innerHTML += `
+               <div style=" display: inline-block; border: 2px solid green; padding: 3px;">
+                    <p>
+                         ${ make.make }
+                    </p>
+                    <p>
+                         ${ make.year }
+                    </p>
+               </div>
+               `
+          }    
+     }
+
+     function iniciarApp(){
+          contenido.innerHTML = ``;
+          for (let make of divisionPaginas[0]) { 
+               contenido.innerHTML += `
+               <div style=" display: inline-block; border: 2px solid green; padding: 3px;">
+                    <p>
+                         ${ make.make }
+                    </p>
+                    <p>
+                         ${ make.year }
+                    </p>
+               </div>
+               `
+          }  
+     }
+     iniciarApp();
+
+  </script>
+</body>
+
+</html>

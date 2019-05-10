@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+          form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+     </style>
+</head>
+
+<body>
+     <ul>
+          <li>
+               <form id="formulario">
+                    <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+                    <input type="hidden" name="action" value="placeOrder" />
+                    <input class="number" type="number" id="number" name="number" value="1" />
+                    <div class="increase value-button" id="increase" value="Increase Value">+</div>
+                    <input id="enviar" class="enviar" type="submit" value="Submit" />
+               </form>
+          </li>
+          <li>
+               <form id="formulario">
+                    <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+                    <input type="hidden" name="action" value="placeOrder" />
+                    <input class="number" type="number" id="number" name="number" value="1" />
+                    <div class="increase value-button" id="increase" value="Increase Value">+</div>
+                    <input id="enviar" class="enviar" type="submit" value="Submit" />
+               </form>
+          </li>
+          <li>
+               <form id="formulario" name="form">
+                    <div class="decrease value-button" id="decrease" value="Decrease Value">-</div>
+                    <input type="hidden" name="action" value="placeOrder" />
+                    <input class="number" type="number" id="number" name="number" value="1" />
+                    <div class="increase value-button" id="increase" value="Increase Value">+</div>
+                    <input id="enviar" class="enviar" type="submit" value="Submit" />
+               </form>
+          </li>
+     </ul>
+
+     <script>
+          const app = {
+               inputsArray: null,
+               increaseCTAs: null,
+               decreaseCTAs: null,
+               submitCTAs: null,
+               controller: {
+                    increaseInputValue: function (index = 0) {
+                         return function () {
+                              return ++this.inputsArray[index].value
+                         }
+                    },
+                    decraseInputValue: function (index = 0) {
+                         return function () {
+                              const input = this.inputsArray[index];
+                              return Boolean(!Number(input.value)) ? input.value = 1 : --input.value;
+                         }
+                    },
+                    resetInput: function () {
+                         Array.from(this.inputsArray).map(input => input.value = 1);
+                    },
+                    formData: (new FormData(document.getElementById("formulario"))),
+                    post: function () {
+                         const self = this;
+                         fetch('enviar.php', {
+                                   method: 'POST',
+                                   body: self.formData
+                              })
+                              .then(self.ajaxPositive)
+                              .catch(self.showError);
+                         this.resetInput();
+                    },
+                    ajaxPositive: function (response) {
+                         console.log('response.ok: ', response.ok);
+                         if (response.ok) {
+                              response.text().then(this.showResult);
+                         } else {
+                              this.showError('status code: ' + response.status);
+                         }
+                    },
+                    showError: (err) => {
+                         console.log('muestro error', err);
+                    },
+                    eventBinding: function () {
+                         const self = this;
+                         Array.from(this.increaseCTAs).map((btn, i) => btn.addEventListener('click', self.increaseInputValue(
+                              i).bind(self)));
+                         Array.from(this.decreaseCTAs).map((btn, i) => btn.addEventListener('click', self.decraseInputValue(
+                              i).bind(self)))
+                         Array.from(this.submitCTAs).map((btn, i) => btn.addEventListener('click', self.post.bind(self)))
+
+                    }
+               },
+               init: function () {
+                    this.controller.inputsArray = document.getElementsByClassName('number');
+                    this.controller.increaseCTAs = document.getElementsByClassName('increase');
+                    this.controller.decreaseCTAs = document.getElementsByClassName('decrease');
+                    this.controller.submitCTAs = document.getElementsByClassName('enviar');
+                    this.controller.eventBinding();
+               }
+          }
+
+          app.init();
+     </script>
+</body>
+
+</html>

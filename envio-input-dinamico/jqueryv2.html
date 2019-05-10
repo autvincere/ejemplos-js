@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <style>
+
+          .input-number-group {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;  
+  border: 1px solid #cacaca;
+  max-width: 90px;
+  margin: 0 auto;
+}
+
+.input-number-group input[type=number]::-webkit-inner-spin-button,
+.input-number-group input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.input-number-group .input-group-button {
+  line-height: calc(64px/2 - 5px);
+}
+
+.input-number-group .input-number {  
+  border: none;
+  width: 32px;
+  padding: 0 8px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+  display: block;
+  margin: 0;
+}
+
+.input-number-group .input-number,
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {  
+  height: 32px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-radius: 0;
+}
+
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  display: inline-block;
+  width: 21px;
+  color: #b2b2b2;
+  text-align: center;
+  cursor: pointer;
+}
+     </style>
+</head>
+
+<body>
+
+     <div class="input-group input-number-group">
+          <div class="input-group-button">
+               <span class="input-number-decrement"><i class="fas fa-minus"></i></span>
+          </div>
+          <input class="input-number" type="number" value="0" min="0" max="1000">
+          <div class="input-group-button">
+               <span class="input-number-increment"><i class="fas fa-plus"></i></span>
+          </div>
+          <input id="enviar" class="enviar" type="submit" value="Submit" />
+     </div>
+
+     <div class="input-group input-number-group">
+          <div class="input-group-button">
+               <span class="input-number-decrement"><i class="fas fa-minus"></i></span>
+          </div>
+          <input class="input-number" type="number" value="0" min="0" max="1000">
+          <div class="input-group-button">
+               <span class="input-number-increment"><i class="fas fa-plus"></i></span>
+          </div>
+          <input id="enviar" class="enviar" type="submit" value="Submit" />
+     </div>
+     <script src="jquery.min.js"></script>
+     <script>
+          $(function () {
+               $('.input-number-increment').click(function () {
+                    var $input = $(this).parents('.input-number-group').find('.input-number');
+                    var val = parseInt($input.val(), 10);
+                    $input.val(val + 1);
+               });
+
+               $('.input-number-decrement').click(function () {
+                    var $input = $(this).parents('.input-number-group').find('.input-number');
+                    var val = parseInt($input.val(), 10);
+                    if (val > $input.attr('min')) {
+                         $input.val(val - 1);
+                    } else {
+                         $input.val(0);
+                    }
+               })
+
+               $('.enviar').click(function () {
+                    var $input = $(this).parents('.input-number-group').find('.input-number');
+                    var val = parseInt($input.val(), 10);
+
+
+                    if (val > $input.attr('min')) {
+                         $input.val(val - 1);
+                    } else {
+                         $input.val(0);
+                    }
+
+                    console.log(val);
+
+                    let datos = new FormData($(this).parents('.input-group'));
+
+                    fetch('enviar.php', {
+                              method: 'POST',
+                              body: datos
+                         })
+                         .then(ajaxPositive)
+                         .catch(showError);   
+               })
+               
+
+               const ajaxPositive = (response) => {
+                    console.log('response.ok: ', response.ok);
+                    if (response.ok) {
+                         response.text().then(showResult);
+                    } else {
+                         showError('status code: ' + response.status);
+                    }
+               }
+
+               const showResult = (txt) => {
+                    console.log('muestro respuesta: ', txt);
+               }
+
+               const showError = (err) => {
+                    console.log('muestro error', err);
+               }
+
+          });
+     </script>
+</body>
+
+</html>

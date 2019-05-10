@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>select li</title>
+     <style>   
+     </style>
+</head>
+<body>
+          <ul class="list">
+                    <li>JS</li>
+                    <li>PHP</li>
+                    <li>Java</li>
+                    <li>C#</li>
+                    <li>c++</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+          </ul>
+
+          <ul class="list">
+                    <li>JS</li>
+                    <li>PHP</li>
+                    <li>Java</li>
+                    <li>C#</li>
+                    <li>c++</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+          </ul>
+
+          <ul class="list">
+                    <li>JS</li>
+                    <li>PHP</li>
+                    <li>Java</li>
+                    <li>C#</li>
+                    <li>c++</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+          </ul>
+
+     <script>
+     const 
+          padres = document.querySelectorAll(".list"),
+          items = document.querySelectorAll(".list li"),
+          arrayItems =[...items],
+          tab = [];
+          let index;
+     //     console.log(arrayItems.length);
+     
+     // add values to the father
+     for(var i = 0; i < padres.length; i++){
+          let 
+               hijosSeleccion = padres[i].children
+               seleccion = [...hijosSeleccion]
+               // console.log(seleccion);
+               padres[i].innerHTML +=`<ol>${seleccion.map(item => `<li>punto</li>`)}
+          </ol>`
+         }
+
+       // add values to the sons
+     //   for(var i = 0; i < items.length; i++){
+     //      //  tab.push(items[i].innerHTML);
+     //      console.log(items[i]);
+     //      items[i].innerHTML=`<ol>
+     //      <li>punto<li>
+     //      </ol>`
+     //     }
+
+      // get selected element index
+     //  for(var i = 0; i < items.length; i++)
+     //    {
+     //        items[i].onclick = function(){
+               
+     //           index = tab.indexOf(this.innerHTML);
+     //           console.log(this.innerHTML + " Index = " + index);
+        
+     //        };
+     //    }
+
+     </script>
+</body>
+
+</html>
