@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>recorrer objeto
+     </title>
+	<meta charset="utf-8">
+</head>
+
+<body>
+
+	<h1>Resultados en consola</h1>
+     <div id= 'contenedor' class="contenedor"></div>
+     <script type="text/javascript">
+
+          let 
+               contenedor = document.getElementById('contenedor')
+          
+          sliderRecetas = [
+               {
+                    titulo:"mountains wide",
+                    img_destacada: "img/img_mountains_wide.jpg",
+                    link: "http://www.sodimac.cl/sodimac-cl/product/203512X/12-v-10-mm-Taladroatornillador-electrico-inalambrico?passedNavAction=push"     
+                    
+               },
+               {
+                    titulo:"nature wide",
+                    img_destacada: "img/img_nature_wide.jpg",
+                    link: "http://www.sodimac.cl/sodimac-cl/product/203512X/12-v-10-mm-Taladroatornillador-electrico-inalambrico?passedNavAction=push"     
+                    
+               },
+               {
+                    titulo:"snow wide",
+                    img_destacada: "img/img_snow_wide.jpg",
+                    link: "http://www.sodimac.cl/sodimac-cl/product/203512X/12-v-10-mm-Taladroatornillador-electrico-inalambrico?passedNavAction=push"     
+                    
+               }
+          ]
+
+     class RecorreObjeto{
+          constructor(contenedor,objeto){
+               this.contenedor = contenedor
+               this.objeto = objeto
+          }
+          pintarHtml()  {
+          //     console.log(this.objeto);
+               let content = this.contenedor
+               console.log(content);
+               content.innerHTML = `<div class="slider-content"><h1 class="app-title">Objeto(${this.objeto.length} results)</h1></div>`
+          }
+
+
+     }
+
+     let slider = new RecorreObjeto(contenedor,sliderRecetas)
+     slider.pintarHtml();
+     </script>
+
+</body>
+</html>

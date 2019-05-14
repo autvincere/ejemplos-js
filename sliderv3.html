@@ -168,66 +168,83 @@
 //    str = array.pop()
 //    console.log(str);
    
-
+   imagenes = document.getElementsByClassName('imagen')   
    puntos = document.getElementsByClassName('punto') 
 
+//    let mostrar = (n) => () => {
+//           // console.log(event.target);
 
+// 		//IMAGENES
+//           for (let i = 0; i < imagenes.length; i++) {				
+//                if (imagenes[i].classList.contains('actual')) {
+// 				imagenes[i].classList.remove('actual')
+//                }   
+//           }
+// 		imagenes[n].classList.add('actual');
+
+// 		//PUNTOS
+// 		for (let i = 0; i < puntos.length; i++) {
+//                if (puntos[i].classList.contains('activo')) {
+// 				puntos[i].classList.remove('activo')
+//                }   
+//           }
+// 		puntos[n].classList.add('activo');
+		
+// 		actual = n;
+//      }
 
 class slider {
-     constructor(slider){
-     this.slider = slider
-     this.hijos = slider.children
-     this.puntos = document.getElementsByClassName('punto')
+     constructor(){
+     // this.hijos = slider.children
+     // this.puntos = document.getElementsByClassName('punto')
+     }
+ 
+     mostrar(n){
+          // this.n = n
+          // alert(`Hola ${n}`)
+
+          //IMAGENES
+          for (let i = 0; i < imagenes.length; i++) {				
+               if (imagenes[i].classList.contains('actual')) {
+				imagenes[i].classList.remove('actual')
+               }   
+          }
+		imagenes[n].classList.add('actual');
+
+          //PUNTOS
+		for (let i = 0; i < puntos.length; i++) {
+               if (puntos[i].classList.contains('activo')) {
+				puntos[i].classList.remove('activo')
+               }   
+          }
+		puntos[n].classList.add('activo');
      }
 
-     mostrar(n) {
-          console.log('hiceClick')
-          // for (let i = 0; i < this.hijos.length; i++) {
-          //      // console.log(imagenes[i]);
-               				
-          //      if (this.hijos[i].classList.contains('actual')) {
-		// 		this.hijos[i].classList.remove('actual')
-          //      }   
-          // }
-		// this.hijos[n].classList.add('actual');
-
-		//  //PUNTOS
-		// for (let i = 0; i < puntos.length; i++) {
-          //      if (this.puntos[i].classList.contains('activo')) {
-		// 		this.puntos[i].classList.remove('activo')
-          //      }   
-          // }
-		// this.puntos[n].classList.add('activo');
-		
-		// actual = n;
-     }
-
-     addPoints(){
-          let hijo = this.hijos
-          let click = this.mostrar()
+     addPoints(slider){
+          this.slider = slider
+          this.hijos = this.slider.children
+          // let collect = [...slider]
+          // console.log(collect);
+          
+          let hijo = this.hijos.length
           let ol = document.createElement('ol')
-          console.log(hijo)
-          for (let i = 0; i < hijo.length; i++) {
-          // let click = `<li><span class="punto" onclick="click(${i})"></span></li>`
-          ol.innerHTML += `<li><span class="punto" onclick="${this.mostrar({i})}"></span></li>`
-          
-          // `<li><span class="punto" onclick="${this.mostrar(${i})}"></span></li>`
-          // console.log(click)
-          this.slider.appendChild(ol)
-          // console.log(this.hijos);
+          //console.log(hijo)
 
-          
-      }
+          for (let i = 0; i < hijo; i++) {
+               ol.innerHTML += `<li><span class="punto" onclick="banners.mostrar(${i})"></span></li>`
+               this.slider.appendChild(ol)
+          }
 
      }
 }
 
-let banners = new slider(sliderA)
 
 
+let banners = new slider
+let bannerss = new slider
+banners.addPoints(sliderA)
+bannerss.addPoints(sliderB)
 
-// addPoints(sliderA)
-// addPoints(sliderB)
      </script>
 </body>
 
