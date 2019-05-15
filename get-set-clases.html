@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>propiedades get y set
+     </title>
+     <meta charset="utf-8">
+</head>
+
+<body>
+
+	<h1>Resultados en consola</h1>
+     <div id= 'contenedor' class="contenedor"></div>
+    
+    <script type="text/javascript">
+
+     class Persons{
+          constructor(id,name,age){
+               this.id = id;
+               this.name = name;
+               this.age = age;
+          }
+          seeData (name,age){
+               console.log(
+               `
+               Nombre: ${this.name}
+               Edad: ${this.age}
+               `);
+               
+          }
+          set setData(name){
+               this,
+          }
+          get getData(){
+               //Se declara propiedad y se retorna el dato
+               return console.log(this.name);
+                
+          }
+     }
+
+     let person = new Persons(00,'Alex',60);
+     person.seeData();
+     person.setData()
+     person.getData;
+          
+     </script>
+
+</body>
+</html>
