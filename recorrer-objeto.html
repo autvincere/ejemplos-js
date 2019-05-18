@@ -97,75 +97,98 @@
 <body>
 
 	<h1>Resultados en consola</h1>
-     <div id= 'contenedor' class="contenedor"></div>
+	<div id= 'contenedor' class="contenedor"></div>
+	<div id= 'app' class="app"></div>
      <script type="text/javascript">
 
-          let 
+let 
                contenedor = document.getElementById('contenedor')
-			idUno = 'SliderA'
-			idDos = 'SliderB'
+			 app =  document.getElementById('app')
           
           sliderRecetas = [
                {
                     titulo:"mountains wide",
-                    img: "img/img_mountains_wide.jpg",
+                    img: "https://www.w3schools.com/howto/img_nature_wide.jpg",
                     link: "http://www.sodimac.cl/sodimac-cl/product/203512X/12-v-10-mm-Taladroatornillador-electrico-inalambrico?passedNavAction=push"     
                     
                },
                {
                     titulo:"nature wide",
-                    img: "img/img_nature_wide.jpg",
+                    img: "https://www.w3schools.com/howto/img_snow_wide.jpg",
                     link: "http://www.sodimac.cl/sodimac-cl/product/203512X/12-v-10-mm-Taladroatornillador-electrico-inalambrico?passedNavAction=push"     
                     
                },
                {
                     titulo:"snow wide",
-                    img: "img/img_snow_wide.jpg",
+                    img: "https://www.w3schools.com/howto/img_lights_wide.jpg",
                     link: "http://www.sodimac.cl/sodimac-cl/product/203512X/12-v-10-mm-Taladroatornillador-electrico-inalambrico?passedNavAction=push"     
                     
                }
           ]
 
      class RecorreObjeto{
-          constructor(contenedor,objeto,id){
+          constructor(contenedor,objeto){
                this.contenedor = contenedor
                this.objeto = objeto
-			this.id = id
-               
+			// this.puntos = puntos  
           }
-           mostrar(){  console.log(` este numero es: click`);
-              
-               
-           }
            pintar() {
-          //     console.log(this.objeto);
-			// let mostrar = (n) => console.log(n);
 			
                let content = this.contenedor
                //console.log(content);
-               this.slider = content.innerHTML += `<div class="slider-content">${this.objeto.map((elemento,i) =>`<div class="imagen ${i == 0 ? 'actual' : ''}"><img src="${elemento.img}" alt="${elemento.titulo}"></div>`).join(' ')}<ol>${this.objeto.map((elemento,i) => `<li><span class="punto" onclick="${this.mostrar({i})}"></span></li>`).join(' ')}</ol></div>`
+               this.slider = content.innerHTML = `<div class="slider-content">${this.objeto.map((elemento,i) =>`<div class="imagen ${i == 0 ? 'actual' : ''}"><img src="${elemento.img}" alt="${elemento.titulo}"></div>`).join(' ')}<ol>${this.objeto.map((elemento,i) => `<li><span class="punto" data-id= "${i}"></span></li>`).join(' ')}</ol></div>`
 		}
 			// onclick="${this.mostrar({i})}"
-		 
+		clickPoint(n){
+			this.imagenes = document.getElementsByClassName('imagen')
+					// console.log(this.imagenes);
+					 
+					//IMAGENES
+					for (let i = 0; i < this.imagenes.length; i++) {				
+               			if (this.imagenes[i].classList.contains('actual')) {
+							this.imagenes[i].classList.remove('actual')
+               				}   
+          			}
+					this.imagenes[n].classList.add('actual');
+		} 
           addclick(){
-               let convertido = [this.slider]
-     //    this.slider.children
-          //      this.hijos = this.slider.children
-          //      let hijo = this.hijos.length
-          //      let ol = document.createElement('ol')
-           console.log(typeof(convertido))
+			this.puntos = document.getElementsByClassName('punto')
+			// puntos = this.puntos
+			// console.log(this.puntos);
+	
+			for (var i = 0; i < this.puntos.length; i++) {
+				this.puntos[i].addEventListener('click',() => { 
+				let cli = parseInt(event.target.getAttribute('data-id'))
+				console.log(typeof(cli))
 
-          //      for (let i = 0; i < hijo; i++) {
-          //           ol.innerHTML += `<li><span class="punto" onclick="banners.mostrar(${i})"></span></li>`
-          //           this.slider.appendChild(ol)
-          //      }
+				//  let sli = (n) => {
+				// 	this.imagenes = document.getElementsByClassName('imagen')
+				// 	// console.log(this.imagenes);
+					 
+				// 	//IMAGENES
+				// 	for (let i = 0; i < this.imagenes.length; i++) {				
+               	// 		if (this.imagenes[i].classList.contains('actual')) {
+				// 			this.imagenes[i].classList.remove('actual')
+               	// 			}   
+          		// 	}
+				// 	this.imagenes[n].classList.add('actual');
+				// 	}
+					// sli(cli);
+					this.clickPoint(cli)
+					
+				}
+				,false);
+    	 		}
+
           }
      }
-     let slider = new RecorreObjeto(contenedor,sliderRecetas,idUno)
+     let slider = new RecorreObjeto(contenedor,sliderRecetas)
      slider.pintar();
+	slider.addclick();
 
-     let slider2 = new RecorreObjeto(contenedor,sliderRecetas,idDos)
+     let slider2 = new RecorreObjeto(app,sliderRecetas)
      slider2.pintar();
+	slider2.addclick();
      </script>
 
 </body>
