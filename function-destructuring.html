@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>recorrer objeto
+     </title>
+     <meta charset="utf-8">
+    
+</head>
+
+<body>
+
+	<h1>Resultados en consola</h1>
+	<div id= 'contenedor' class="contenedor"></div>
+	<div id= 'app' class="app"></div>
+     
+     <script type="text/javascript">
+     const telefono = {
+          marca:'Huawei'
+          ,color: 'Negro'
+          // ,pantalla: 5.5
+     };
+     function chekPhone({marca = 'Samsung', color = 'Blanco',pantalla = 5.0})
+     {
+          console.log(marca);
+          console.log(color)
+          console.log(pantalla)
+          
+     }
+     chekPhone(telefono)
+
+     </script>
+
+</body>
+</html>
