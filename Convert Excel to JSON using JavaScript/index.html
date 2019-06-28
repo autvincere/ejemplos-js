@@ -208,7 +208,7 @@
     // TRAER TIEMPO moment.js *********************************************	
 	const
     fechaActual = moment().format('YYYY-MM-DD HH:mm')
-    console.log(fechaActual);
+    // console.log(fechaActual);
 
   // cierre TRAER TIEMPO moment.js ***************************************	
   
@@ -246,13 +246,13 @@
       // Variable de publicacion por tiempo moment.js
         const approved = data.filter(
             function publicacion(user){
-            console.log(`fecha: ${user.fechaDespublicacion}`);
+            // console.log(`fecha: ${user.fechaDespublicacion}`);
             
               fechaPublicacion = moment(user.fechaPublicacion)
               fechaDespublicacion = moment(user.fechaDespublicacion)
               diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
               diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
-              console.log(fechaPublicacion);
+              // console.log(fechaPublicacion);
               //console.log(diferenciaDespublicacion); 
           if (
               diferenciaPublicacion <= 0 
@@ -263,7 +263,7 @@
                 return true
               }
           else {
-            console.log('cerrado');
+            // console.log('cerrado');
             return false
               }
           }
@@ -286,13 +286,13 @@
        // Variable de publicacion por tiempo moment.js
        const approved = data.filter(
             function publicacion(user){
-            console.log(`fecha: ${user.fechaDespublicacion}`);
+            // console.log(`fecha: ${user.fechaDespublicacion}`);
             
               fechaPublicacion = moment(user.fechaPublicacion)
               fechaDespublicacion = moment(user.fechaDespublicacion)
               diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
               diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
-              console.log(fechaPublicacion);
+              // console.log(fechaPublicacion);
               //console.log(diferenciaDespublicacion); 
           if (
               diferenciaPublicacion <= 0 
@@ -303,7 +303,7 @@
                 return true
               }
           else {
-            console.log('cerrado');
+            // console.log('cerrado');
             return false
               }
           }
@@ -335,7 +335,8 @@
       
     }
     // traerDatos(excel);
-    function filtrar(datos) {
+    
+    function buscar(datos) {
       document.getElementById('campoBuscar').addEventListener("keyup", () => {
         //console.log(document.getElementById('campoBuscar').value);
         const texto = campoBuscar.value.toLowerCase()
@@ -343,14 +344,11 @@
       // Variable de publicacion por tiempo moment.js
        const approved = datos.filter(
             function publicacion(user){
-            console.log(`fecha: ${user.fechaDespublicacion}`);
-            
               fechaPublicacion = moment(user.fechaPublicacion)
               fechaDespublicacion = moment(user.fechaDespublicacion)
               diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
               diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
-              console.log(fechaPublicacion);
-              //console.log(diferenciaDespublicacion); 
+
           if (
               diferenciaPublicacion <= 0 
               && 
@@ -360,11 +358,14 @@
                 return true
               }
           else {
-            console.log('cerrado');
+            // console.log('cerrado');
             return false
               }
           }
       )
+      
+      let res = approved.filter( productos => productos.producto.includes(texto))
+          console.log(res);
       // Cierre variable de publicacion por tiempo moment.js 
 
         for (let valor of approved) {
@@ -455,12 +456,12 @@
       // Variable de publicacion por tiempo moment.js
        const approved = valor.filter(
             function publicacion(user){
-            console.log(`fecha: ${user.fechaDespublicacion}`);
+            // console.log(`fecha: ${user.fechaDespublicacion}`);
               fechaPublicacion = moment(user.fechaPublicacion)
               fechaDespublicacion = moment(user.fechaDespublicacion)
               diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
               diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
-              console.log(fechaPublicacion);
+              // console.log(fechaPublicacion);
               //console.log(diferenciaDespublicacion); 
           if (
               diferenciaPublicacion <= 0 
@@ -471,7 +472,7 @@
                 return true
               }
           else {
-              console.log('cerrado');
+              // console.log('cerrado');
               return false
               }
           }
@@ -543,7 +544,7 @@
           console.log(excel)
           traerDatos(excel)
           dataPrimary(excel)
-          filtrar(excel)
+          buscar(excel)
           tags(excel)
 
           // let campoBuscar = document.getElementById('campoBuscar')

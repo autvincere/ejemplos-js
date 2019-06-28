@@ -10,15 +10,30 @@
 </head>
 
 <body>
-
-<input type="text" class="search" placeholder="Search">
-                 
-          
+          <div class="col" id="app"></div>               
  <script type="text/javascript">
-
+  let
+      app = document.getElementById('app');
+      buscador = document.createElement("div")
+      buscador.setAttribute("id", "buscador-component")
+      buscador.setAttribute("class", "container");
+      app.appendChild(buscador)
+      buscadorComponent = document.getElementById('buscador-component')
+      buscadorComponent.innerHTML = 
+      `
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">search</i>
+              <input id="campoBuscar" name="buscador" type="search" class="validate">
+              <label for="icon_prefix">Busca aquí tu producto</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      `
 const 
-
-     searchInput = document.getElementsByClassName('search-input');
      objeto =[ 
           {imgHeader: "header_tarjeta_CAU.jpg", img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg", fechaPublicacion: "2019-06-20 23:00:00.000", fechaDespublicacion: "2019-06-28 23:00:00.000", categoria: "fin-de-semana"}
           ,{imgHeader: "header_tarjeta_CAU.jpg", img: "chocman-Costa.jpg", fechaPublicacion: "2019-06-20 23:00:00.001", fechaDespublicacion: "2019-06-28 23:00:00.001", categoria: "botilleros"}
@@ -38,24 +53,24 @@ const
      //      let res = objeto.filter(it => it.categoria.includes('botilleros'))
      // console.log(res);
      
-     const displayMatches = ( n ) => {
+     const displayMatches = ( n ) => { (n) =>{
           const texto = campoBuscar.value.toLowerCase()
           
-          let res = n.filter(it => it.categoria.includes(texto))
-          console.log();
+          let res = n.filter( productos => productos.categoria.includes(texto))
+          console.log(res);
           
      }
+}
 
 
-     document.getElementsByClassName('search').addEventListener('change', 
+     document.getElementById('campoBuscar').addEventListener("keyup",
      function(){
-          console.log('hola');
-          
-          // const texto = campoBuscar.value.toLowerCase()
-          
-          // let res = objeto.filter(it => it.categoria.includes(texto))
-          // console.log();
-     },
+          //console.log('hola');
+          const texto = campoBuscar.value.toLowerCase()
+          let res = objeto.filter(it => it.categoria.includes(texto))
+          console.log(res);
+     }
+     ,
      false);
 // res is []
 
