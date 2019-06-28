@@ -1,8 +1,6 @@
-const url = 'planilla.json'
-
-var app = document.getElementById('app');
-
-
+const 
+  url = 'planilla.json',
+  app = document.getElementById('app');
 
 var buscador = document.createElement("div")
 buscador.setAttribute("id", "buscador-component")
@@ -26,12 +24,12 @@ campoBuscar = document.getElementById('campoBuscar')
 campoBuscar.addEventListener("keyup",filtrar,false)
 
 function filtrar (datos,positivo){
-  fetch(url)
-  .then(res => res.json())
-  .then(datos =>
-    filtrar(datos,"si")
-    )
-  .catch(err => console.log(err)); 
+  // fetch(url)
+  // .then(res => res.json())
+  // .then(datos =>
+  //   filtrar(datos,"si")
+  //   )
+  // .catch(err => console.log(err)); 
   // contenido.innerHTML = ``;
   // contenido.innerHTML += `
   // <h1 class="header center orange-text">Productos</h1>
@@ -86,8 +84,7 @@ let productTemplate = valor =>
     `; 
     
 // function traerDatos(datos) {
- let traerDatos = data => {
-
+ let traerDatos = (data) => {
   contenido.innerHTML = ``;
   contenido.innerHTML += `
   <h1 class="header center orange-text">Productos</h1>
@@ -99,7 +96,6 @@ let productTemplate = valor =>
    </div> 
    `
    };
-
 
      fetch(url)
 			.then(res => res.json())

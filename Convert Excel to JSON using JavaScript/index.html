@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+    href="https://www.unimarc.cl/wp-content/themes/unimarc/style.css" media="screen,projection" />
+
+  <title>Excel to JSON Demo</title>
+  <script src="moment-with-locales.min.js">
+  </script>
+  <script src="xlsx.full.min.js"></script>
+  <style>
+    .filters .btn{margin-right: 5px;}
+    #ofertas .col.product{width: 23%; height: 450px;}
+    .isotope-pager{padding: 0 0 0 10px;}
+    .isotope-pager a{
+        padding: 5px;
+        background: #e22726;
+        display: inline-block;
+        color: #fff;
+        margin: 0 11px 49px;
+            border-radius: 4px;
+            width: 20px;
+        text-align: center;
+    }
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin: 0 5px 5px 0;
+    }
+    
+    .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }	
+    
+    .btn-default:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+    
+    .list-inline {
+        padding-left: 0;
+        margin-left: -5px;
+        list-style: none;
+        text-align: center;
+    }
+    #cajabotones .list-inline>li {
+        padding: 0;
+    }
+    .list-inline>li {
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    .filters .btn {
+        margin: 0 5px 5px 0;
+    }
+    .content .box-slider{height: auto;}
+    #ofertas .swiper-wrapper{height: auto;}
+    #cajabotones{ margin: 0 10px 30px; }
+    #ofertas h2{margin: 0 10px 30px; }
+  
+    .pagination {
+        clear:both;
+        padding:20px 0;
+        position:relative;
+        text-align: center;
+        line-height:20px;
+        font-family: 'clarendon_cn_btbold';
+    }
+  
+    .pagination span, .pagination a {
+        display:block;
+        float:left;
+        margin: 2px 2px 2px 0;
+        padding:8px;
+        text-decoration:none;
+        width:20px;
+        height:20px;
+        color:#fff;
+        background: #e7403d;
+    }
+  
+    .pagination a:hover{
+        background: #ffffff;
+        color: #e7403d;
+    }
+  
+    .pagination .current{
+        padding:8px;
+        background: #ffffff;
+        color: #e7403d;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <main>
+    <div id="ofertas" class="content">
+      <div class="row">
+        <div class="col" id="col">
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    /* set up XMLHttpRequest */
+    const
+      //url = "https://www.unimarc.cl/wp-content/uploads/2019/06/Test.xlsx",
+      url = "test.xls",
+      app = document.getElementById('col');
+      productosPorPagina = 6;	
+    
+    let
+      barraTags = document.createElement("div")
+      barraTags.setAttribute("id", "cajabotones")
+      barraTags.setAttribute("class", "button-group filter-button-group")
+      app.appendChild(barraTags)
+      barra = document.getElementById('cajabotones')
+
+      content = document.createElement("div")
+      content.setAttribute("id", "ofertas-container")
+      content.setAttribute("class", "grid")
+      app.appendChild(content)
+      contenido = document.getElementById('ofertas-container')
+
+      list = document.createElement("div")
+      list.setAttribute("id", "lista")
+      list.setAttribute("class", "pagination")
+      app.appendChild(list)
+      lista = document.getElementById('lista')
+      
+
+    let excel;
+    let punto = precio => precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+    //FUNCION PARA DIVIDIR ARRAY DE OBJETOS ***************************************
+	//*****************************************************************************
+	function separar(base, maximo) {
+		var resultado = [[]];
+		var grupo = 0;
+
+		for (var i = 0; i < base.length; i++) {
+			if (resultado[grupo] === undefined) {
+				resultado[grupo] = [];
+			}
+
+			resultado[grupo].push(base[i]);
+
+			if ((i + 1) % maximo === 0) {
+				grupo = grupo + 1;
+			}
+		}
+		return resultado;
+    	}
+    //CIERRE FUNCION PARA DIVIDIR ARRAY DE OBJETOS ********************************
+    //*****************************************************************************
+     
+    // TRAER TIEMPO moment.js *********************************************	
+	const
+    fechaActual = moment().format('YYYY-MM-DD HH:mm')
+    console.log(fechaActual);
+
+  // cierre TRAER TIEMPO moment.js ***************************************	
+  
+    let productTemplate = (valor) =>
+      `
+      <div class="grid-item col product">
+                <div class="product-img">
+	                <img src="${ valor.imgHeader ? 'img-ofertas/' + valor.imgHeader : "" }" />
+	  
+                <a class="inline cboxElement">
+                    <img src="${ valor.img ? 'img-ofertas/' + valor.img : "" }"></a>
+                </div>
+                <div class="text oferta-text">
+                  <a class="inline cboxElement">
+                    <h4 class="nombre-oferta">${ valor.producto }</h4></a>
+                  <p>${ valor.descripcion }</p>
+                </div>
+                <div class="oferta">
+                  <!-- Precio normal -->
+                  <p>${ valor.tipoPrecio } $${punto(valor.precioNormal)} ${ valor.unidad } ${ valor.medida }</p>
+                
+                  <!-- Precio Oferta -->
+                  <p>${ valor.tipoPrecioOferta } $${ punto(valor.PrecioOferta) } ${ valor.unidadPrecioOferta }</p>
+
+                  <!-- Precio Detalle -->
+                  <p>${ valor.tipoPrecioDetalle } ${ punto(valor.precioDetalle) }</p>
+                 
+               </div>
+              </div>
+      `;
+
+
+      const traerDatos = (data) => {
+
+      // Variable de publicacion por tiempo moment.js
+        const approved = data.filter(
+            function publicacion(user){
+            console.log(`fecha: ${user.fechaDespublicacion}`);
+            
+              fechaPublicacion = moment(user.fechaPublicacion)
+              fechaDespublicacion = moment(user.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+          if (
+              diferenciaPublicacion <= 0 
+              && 
+              diferenciaDespublicacion >= 0
+             ) 
+              {
+                return true
+              }
+          else {
+            console.log('cerrado');
+            return false
+              }
+          }
+      )
+      // Cierre variable de publicacion por tiempo moment.js
+
+          divisionPaginas = separar (approved, productosPorPagina);
+          contenido.innerHTML = '';
+          contenido.innerHTML += `${divisionPaginas[0].map(productTemplate).join("")}`
+          // for (let valor of divisionPaginas[0]) {
+          //     contenido.innerHTML += 
+          //     `
+          //     ${valor.map(productTemplate).join("")}
+          //     `	
+          //   }	
+    }
+
+      function dataPrimary(data){
+
+       // Variable de publicacion por tiempo moment.js
+       const approved = data.filter(
+            function publicacion(user){
+            console.log(`fecha: ${user.fechaDespublicacion}`);
+            
+              fechaPublicacion = moment(user.fechaPublicacion)
+              fechaDespublicacion = moment(user.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+          if (
+              diferenciaPublicacion <= 0 
+              && 
+              diferenciaDespublicacion >= 0
+             ) 
+              {
+                return true
+              }
+          else {
+            console.log('cerrado');
+            return false
+              }
+          }
+      )
+      // Cierre variable de publicacion por tiempo moment.js 
+
+    let
+      divisionPaginas = separar (approved, productosPorPagina)
+      // console.log(divisionPaginas)
+      
+			for (let i = 0; i < divisionPaginas.length; i++) {
+				lista.innerHTML += `<a class="indice inactive" id="${[i]}">${[i+1]}</a>`
+			}
+			let indice = document.getElementsByClassName('indice');
+
+      for (i = 0; i < indice.length; i++) {
+			indice[i].addEventListener("click", getLista,false);
+			}
+
+		function getLista() {
+          			let valorId = this.getAttribute('id');
+          			let numero = parseInt(valorId)
+          			// console.log(numero)
+          			// contenido.innerHTML = '';
+                // console.log(divisionPaginas[numero]);
+                contenido.innerHTML = ''
+                contenido.innerHTML += `${divisionPaginas[numero].map(productTemplate).join("")}` 
+        }
+      
+    }
+    // traerDatos(excel);
+    function filtrar(datos) {
+      document.getElementById('campoBuscar').addEventListener("keyup", () => {
+        //console.log(document.getElementById('campoBuscar').value);
+        const texto = campoBuscar.value.toLowerCase()
+      
+      // Variable de publicacion por tiempo moment.js
+       const approved = datos.filter(
+            function publicacion(user){
+            console.log(`fecha: ${user.fechaDespublicacion}`);
+            
+              fechaPublicacion = moment(user.fechaPublicacion)
+              fechaDespublicacion = moment(user.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+          if (
+              diferenciaPublicacion <= 0 
+              && 
+              diferenciaDespublicacion >= 0
+             ) 
+              {
+                return true
+              }
+          else {
+            console.log('cerrado');
+            return false
+              }
+          }
+      )
+      // Cierre variable de publicacion por tiempo moment.js 
+
+        for (let valor of approved) {
+          let nombre = valor.producto.toLowerCase()
+          // console.log(nombre.indexOf(texto));
+
+          
+          if (nombre.indexOf(texto) !== -1) {
+            lista.innerHTML = ''
+            contenido.innerHTML = ''
+            contenido.innerHTML += 
+            `	
+              <h1 class="header center orange-text">Productos</h1>
+              <div class="row center">   
+                <h5 class="header col s12 light">La cantidad de productos es de: ${datos.length} items</h5>
+              </div>
+              <div class="row">
+              
+                <div class="col s12 m4">
+                <div class="card">
+                  <div class="card-image">
+                    <img src="${'img-ofertas/' + valor.img}"/>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                  </div>
+                <div class="card-content">
+                  <span class="card-title">${ valor.producto }</span>
+                  <p>${ valor.descripcion }</p>
+                  <h2>${valor.ofertaPrecioUno ? `$${punto(valor.ofertaPrecioUno)}` : ''}</h2>
+                  <h3>${valor.ofertaPrecioDos? `$${punto(valor.ofertaPrecioDos)}` : ''}</h3>
+                  <blockquote>
+                    valor precio no socio: ${valor.precioNosocio ? `$${punto(valor.precioNosocio)}`:''}
+                  </blockquote>
+                </div>
+                </div>
+                </div>
+              </div> 
+            `
+          } else if (nombre.indexOf(texto) == 1) {
+              contenido.innerHTML = '';
+              contenido.innerHTML += 
+              `
+              <h2 style="text-align: center; margin-top: 44px; color: #00319f82;"> Producto no encontrado...</h2>
+              `
+          }
+
+          if (texto.length === 0) {
+              //LIMPIAR INDICE
+              contenido.innerHTML = ''
+              traerDatos(datos)
+            }
+          if (nombre.indexOf(texto) == 1) {
+              contenido.innerHTML = '';
+              contenido.innerHTML += 
+              `
+              <h2 style="text-align: center; margin-top: 44px; color: #00319f82;"> Producto no encontrado...</h2>
+              `
+              }  
+          // if (nombre.indexOf(texto) == -1) {
+          //       contenido.innerHTML = '';
+          //       contenido.innerHTML += `
+          //       <h2 style="text-align: center; margin-top: 44px; color: #00319f82;"> Producto no encontrado...</h2>`
+          //     } 
+        }
+      }
+    )
+  }
+  
+  function tags(valor){
+    //console.log(valor);
+    const noRepetidas= [... new Set(valor.map(x => x.categoria))];
+    // console.log(noRepetidas);
+    barra.innerHTML = ''
+    barra.innerHTML += 
+    `${noRepetidas.map(cat => `<a class="categorias btn btn-default" id="${cat}">${cat.split('-').join(' ')}</a>`).join(' ')}`
+      let categorias = document.getElementsByClassName('categorias');
+      
+      for (i = 0; i < categorias.length; i++) {
+        categorias[i].addEventListener("click", getProduct,false);
+      }
+      function getProduct(e){
+        let elementoClikeado = e.target.getAttribute('id');
+        // console.log(elementoClikeado);
+
+        lista.innerHTML = ''
+        contenido.innerHTML += `<h2 style="text-align: center; margin-top: 44px; color: #00319f82;"> Producto no encontrado...</h2>`
+      
+        
+      // Variable de publicacion por tiempo moment.js
+       const approved = valor.filter(
+            function publicacion(user){
+            console.log(`fecha: ${user.fechaDespublicacion}`);
+              fechaPublicacion = moment(user.fechaPublicacion)
+              fechaDespublicacion = moment(user.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+          if (
+              diferenciaPublicacion <= 0 
+              && 
+              diferenciaDespublicacion >= 0
+             ) 
+              {
+                return true
+              }
+          else {
+              console.log('cerrado');
+              return false
+              }
+          }
+      )
+      // Cierre variable de publicacion por tiempo moment.js 
+        
+
+        let datosSeleccionados = approved.filter( (catSeleccionada) => {
+          if(catSeleccionada.categoria == elementoClikeado){
+            
+            return true
+          }
+          else {
+            console.log('no hay coincidencias con id del btn'); 
+          }
+        })
+        // console.log(datosSeleccionados);
+        contenido.innerHTML = ''
+        contenido.innerHTML += `${datosSeleccionados.map(productTemplate).join("")}` 
+      }
+  }
+    let
+      buscador = document.createElement("div")
+      buscador.setAttribute("id", "buscador-component")
+      buscador.setAttribute("class", "container");
+      app.appendChild(buscador)
+      buscadorComponent = document.getElementById('buscador-component')
+      buscadorComponent.innerHTML = 
+      `
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">search</i>
+              <input id="campoBuscar" name="buscador" type="search" class="validate">
+              <label for="icon_prefix">Busca aquí tu producto</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      `
+    // campoBuscar = document.getElementById('campoBuscar')
+
+    fetch(url)
+      .then(
+        fail = (res) => {
+          /* get the data as a Blob */
+          if (!res.ok) throw new Error("fetch failed");
+          return res.arrayBuffer();
+        }
+          )
+      .then(
+        load = (ab) => {
+          /* parse the data when it is received */
+          let data = new Uint8Array(ab);
+          let workbook = XLSX.read(data, {
+            type: "array"
+          });
+
+          /* DO SOMETHING WITH workbook HERE */
+          let first_sheet_name = workbook.SheetNames[0];
+          /* Get worksheet */
+          let worksheet = workbook.Sheets[first_sheet_name];
+          excel = XLSX.utils.sheet_to_json(
+            worksheet, {
+              raw: true
+            }
+          )
+          console.log(excel)
+          traerDatos(excel)
+          dataPrimary(excel)
+          filtrar(excel)
+          tags(excel)
+
+          // let campoBuscar = document.getElementById('campoBuscar')
+        }
+      )
+      .catch(err => console.log(err));
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>setinterval
+     </title>
+     <meta charset="utf-8">
+    
+</head>
+
+<body>
+
+	<p>Click the button to wait 3 seconds, then alert "Hello".</p>
+<p>After clicking away the alert box, an new alert box will appear in 3 seconds. This goes on forever...</p>
+<button onclick="myFunctionStart()">Try it</button>
+<button onclick="myFunctionStop()">Stop</button>
+     
+     <script type="text/javascript">
+     
+     const start = setInterval( () => {console.log('Helloo');}, 3000)
+     const stop = clearInterval(start);
+     let myFunctionStart = () => start
+     let myFunctionStop = () => stop
+
+
+     </script>
+
+</body>
+</html>
