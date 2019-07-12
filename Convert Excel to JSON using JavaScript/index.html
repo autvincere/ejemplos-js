@@ -123,32 +123,20 @@
         background: #ffffff;
         color: #e7403d;
     }
+    .capitalize::first-letter{
+      text-transform: capitalize;
+    }
   </style>
 
 </head>
 
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
 
   <main>
     <div id="ofertas" class="content">
       <div class="row">
-        <div class="col" id="col">
-
-        </div>
+        <div class="col" id="col"></div>
       </div>
-
     </div>
   </main>
 
@@ -156,9 +144,9 @@
     /* set up XMLHttpRequest */
     const
       //url = "https://www.unimarc.cl/wp-content/uploads/2019/06/Test.xlsx",
-      url = "test.xls",
-      app = document.getElementById('col');
-      productosPorPagina = 6;	
+      url = "test.xls"
+      app = document.getElementById('col')
+      productosPorPagina = 6
     
     let
       barraTags = document.createElement("div")
@@ -186,22 +174,21 @@
     //FUNCION PARA DIVIDIR ARRAY DE OBJETOS ***************************************
 	//*****************************************************************************
 	function separar(base, maximo) {
-		var resultado = [[]];
-		var grupo = 0;
+      var resultado = [[]];
+      var grupo = 0;
 
-		for (var i = 0; i < base.length; i++) {
-			if (resultado[grupo] === undefined) {
-				resultado[grupo] = [];
-			}
+      for (var i = 0; i < base.length; i++) {
+        if (resultado[grupo] === undefined) {
+          resultado[grupo] = [];
+        }
 
-			resultado[grupo].push(base[i]);
-
-			if ((i + 1) % maximo === 0) {
-				grupo = grupo + 1;
-			}
-		}
-		return resultado;
-    	}
+        resultado[grupo].push(base[i]);
+        if ((i + 1) % maximo === 0) {
+          grupo = grupo + 1;
+        }
+      }
+		  return resultado;
+    }
     //CIERRE FUNCION PARA DIVIDIR ARRAY DE OBJETOS ********************************
     //*****************************************************************************
      
@@ -216,33 +203,33 @@
       `
       <div class="grid-item col product">
                 <div class="product-img">
-	                <img src="${ valor.imgHeader ? 'img-ofertas/' + valor.imgHeader : "" }" />
+	                <img src="${ valor.imgHeader ? '../wp-content/uploads/img-header/' + valor.imgHeader : "" }" />
 	  
                 <a class="inline cboxElement">
-                    <img src="${ valor.img ? 'img-ofertas/' + valor.img : "" }"></a>
+                    <img src="${ valor.img ? '../wp-content/uploads/img-ofertas/' + valor.img : "" }"/>
+                    </a>
                 </div>
                 <div class="text oferta-text">
                   <a class="inline cboxElement">
                     <h4 class="nombre-oferta">${ valor.producto }</h4></a>
-                  <p>${ valor.descripcion }</p>
+                  <p class="capitalize">${ valor.descripcion }.</p>
                 </div>
                 <div class="oferta">
                   <!-- Precio normal -->
-                  <p>${ valor.tipoPrecio } $${punto(valor.precioNormal)} ${ valor.unidad } ${ valor.medida }</p>
+                  <h4>${ valor.tipoPrecio } ${!valor.precioNormal ? "" : `$${punto(valor.precioNormal)}`} ${ !valor.unidad ? "" : valor.unidad } ${ !valor.medida ? "" : valor.medida }</h4>
                 
                   <!-- Precio Oferta -->
-                  <p>${ valor.tipoPrecioOferta } $${ punto(valor.PrecioOferta) } ${ valor.unidadPrecioOferta }</p>
+                  <h2>${ !valor.detallePrecioOferta ? "" : valor.detallePrecioOferta} ${ !valor.precioOfertaPorcentaje ? "" : `${valor.precioOfertaPorcentaje}%`} ${ !valor.PrecioOferta ? "" : `${punto(valor.PrecioOferta)}` } ${ !valor.unidadPrecioOferta ? "" : valor.unidadPrecioOferta }</h2>
 
                   <!-- Precio Detalle -->
-                  <p>${ valor.tipoPrecioDetalle } ${ punto(valor.precioDetalle) }</p>
+                  <h2>${ valor.tipoPrecioDetalle } ${ !valor.precioDetalle ? "" : `$${punto(valor.precioDetalle)}` }</h2>
                  
                </div>
               </div>
-      `;
+      `
 
 
       const traerDatos = (data) => {
-
       // Variable de publicacion por tiempo moment.js
         const approved = data.filter(
             function publicacion(user){
@@ -269,25 +256,17 @@
           }
       )
       // Cierre variable de publicacion por tiempo moment.js
-
           divisionPaginas = separar (approved, productosPorPagina);
           contenido.innerHTML = '';
           contenido.innerHTML += `${divisionPaginas[0].map(productTemplate).join("")}`
-          // for (let valor of divisionPaginas[0]) {
-          //     contenido.innerHTML += 
-          //     `
-          //     ${valor.map(productTemplate).join("")}
-          //     `	
-          //   }	
     }
 
       function dataPrimary(data){
-
        // Variable de publicacion por tiempo moment.js
        const approved = data.filter(
             function publicacion(user){
             // console.log(`fecha: ${user.fechaDespublicacion}`);
-            
+
               fechaPublicacion = moment(user.fechaPublicacion)
               fechaDespublicacion = moment(user.fechaDespublicacion)
               diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
@@ -392,7 +371,7 @@
                   </div>
                 <div class="card-content">
                   <span class="card-title">${ valor.producto }</span>
-                  <p>${ valor.descripcion }</p>
+                  <p>${ valor.descripcion }.</p>
                   <h2>${valor.ofertaPrecioUno ? `$${punto(valor.ofertaPrecioUno)}` : ''}</h2>
                   <h3>${valor.ofertaPrecioDos? `$${punto(valor.ofertaPrecioDos)}` : ''}</h3>
                   <blockquote>
@@ -433,18 +412,64 @@
     )
   }
   
+  // funcion approved para envasar
+  const approved = (valor) => {
+    valor.filter(
+            (user) => {
+            // console.log(`fecha: ${user.fechaDespublicacion}`);
+              fechaPublicacion = moment(user.fechaPublicacion)
+              fechaDespublicacion = moment(user.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              // console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+          if (
+              diferenciaPublicacion <= 0 
+              && 
+              diferenciaDespublicacion >= 0
+             ) 
+              {
+                return true
+              }
+          else {
+              // console.log('cerrado');
+              return false
+              }
+          }
+      )
+        }
+  
   function tags(valor){
     //console.log(valor);
     const noRepetidas= [... new Set(valor.map(x => x.categoria))];
-    // console.log(noRepetidas);
+    console.log(noRepetidas.indexOf('-'));
     barra.innerHTML = ''
+
+    barra.innerHTML +=
+    `
+      ${!noRepetidas 
+        ? '' 
+        : `<a class="categorias btn btn-default" id="todos" onclick="traerDatos(excel)">Todos</a>`
+      }
+    `
+    // document.getElementsByClassName('todos').addEventListener("click",  function(){
+    //   console.log('hice click')
+    // },false);
+   
     barra.innerHTML += 
-    `${noRepetidas.map(cat => `<a class="categorias btn btn-default" id="${cat}">${cat.split('-').join(' ')}</a>`).join(' ')}`
+    `
+      ${noRepetidas.map(cat => cat.indexOf('-') == -1 
+        ? `<a class="categorias btn btn-default" id="${cat}">${cat.split('-').join(' ')}</a>`
+        : `<a class="categorias btn btn-default" id="${cat}">${cat.split('-').join(' ')}</a>`
+      ).join(' ')}
+    `
+
       let categorias = document.getElementsByClassName('categorias');
       
       for (i = 0; i < categorias.length; i++) {
         categorias[i].addEventListener("click", getProduct,false);
       }
+      
       function getProduct(e){
         let elementoClikeado = e.target.getAttribute('id');
         // console.log(elementoClikeado);
@@ -477,12 +502,13 @@
               }
           }
       )
+      approved(valor)
+      console.log(approved);
+      
       // Cierre variable de publicacion por tiempo moment.js 
-        
 
-        let datosSeleccionados = approved.filter( (catSeleccionada) => {
+        let datosSeleccionados = approved.filter( (catSeleccionada) => { 
           if(catSeleccionada.categoria == elementoClikeado){
-            
             return true
           }
           else {
@@ -494,27 +520,28 @@
         contenido.innerHTML += `${datosSeleccionados.map(productTemplate).join("")}` 
       }
   }
-    let
-      buscador = document.createElement("div")
-      buscador.setAttribute("id", "buscador-component")
-      buscador.setAttribute("class", "container");
-      app.appendChild(buscador)
-      buscadorComponent = document.getElementById('buscador-component')
-      buscadorComponent.innerHTML = 
-      `
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">search</i>
-              <input id="campoBuscar" name="buscador" type="search" class="validate">
-              <label for="icon_prefix">Busca aquí tu producto</label>
-            </div>
-          </div>
-        </form>
-      </div>
-      `
+    // let
+    //   buscador = document.createElement("div")
+    //   buscador.setAttribute("id", "buscador-component")
+    //   buscador.setAttribute("class", "container");
+    //   app.appendChild(buscador)
+    //   buscadorComponent = document.getElementById('buscador-component')
+    //   buscadorComponent.innerHTML = 
+    //   `
+    //   <div class="row">
+    //     <form class="col s12">
+    //       <div class="row">
+    //         <div class="input-field col s12">
+    //           <i class="material-icons prefix">search</i>
+    //           <input id="campoBuscar" name="buscador" type="search" class="validate">
+    //           <label for="icon_prefix">Busca aquí tu producto</label>
+    //         </div>
+    //       </div>
+    //     </form>
+    //   </div>
+    //   `
     // campoBuscar = document.getElementById('campoBuscar')
+    // document.getElementById('todos').addEventListener('click',function(){console.log('hice click')},false)
 
     fetch(url)
       .then(
@@ -531,7 +558,6 @@
           let workbook = XLSX.read(data, {
             type: "array"
           });
-
           /* DO SOMETHING WITH workbook HERE */
           let first_sheet_name = workbook.SheetNames[0];
           /* Get worksheet */
@@ -544,7 +570,7 @@
           console.log(excel)
           traerDatos(excel)
           dataPrimary(excel)
-          buscar(excel)
+          // buscar(excel)
           tags(excel)
 
           // let campoBuscar = document.getElementById('campoBuscar')

@@ -12,6 +12,16 @@
                     /* set up XMLHttpRequest */
                     const 
                       url = "test.xlsx"
+                      fetch(url)
+                         .then(res => res.json())
+                         .then(datos =>
+                         //console.log(datos)
+                              traerDatos(datos)
+                         )
+                         .catch(err => console.log(err))
+
+
+                         
           </script>
           
 </body>

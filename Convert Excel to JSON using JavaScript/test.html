@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+    href="https://www.unimarc.cl/wp-content/themes/unimarc/style.css" media="screen,projection" />
+
+  <title>Excel to JSON Demo</title>
+  <script src="moment-with-locales.min.js">
+  </script>
+  <script src="xlsx.full.min.js"></script>
+  <style>
+    .filters .btn{margin-right: 5px;}
+    #ofertas .col.product{width: 23%; height: 450px;}
+    .isotope-pager{padding: 0 0 0 10px;}
+    .isotope-pager a{
+        padding: 5px;
+        background: #e22726;
+        display: inline-block;
+        color: #fff;
+        margin: 0 11px 49px;
+            border-radius: 4px;
+            width: 20px;
+        text-align: center;
+    }
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin: 0 5px 5px 0;
+    }
+    
+    .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }	
+    
+    .btn-default:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+    
+    .list-inline {
+        padding-left: 0;
+        margin-left: -5px;
+        list-style: none;
+        text-align: center;
+    }
+    #cajabotones .list-inline>li {
+        padding: 0;
+    }
+    .list-inline>li {
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    .filters .btn {
+        margin: 0 5px 5px 0;
+    }
+    .content .box-slider{height: auto;}
+    #ofertas .swiper-wrapper{height: auto;}
+    #cajabotones{ margin: 0 10px 30px; }
+    #ofertas h2{margin: 0 10px 30px; }
+  
+    .pagination {
+        clear:both;
+        padding:20px 0;
+        position:relative;
+        text-align: center;
+        line-height:20px;
+        font-family: 'clarendon_cn_btbold';
+    }
+  
+    .pagination span, .pagination a {
+        display:block;
+        float:left;
+        margin: 2px 2px 2px 0;
+        padding:8px;
+        text-decoration:none;
+        width:20px;
+        height:20px;
+        color:#fff;
+        background: #e7403d;
+    }
+  
+    .pagination a:hover{
+        background: #ffffff;
+        color: #e7403d;
+    }
+  
+    .pagination .current{
+        padding:8px;
+        background: #ffffff;
+        color: #e7403d;
+    }
+    .capitalize::first-letter{
+      text-transform: capitalize;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main>
+    <div id="ofertas" class="content">
+      <div class="row">
+        <div class="col" id="col"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* set up XMLHttpRequest */
+    const
+      //url = "https://www.unimarc.cl/wp-content/uploads/2019/06/Test.xlsx",
+      url = "test.xls"
+      app = document.getElementById('col')
+      productosPorPagina = 6
+    
+    let
+      barraTags = document.createElement("div")
+      barraTags.setAttribute("id", "cajabotones")
+      barraTags.setAttribute("class", "button-group filter-button-group")
+      app.appendChild(barraTags)
+      barra = document.getElementById('cajabotones')
+
+      content = document.createElement("div")
+      content.setAttribute("id", "ofertas-container")
+      content.setAttribute("class", "grid")
+      app.appendChild(content)
+      contenido = document.getElementById('ofertas-container')
+
+      list = document.createElement("div")
+      list.setAttribute("id", "lista")
+      list.setAttribute("class", "pagination")
+      app.appendChild(list)
+      lista = document.getElementById('lista')
+      
+
+    let excel;
+    let punto = precio => precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+    //FUNCION PARA DIVIDIR ARRAY DE OBJETOS ***************************************
+	//*****************************************************************************
+	function separar(base, maximo) {
+		var resultado = [[]];
+		var grupo = 0;
+
+		for (var i = 0; i < base.length; i++) {
+			if (resultado[grupo] === undefined) {
+				resultado[grupo] = [];
+			}
+
+			resultado[grupo].push(base[i]);
+			if ((i + 1) % maximo === 0) {
+				grupo = grupo + 1;
+			}
+		}
+		return resultado;
+    	}
+    //CIERRE FUNCION PARA DIVIDIR ARRAY DE OBJETOS ********************************
+    //*****************************************************************************
+     
+    // TRAER TIEMPO moment.js *********************************************	
+	const
+    fechaActual = moment().format('YYYY-MM-DD HH:mm')
+    // console.log(fechaActual);
+
+  // cierre TRAER TIEMPO moment.js ***************************************	
+  
+    let productTemplate = (valor) =>
+      `
+      <div class="grid-item col product">
+                <div class="product-img">
+	                <img src="${ valor.imgHeader ? '../wp-content/uploads/img-header/' + valor.imgHeader : "" }" />
+	  
+                <a class="inline cboxElement">
+                    <img src="${ valor.img ? '../wp-content/uploads/img-ofertas/' + valor.img : "" }"/>
+                    </a>
+                </div>
+                <div class="text oferta-text">
+                  <a class="inline cboxElement">
+                    <h4 class="nombre-oferta">${ valor.producto }</h4></a>
+                  <p class="capitalize">${ valor.descripcion }.</p>
+                </div>
+                <div class="oferta">
+                  <!-- Precio normal -->
+                  <h4>${ valor.tipoPrecio } ${!valor.precioNormal ? "" : `$${punto(valor.precioNormal)}`} ${ !valor.unidad ? "" : valor.unidad } ${ !valor.medida ? "" : valor.medida }</h4>
+                
+                  <!-- Precio Oferta -->
+                  <h2>${ !valor.detallePrecioOferta ? "" : valor.detallePrecioOferta} ${ !valor.precioOfertaPorcentaje ? "" : `${valor.precioOfertaPorcentaje}%`} ${ !valor.PrecioOferta ? "" : `${punto(valor.PrecioOferta)}` } ${ !valor.unidadPrecioOferta ? "" : valor.unidadPrecioOferta }</h2>
+
+                  <!-- Precio Detalle -->
+                  <h2>${ valor.tipoPrecioDetalle } ${ !valor.precioDetalle ? "" : `$${punto(valor.precioDetalle)}` }</h2>
+                 
+               </div>
+              </div>
+      `
+
+
+      const traerDatos = (data) => {
+
+      // Variable de publicacion por tiempo moment.js
+        const approved = data.filter(
+            function publicacion(user){
+            // console.log(`fecha: ${user.fechaDespublicacion}`);
+            
+              fechaPublicacion = moment(user.fechaPublicacion)
+              fechaDespublicacion = moment(user.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              // console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+          if (
+              diferenciaPublicacion <= 0 
+              && 
+              diferenciaDespublicacion >= 0
+             ) 
+              {
+                return true
+              }
+          else {
+            // console.log('cerrado');
+            return false
+              }
+          }
+      )
+      // Cierre variable de publicacion por tiempo moment.js
+
+
+          contenido.innerHTML = '';
+          contenido.innerHTML += `${approved.map(productTemplate).join("")}`
+    }
+    
+    fetch(url)
+      .then(
+        fail = (res) => {
+          /* get the data as a Blob */
+          if (!res.ok) throw new Error("fetch failed");
+          return res.arrayBuffer();
+        }
+          )
+      .then(
+        load = (ab) => {
+          /* parse the data when it is received */
+          let data = new Uint8Array(ab);
+          let workbook = XLSX.read(data, {
+            type: "array"
+          });
+
+          /* DO SOMETHING WITH workbook HERE */
+          let first_sheet_name = workbook.SheetNames[0];
+          /* Get worksheet */
+          let worksheet = workbook.Sheets[first_sheet_name];
+          excel = XLSX.utils.sheet_to_json(
+            worksheet, {
+              raw: true
+            }
+          )
+          console.log(excel)
+          traerDatos(excel)
+        }
+      )
+      .catch(err => console.log(err));
+
+  </script>
+</body>
+
+</html>

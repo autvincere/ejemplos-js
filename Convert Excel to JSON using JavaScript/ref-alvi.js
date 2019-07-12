@@ -42,7 +42,7 @@ get_header();
 			 const		
 			  url = 'https://raw.githubusercontent.com/smuDesarrollo/repo-json/master/ofertas_alvi_14_20_sitio';
 
-              //json antiguo
+                //json antiguo
 			 // url = 'https://raw.githubusercontent.com/smuDesarrollo/repo-json/master/ALVI_OS_24_30.json';
 
 			//json emergencia
@@ -665,7 +665,7 @@ get_header();
 				}
 
 			function iniciarApp() {
-          			contenido.innerHTML = ``;
+          			contenido.innerHTML = ``
 
 					for (let valor of divisionPaginas[0]) {
 						contenido.innerHTML += `	
