@@ -203,7 +203,7 @@
       `
       <div class="grid-item col product">
                 <div class="product-img">
-	                <img src="${ valor.imgHeader ? '../wp-content/uploads/img-header/' + valor.imgHeader : "" }" />
+	                <img src="${ valor.imgHeader ? '../wp-content/uploads/img-header/' + valor.imgHeader : "" }"/>
 	  
                 <a class="inline cboxElement">
                     <img src="${ valor.img ? '../wp-content/uploads/img-ofertas/' + valor.img : "" }"/>
@@ -217,7 +217,7 @@
                 <div class="oferta">
                   <!-- Precio normal -->
                   <h4>${ valor.tipoPrecio } ${!valor.precioNormal ? "" : `$${punto(valor.precioNormal)}`} ${ !valor.unidad ? "" : valor.unidad } ${ !valor.medida ? "" : valor.medida }</h4>
-                
+
                   <!-- Precio Oferta -->
                   <h2>${ !valor.detallePrecioOferta ? "" : valor.detallePrecioOferta} ${ !valor.precioOfertaPorcentaje ? "" : `${valor.precioOfertaPorcentaje}%`} ${ !valor.PrecioOferta ? "" : `${punto(valor.PrecioOferta)}` } ${ !valor.unidadPrecioOferta ? "" : valor.unidadPrecioOferta }</h2>
 
@@ -227,7 +227,6 @@
                </div>
               </div>
       `
-
 
       const traerDatos = (data) => {
       // Variable de publicacion por tiempo moment.js
@@ -254,7 +253,12 @@
             return false
               }
           }
+          
       )
+      let producto = document.getElementsByClassName('grid-item')
+      for (i = 0; i < document.getElementsByClassName('grid-item').length; i++) {
+        document.getElementsByClassName('grid-item')[i].addEventListener("click", function(){console.log('hice click')},false);
+      }
       // Cierre variable de publicacion por tiempo moment.js
           divisionPaginas = separar (approved, productosPorPagina);
           contenido.innerHTML = '';
@@ -543,6 +547,12 @@
     // campoBuscar = document.getElementById('campoBuscar')
     // document.getElementById('todos').addEventListener('click',function(){console.log('hice click')},false)
 
+
+    //const 
+      //producto = document.getElementsByClassName('product').addEventListener('click',function(){console.log('hice click')},false)
+      
+      
+
     fetch(url)
       .then(
         fail = (res) => {
@@ -577,6 +587,9 @@
         }
       )
       .catch(err => console.log(err));
+
+
+     
 
   </script>
 </body>
