@@ -754,7 +754,7 @@ get_header();
 			iniciarApp();		
 	}
      else if (ultimoItem == "cuponazo"){
-		console.log('estas en: '+ ultimoItem);
+		console.log('estas en: '+ ultimoItem)
 
 		let
 			divisionPaginas = separar (approved, productosPorPagina);

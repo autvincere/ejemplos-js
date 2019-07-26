@@ -126,6 +126,41 @@
     .capitalize::first-letter{
       text-transform: capitalize;
     }
+    .levantar {
+      position: absolute;
+    left: 42%;
+    right: 37%;
+    padding: 0px;
+    top: 10vh;
+    z-index: 4;
+    box-shadow: 0 0 20px 4000px rgba(0, 0, 0, 0.7);
+    }
+    .cerrar{
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      background-color: #00ff66;
+      top: 0px;
+      right: 0px;
+    }
+    .legal{
+      
+    }
+    .desaparece{
+      display: none;
+    }
+    .aparece{
+      display: block;
+    }
+    /* .cont-popup{
+      position: absolute;
+    left: 42%;
+    right: 37%;
+    padding: 0px;
+    top: 10vh;
+    z-index: 4;
+    box-shadow: 0 0 20px 4000px rgba(0, 0, 0, 0.7);
+    } */
   </style>
 
 </head>
@@ -140,6 +175,7 @@
     </div>
   </main>
 
+
   <script>
     /* set up XMLHttpRequest */
     const
@@ -149,6 +185,12 @@
       productosPorPagina = 6
     
     let
+      pop = document.createElement("div")
+      pop.setAttribute("id", "pop")
+      pop.setAttribute("class", "cont-popup")
+      app.appendChild(pop)
+      popup = document.getElementById('pop')
+
       barraTags = document.createElement("div")
       barraTags.setAttribute("id", "cajabotones")
       barraTags.setAttribute("class", "button-group filter-button-group")
@@ -166,10 +208,9 @@
       list.setAttribute("class", "pagination")
       app.appendChild(list)
       lista = document.getElementById('lista')
-      
 
-    let excel;
-    let punto = precio => precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    let excel
+    let punto = precio => precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
 
     //FUNCION PARA DIVIDIR ARRAY DE OBJETOS ***************************************
 	//*****************************************************************************
@@ -201,7 +242,7 @@
   
     let productTemplate = (valor) =>
       `
-      <div class="grid-item col product">
+      <div class="grid-item col product" id="${valor.id}">
                 <div class="product-img">
 	                <img src="${ valor.imgHeader ? '../wp-content/uploads/img-header/' + valor.imgHeader : "" }"/>
 	  
@@ -224,10 +265,47 @@
                   <!-- Precio Detalle -->
                   <h2>${ valor.tipoPrecioDetalle } ${ !valor.precioDetalle ? "" : `$${punto(valor.precioDetalle)}` }</h2>
                  
+                  <!-- legal -->
+                  <p class="legal desaparece"> ${ !valor.legal ? "" : valor.legal}</p>
+                
                </div>
-              </div>
+      </div>
       `
+const popUp = () => {
+  let producto = document.getElementsByClassName('grid-item')
+      for (i = 0; i < document.getElementsByClassName('grid-item').length; i++) {
+        document.getElementsByClassName('grid-item')[i].addEventListener("click", function(){
+        //console.log('hice click')
+        popup.classList.add("levantar")
 
+        let 
+          valorPop = this.getAttribute('id')
+          idPop = parseInt(valorPop)
+          console.log(idPop)
+
+          let res = excel.filter( productos => productos.id == idPop)
+          console.log(res);
+          popup.innerHTML = ''
+          popup.innerHTML += `${ res.map(productTemplate).join("")}`
+
+          console.log(event.target.childNodes);
+          
+          let
+          
+            close = document.createElement("div")
+            close.setAttribute("class", "cerrar")
+            close.setAttribute("id", "close")
+            popup.appendChild(close)
+            cerrar = document.getElementById('close')
+
+            cerrar.addEventListener("click", function(){
+                popup.innerHTML = ''
+                popup.classList.remove("levantar")
+                console.log('hice click')
+              },false)
+        },false);
+      }
+  }
       const traerDatos = (data) => {
       // Variable de publicacion por tiempo moment.js
         const approved = data.filter(
@@ -255,19 +333,18 @@
           }
           
       )
-      let producto = document.getElementsByClassName('grid-item')
-      for (i = 0; i < document.getElementsByClassName('grid-item').length; i++) {
-        document.getElementsByClassName('grid-item')[i].addEventListener("click", function(){console.log('hice click')},false);
-      }
+      
       // Cierre variable de publicacion por tiempo moment.js
           divisionPaginas = separar (approved, productosPorPagina);
-          contenido.innerHTML = '';
+          contenido.innerHTML = ''
           contenido.innerHTML += `${divisionPaginas[0].map(productTemplate).join("")}`
+
+          popUp()
     }
 
       function dataPrimary(data){
        // Variable de publicacion por tiempo moment.js
-       const approved = data.filter(
+       const approved = data.filter (
             function publicacion(user){
             // console.log(`fecha: ${user.fechaDespublicacion}`);
 
@@ -287,7 +364,7 @@
               }
           else {
             // console.log('cerrado');
-            return false
+                return false
               }
           }
       )
@@ -313,8 +390,10 @@
           			// contenido.innerHTML = '';
                 // console.log(divisionPaginas[numero]);
                 contenido.innerHTML = ''
-                contenido.innerHTML += `${divisionPaginas[numero].map(productTemplate).join("")}` 
+                contenido.innerHTML += `${divisionPaginas[numero].map(productTemplate).join("")}`
+                popUp() 
         }
+        // popUp()
       
     }
     // traerDatos(excel);
@@ -425,7 +504,7 @@
               fechaDespublicacion = moment(user.fechaDespublicacion)
               diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
               diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
-              // console.log(fechaPublicacion);
+              //console.log(fechaPublicacion);
               //console.log(diferenciaDespublicacion); 
           if (
               diferenciaPublicacion <= 0 
@@ -445,15 +524,14 @@
   
   function tags(valor){
     //console.log(valor);
-    const noRepetidas= [... new Set(valor.map(x => x.categoria))];
+    const noRepetidas= [... new Set(valor.map(x => x.categoria))]
     console.log(noRepetidas.indexOf('-'));
     barra.innerHTML = ''
-
     barra.innerHTML +=
     `
       ${!noRepetidas 
         ? '' 
-        : `<a class="categorias btn btn-default" id="todos" onclick="traerDatos(excel)">Todos</a>`
+        : `<a class="categorias btn btn-default" id="todos" onclick="location.reload()">Todos</a>`
       }
     `
     // document.getElementsByClassName('todos').addEventListener("click",  function(){
@@ -468,10 +546,10 @@
       ).join(' ')}
     `
 
-      let categorias = document.getElementsByClassName('categorias');
+      let categorias = document.getElementsByClassName('categorias')
       
       for (i = 0; i < categorias.length; i++) {
-        categorias[i].addEventListener("click", getProduct,false);
+        categorias[i].addEventListener("click", getProduct,false)
       }
       
       function getProduct(e){
@@ -506,7 +584,6 @@
               }
           }
       )
-      approved(valor)
       console.log(approved);
       
       // Cierre variable de publicacion por tiempo moment.js 
@@ -522,7 +599,9 @@
         // console.log(datosSeleccionados);
         contenido.innerHTML = ''
         contenido.innerHTML += `${datosSeleccionados.map(productTemplate).join("")}` 
+        popUp()
       }
+       
   }
     // let
     //   buscador = document.createElement("div")
