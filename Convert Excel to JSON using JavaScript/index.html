@@ -287,8 +287,8 @@ const popUp = () => {
           console.log(res);
           popup.innerHTML = ''
           popup.innerHTML += `${ res.map(productTemplate).join("")}`
-
-          console.log(event.target.childNodes);
+          const legal =  document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece')
+          // console.log(document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece'));
           
           let
           
