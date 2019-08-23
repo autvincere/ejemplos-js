@@ -128,20 +128,18 @@
     }
     .levantar {
       position: absolute;
-    left: 42%;
-    right: 37%;
-    padding: 0px;
-    top: 10vh;
-    z-index: 4;
-    box-shadow: 0 0 20px 4000px rgba(0, 0, 0, 0.7);
+      left: 36%;
+      top: 10vh;
+      z-index: 4;
+      box-shadow: 0px -7px 4px 3000px rgba(0, 0, 0, 0.7);
     }
     .cerrar{
-      position: absolute;
-      height: 30px;
-      width: 30px;
+      position: absolute !important;
+      height: 30px !important;
+      width: 30px !important;
       background-color: #00ff66;
-      top: 0px;
-      right: 0px;
+      top: 0px !important;
+      right: 0px !important;
     }
     .legal{
       
@@ -151,6 +149,11 @@
     }
     .aparece{
       display: block;
+    }
+    div#pop > div.grid-item{
+      max-width: 285px; 
+      width: 100% !important;
+      margin: 0px !important;
     }
     /* .cont-popup{
       position: absolute;
@@ -264,7 +267,10 @@
 
                   <!-- Precio Detalle -->
                   <h2>${ valor.tipoPrecioDetalle } ${ !valor.precioDetalle ? "" : `$${punto(valor.precioDetalle)}` }</h2>
-                 
+                  
+                  <!-- Precio con tarjeta -->
+                 ${ !valor.precioConTarjeta ? "" : `<h2>Precio con tarjeta: $${punto(valor.precioConTarjeta)} ${ !valor.medida ? "" : valor.medida } </h2>` }
+
                   <!-- legal -->
                   <p class="legal desaparece"> ${ !valor.legal ? "" : valor.legal}</p>
                 
