@@ -12,10 +12,28 @@
   <article id="app"></article>
 
     <script>
-    	var content = document.createElement("div");
-    	content.setAttribute("id", "contenido");
+  const app = document.getElementById('app')
 
-    	document.getElementById('app').appendChild(content);
+
+    //   let createNewElement = (nombreElemento,nombreElementoString,contElementoString,elementoSalida) => {
+    //   nombreElemento = document.createElement("div")
+    //   nombreElemento.setAttribute("id", nombreElementoString)
+    //   nombreElemento.setAttribute("class", contElementoString)
+    //   app.appendChild(nombreElemento)
+    //   elementoSalida = document.getElementById(nombreElementoString)
+    // }
+    let createNewElement = (nombreElemento,nombreElementoString,claseElementoString,contElemento,lementoSalida) => {
+      nombreElemento = document.createElement("div")
+      nombreElemento.setAttribute("id", nombreElementoString)
+      nombreElemento.setAttribute("class", claseElementoString)
+      contElemento.appendChild(nombreElemento)
+      elementoSalida = document.getElementById(nombreElementoString)
+    }
+    createNewElement ('caca','caca','class-caca',app,'cacaUp')
+    	// var content = document.createElement("div");
+    	// content.setAttribute("id", "contenido");
+
+    	// document.getElementById('app').appendChild(content);
 
 
 

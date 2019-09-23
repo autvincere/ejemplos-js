@@ -1,0 +1,70 @@
+[
+     {
+         "local":"rotonda arica",
+         "comuna": "arica",
+         "direccion": "Av. 18 de Septiembre 2501",
+         "LatLng": [{
+          "lng": -70.29295860000002,
+          "lat": -18.4880325 
+          }],
+         "aperturaDiaHabil":"08:30",
+         "cierreDiaHabil":"22:30",
+         "aperturaSabado":"08:30",
+         "cierreSabado":"22:30",
+         "aperturaDomingo":"08:30",
+         "cierreDomingo":"22:30",
+         "aperturaViernes":"08:30",
+         "cierreViernes":"22:30"
+     },
+     {
+          "local":"Santa María Arica",
+          "comuna": "arica",
+          "direccion": "Santa María 2465",
+          "LatLng": [{
+               "lng": -70.30033919999994,
+               "lat": -18.465690855302896
+               }],
+          "aperturaDiaHabil":"08:30",
+          "cierreDiaHabil":"22:30",
+          "aperturaSabado":"08:30",
+          "cierreSabado":"22:30",
+          "aperturaDomingo":"08:30",
+          "cierreDomingo":"22:30",
+          "aperturaViernes":"08:30",
+          "cierreViernes":"22:30"
+     },
+     {
+          "local":"Regimiento Arica",
+          "comuna": "la serena",
+          "direccion": "Regimiento Arica 6001",
+          "LatLng": [{
+               "lng": -71.2788485,
+               "lat": -29.9502974
+               }],
+          "aperturaDiaHabil":"08:30",
+          "cierreDiaHabil":"22:30",
+          "aperturaSabado":"08:30",
+          "cierreSabado":"22:30",
+          "aperturaDomingo":"08:30",
+          "cierreDomingo":"22:30",
+          "aperturaViernes":"08:30",
+          "cierreViernes":"22:30"
+     },
+     {
+          "local":"Iquique Centro",
+          "comuna": "iquique",
+          "direccion": "Tarapacá 579",
+          "LatLng": [{
+               "lng": -70.1492774,
+               "lat": -20.2138705
+               }],
+          "aperturaDiaHabil":"08:30",
+          "cierreDiaHabil":"22:30",
+          "aperturaSabado":"08:30",
+          "cierreSabado":"22:30",
+          "aperturaDomingo":"08:30",
+          "cierreDomingo":"22:30",
+          "aperturaViernes":"08:30",
+          "cierreViernes":"22:30"
+     }
+]

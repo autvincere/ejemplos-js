@@ -17,8 +17,17 @@
   </script>
   <script src="xlsx.full.min.js"></script>
   <style>
+    h2,h4,h3{
+      font-size: 0.8em;
+      display: block;
+      padding: 2px 0;
+    }
     .filters .btn{margin-right: 5px;}
-    #ofertas .col.product{width: 23%; height: 450px;}
+    #ofertas .col.product{
+        width: 23%;
+        height: auto;
+        min-height: 450px;
+        }
     .isotope-pager{padding: 0 0 0 10px;}
     .isotope-pager a{
         padding: 5px;
@@ -91,6 +100,10 @@
     #ofertas .swiper-wrapper{height: auto;}
     #cajabotones{ margin: 0 10px 30px; }
     #ofertas h2{margin: 0 10px 30px; }
+    #ofertas .col.product .oferta p {font-family:'Trebuchet MS', Trebuchet, sans-serif;font-size: 12px;    padding: 10px 5px;
+    background-color: #f7f7f7;
+    color: #5a5a5a;
+    margin-top: 5px;}
   
     .pagination {
         clear:both;
@@ -137,9 +150,13 @@
       position: absolute !important;
       height: 30px !important;
       width: 30px !important;
-      background-color: #00ff66;
-      top: 0px !important;
-      right: 0px !important;
+      top: -24px !important;
+      right: -24px !important;
+      background-image: url('https://www.unimarc.cl/wp-content/uploads/2019/09/cancel.png');
+      background-size: contain;
+      background-color: #ffffff91;
+      border-radius: 30px;
+      cursor: pointer;
     }
     .legal{
       
@@ -151,9 +168,13 @@
       display: block;
     }
     div#pop > div.grid-item{
-      max-width: 285px; 
+      max-width: 321px; 
       width: 100% !important;
       margin: 0px !important;
+    }
+    .ahorras{
+        font-family: "Trebuchet MS", Trebuchet, sans-serif;
+        font-size: 16px;
     }
     /* .cont-popup{
       position: absolute;
@@ -173,68 +194,119 @@
   <main>
     <div id="ofertas" class="content">
       <div class="row">
-        <div class="col" id="col"></div>
+        <div id="col" class="col"></div>
       </div>
     </div>
   </main>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
   <script>
-    /* set up XMLHttpRequest */
-    const
-      //url = "https://www.unimarc.cl/wp-content/uploads/2019/06/Test.xlsx",
+      window.addEventListener("load", function(event) {
+          lazyload();
+     });
+
+     let
       url = "test.xls"
       app = document.getElementById('col')
-      productosPorPagina = 6
-    
+      productosPorPagina = 8
+
+    // import { createNewElement } from './auxiliarfunctions.js'
+
+    /* set up XMLHttpRequest */
+
+      // FUNCIONES
+
+      // Funcion para punto en milesimas
+      let punto = precio => precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+      // Cierre funcion para punto en milesimas
+
+      // Funcion para crear divs
+      let createNewElement = (nombreElemento,nombreElementoString,claseElementoString) => {
+        nombreElemento = document.createElement("div")
+        nombreElemento.setAttribute("id", nombreElementoString)
+        nombreElemento.setAttribute("class", claseElementoString)
+        app.appendChild(nombreElemento)
+        // var elementoSalida = document.getElementById(nombreElementoString)
+        }
+        // Cierre Funcion para crear divs
+
+      //FUNCION PARA DIVIDIR ARRAY DE OBJETOS
+      let separar = (base, maximo) => {
+        var resultado = [[]];
+        var grupo = 0;
+
+        for (var i = 0; i < base.length; i++) {
+          if (resultado[grupo] === undefined) {
+            resultado[grupo] = [];
+          }
+
+          resultado[grupo].push(base[i]);
+          if ((i + 1) % maximo === 0) {
+            grupo = grupo + 1;
+          }
+        }
+        return resultado;
+      }
+      //CIERRE FUNCION PARA DIVIDIR ARRAY DE OBJETOS
+
+   // Cierre Funciones auxiliares
+   let approved = (a,b) =>{ a.filter( function(b) {
+            let
+              fechaPublicacion = moment(b.fechaPublicacion)
+              fechaDespublicacion = moment(b.fechaDespublicacion)
+              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+              // console.log(fechaPublicacion);
+              //console.log(diferenciaDespublicacion); 
+            if (
+                diferenciaPublicacion <= 0 
+                && 
+                diferenciaDespublicacion >= 0
+               ) 
+               {
+                  return true
+               }
+            else {
+              // console.log('cerrado');
+              return false
+                }
+            })
+        }
+          
+    // CIERRE FUNCIONES
+
+    // Se crean los divs contenedores  
+    createNewElement ('pop','pop','cont-popup',)
+    createNewElement ('barraTags','cajabotones','button-group filter-button-group')
+    createNewElement ('content','ofertas-container','grid')
+    createNewElement ('list','lista','pagination')
+
     let
-      pop = document.createElement("div")
-      pop.setAttribute("id", "pop")
-      pop.setAttribute("class", "cont-popup")
-      app.appendChild(pop)
       popup = document.getElementById('pop')
-
-      barraTags = document.createElement("div")
-      barraTags.setAttribute("id", "cajabotones")
-      barraTags.setAttribute("class", "button-group filter-button-group")
-      app.appendChild(barraTags)
       barra = document.getElementById('cajabotones')
-
-      content = document.createElement("div")
-      content.setAttribute("id", "ofertas-container")
-      content.setAttribute("class", "grid")
-      app.appendChild(content)
       contenido = document.getElementById('ofertas-container')
-
-      list = document.createElement("div")
-      list.setAttribute("id", "lista")
-      list.setAttribute("class", "pagination")
-      app.appendChild(list)
       lista = document.getElementById('lista')
 
+      // barraTags = document.createElement("div")
+      // barraTags.setAttribute("id", "cajabotones")
+      // barraTags.setAttribute("class", "button-group filter-button-group")
+      // app.appendChild(barraTags)
+      // barra = document.getElementById('cajabotones')
+
+      // content = document.createElement("div")
+      // content.setAttribute("id", "ofertas-container")
+      // content.setAttribute("class", "grid")
+      // app.appendChild(content)
+      // contenido = document.getElementById('ofertas-container')
+
+      // list = document.createElement("div")
+      // list.setAttribute("id", "lista")
+      // list.setAttribute("class", "pagination")
+      // app.appendChild(list)
+      // lista = document.getElementById('lista')
+
     let excel
-    let punto = precio => precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
 
-    //FUNCION PARA DIVIDIR ARRAY DE OBJETOS ***************************************
-	//*****************************************************************************
-	function separar(base, maximo) {
-      var resultado = [[]];
-      var grupo = 0;
-
-      for (var i = 0; i < base.length; i++) {
-        if (resultado[grupo] === undefined) {
-          resultado[grupo] = [];
-        }
-
-        resultado[grupo].push(base[i]);
-        if ((i + 1) % maximo === 0) {
-          grupo = grupo + 1;
-        }
-      }
-		  return resultado;
-    }
-    //CIERRE FUNCION PARA DIVIDIR ARRAY DE OBJETOS ********************************
-    //*****************************************************************************
      
     // TRAER TIEMPO moment.js *********************************************	
 	const
@@ -247,32 +319,48 @@
       `
       <div class="grid-item col product" id="${valor.id}">
                 <div class="product-img">
-	                <img src="${ valor.imgHeader ? '../wp-content/uploads/img-header/' + valor.imgHeader : "" }"/>
+	                <img src="${ valor.imgHeader ? 'https://www.unimarc.cl/wp-content/uploads/img-header/' + valor.imgHeader : "" }"/>
 	  
                 <a class="inline cboxElement">
-                    <img src="${ valor.img ? '../wp-content/uploads/img-ofertas/' + valor.img : "" }"/>
+                    <img src="${ valor.img ? 'https://www.unimarc.cl/wp-content/uploads/img-ofertas/' + valor.img : "" }"/>
                     </a>
                 </div>
                 <div class="text oferta-text">
                   <a class="inline cboxElement">
-                    <h4 class="nombre-oferta">${ valor.producto }</h4></a>
-                  <p class="capitalize">${ valor.descripcion }.</p>
+                    <!-- Nombre Producto -->
+                    ${ !valor.producto ? "" : `<h4 class="nombre-oferta">${valor.producto}</h4>`}
+                  </a>
+
+                  <!-- Descripcion Producto -->
+                  ${ !valor.descripcion ? "" : ` <p class="capitalize">${valor.descripcion}.</p>`}
                 </div>
+
                 <div class="oferta">
-                  <!-- Precio normal -->
-                  <h4>${ valor.tipoPrecio } ${!valor.precioNormal ? "" : `$${punto(valor.precioNormal)}`} ${ !valor.unidad ? "" : valor.unidad } ${ !valor.medida ? "" : valor.medida }</h4>
+
+                  <!-- Cantidad -->
+                    ${ !valor.cantidad ? "" : `<h4>${valor.cantidad} $${punto(valor.precioCantidad)}</h4>` }
 
                   <!-- Precio Oferta -->
-                  <h2>${ !valor.detallePrecioOferta ? "" : valor.detallePrecioOferta} ${ !valor.precioOfertaPorcentaje ? "" : `${valor.precioOfertaPorcentaje}%`} ${ !valor.PrecioOferta ? "" : `${punto(valor.PrecioOferta)}` } ${ !valor.unidadPrecioOferta ? "" : valor.unidadPrecioOferta }</h2>
+                  <h2>${ !valor.detallePrecioOferta ? "" : valor.detallePrecioOferta} ${ !valor.precioOfertaPorcentaje ? "" : `${valor.precioOfertaPorcentaje}% dcto <br>`} 
+                 ${ !valor.PrecioOferta ? "" : `$${punto(valor.PrecioOferta)}` } ${ !valor.unidadPrecioOferta ? "" : valor.unidadPrecioOferta }</h2>
 
-                  <!-- Precio Detalle -->
-                  <h2>${ valor.tipoPrecioDetalle } ${ !valor.precioDetalle ? "" : `$${punto(valor.precioDetalle)}` }</h2>
+                  <!-- Precio normal -->
+                  ${ !valor.tipoPrecio ? "" : `<h4>${valor.tipoPrecio} ${!valor.precioNormal ? "" : `$${punto(valor.precioNormal)}`} ${ !valor.unidad ? "" : valor.unidad } ${ !valor.medida ? "" : valor.medida } </h4>` }
+
+                  <!-- Ahorras -->
+                  ${ !valor.ahorras ? "" : `<h3 style="text-transform: uppercase;"> AHORRAS: $${punto(valor.ahorras)}</h3>`}
                   
                   <!-- Precio con tarjeta -->
-                 ${ !valor.precioConTarjeta ? "" : `<h2>Precio con tarjeta: $${punto(valor.precioConTarjeta)} ${ !valor.medida ? "" : valor.medida } </h2>` }
+                 ${ !valor.precioConTarjeta ? "" : `<h4>Precio con tarjeta: $${punto(valor.precioConTarjeta)} ${ !valor.medida ? "" : valor.medida } </h4>` }
+                  
+                 <!-- comentarioUno -->
+                 ${ !valor.comentarioUno ? "" : `<h4>${valor.comentarioUno} $${punto(valor.precioComentarioUno)}</h4>` }
+
+                 <!-- comentarioDos -->
+                 ${ !valor.comentarioDos ? "" : `<h4>${valor.comentarioDos} $${punto(valor.precioComentarioDos)}</h4>` }
 
                   <!-- legal -->
-                  <p class="legal desaparece"> ${ !valor.legal ? "" : valor.legal}</p>
+                  ${ !valor.legal ? "" : `<p class="legal desaparece">${valor.legal}</p>`}
                 
                </div>
       </div>
@@ -290,14 +378,16 @@ const popUp = () => {
           console.log(idPop)
 
           let res = excel.filter( productos => productos.id == idPop)
-          console.log(res);
+          console.log(res)
           popup.innerHTML = ''
           popup.innerHTML += `${ res.map(productTemplate).join("")}`
           const legal =  document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece')
           // console.log(document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece'));
+
+          // createNewElement ('close','close','pagination')
           
           let
-          
+            
             close = document.createElement("div")
             close.setAttribute("class", "cerrar")
             close.setAttribute("id", "close")
@@ -309,6 +399,8 @@ const popUp = () => {
                 popup.classList.remove("levantar")
                 console.log('hice click')
               },false)
+
+          
         },false);
       }
   }
@@ -344,8 +436,8 @@ const popUp = () => {
           divisionPaginas = separar (approved, productosPorPagina);
           contenido.innerHTML = ''
           contenido.innerHTML += `${divisionPaginas[0].map(productTemplate).join("")}`
-
           popUp()
+          
     }
 
       function dataPrimary(data){
@@ -402,7 +494,7 @@ const popUp = () => {
         // popUp()
       
     }
-    // traerDatos(excel);
+
     
     function buscar(datos) {
       document.getElementById('campoBuscar').addEventListener("keyup", () => {
@@ -501,35 +593,35 @@ const popUp = () => {
   }
   
   // funcion approved para envasar
-  const approved = (valor) => {
-    valor.filter(
-            (user) => {
-            // console.log(`fecha: ${user.fechaDespublicacion}`);
-              fechaPublicacion = moment(user.fechaPublicacion)
-              fechaDespublicacion = moment(user.fechaDespublicacion)
-              diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
-              diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
-              //console.log(fechaPublicacion);
-              //console.log(diferenciaDespublicacion); 
-          if (
-              diferenciaPublicacion <= 0 
-              && 
-              diferenciaDespublicacion >= 0
-             ) 
-              {
-                return true
-              }
-          else {
-              // console.log('cerrado');
-              return false
-              }
-          }
-      )
-        }
+  // const approved = (valor) => {
+  //   valor.filter(
+  //           (user) => {
+  //           // console.log(`fecha: ${user.fechaDespublicacion}`);
+  //             fechaPublicacion = moment(user.fechaPublicacion)
+  //             fechaDespublicacion = moment(user.fechaDespublicacion)
+  //             diferenciaPublicacion = fechaPublicacion.diff(fechaActual,'hour')
+  //             diferenciaDespublicacion = fechaDespublicacion.diff(fechaActual,'hour')
+  //             //console.log(fechaPublicacion);
+  //             //console.log(diferenciaDespublicacion); 
+  //         if (
+  //             diferenciaPublicacion <= 0 
+  //             && 
+  //             diferenciaDespublicacion >= 0
+  //            ) 
+  //             {
+  //               return true
+  //             }
+  //         else {
+  //             // console.log('cerrado');
+  //             return false
+  //             }
+  //         }
+  //     )
+  // }
   
   function tags(valor){
     //console.log(valor);
-    const noRepetidas= [... new Set(valor.map(x => x.categoria))]
+    const noRepetidas= [... new Set(valor.map( x => x.categoria ))]
     console.log(noRepetidas.indexOf('-'));
     barra.innerHTML = ''
     barra.innerHTML +=
@@ -585,7 +677,7 @@ const popUp = () => {
               }
           else {
               // console.log('cerrado');
-              return false
+                return false
               }
           }
       )
@@ -605,8 +697,7 @@ const popUp = () => {
         contenido.innerHTML = ''
         contenido.innerHTML += `${datosSeleccionados.map(productTemplate).join("")}` 
         popUp()
-      }
-       
+      }    
   }
     // let
     //   buscador = document.createElement("div")
@@ -672,6 +763,7 @@ const popUp = () => {
       )
       .catch(err => console.log(err));
 
+    
 
      
 
