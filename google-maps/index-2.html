@@ -4,14 +4,37 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Document</title>
+     <title>Index 2</title>
      <style>
-     #map { 
-          border:1px solid black;
-          height: 400px;
-          width: 100%;
-          border-radius: 4px;
-     }
+    body {
+    padding:0;
+    margin:0;
+}
+.container {
+    width:100%;
+    height:100%;
+}
+.archive-map {
+    width:100%;
+    height:400px;
+}
+.nav {
+    background:rgba(0, 0, 0, 0.5);
+    width:100%;
+    text-align:center;
+    margin:0;
+    padding-left:0;
+}
+.nav li {
+    display:inline-block;
+}
+.nav li a {
+    color:#fff;
+    padding:10px;
+    display:block;
+    position:relative;
+    z-index:100;
+}
      </style>
 </head>
 <body>
@@ -19,31 +42,37 @@
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGI_jgIJQXJ-0dsWX-W8yindzXIcwO4fw&language=ee&dummy=dummy.js">
         </script>
      <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-<div id="map"></div>
-<div id="app"></div>
-<div id="panel"></div>
-<div id="aviso"></div>
+     <ul class="nav">
+          <li><a onclick="triggerClick(0)">location1</a>
+      
+          </li>
+          <li><a onclick="triggerClick(1)">location2</a>
+      
+          </li>
+          <li><a onclick="triggerClick(2)">location3</a>
+      
+          </li>
+          <li><a onclick="triggerClick(3)">location4</a>
+      
+          </li>
+      </ul>
+      <div class="container">
+          <div id="map" class="archive-map"></div>
+      </div>
+      <div id="app"></div>
+      <div id="panel"></div>
 <script>
-     let 
-          map
      const
+          
           jsonRegiones = "regiones.json"
           jsonLocales = "locales.json"
-          app = document.getElementById("app")
-          mapCanvas = document.getElementById("map-canvas")
           panel = document.getElementById("panel")
-          buscador = document.getElementById('buscador')
-          btnBuscador = document.getElementById('btnBuscador')
-          aviso = document.getElementById('aviso')
-          markers = []
-          InforObj = []
           chileCords = {
                 lng: -106.2422428448643,
                 lat: -35.4432056793914
                 
           }
-
-          locales = [
+          locations = [
                {
                     local:"rotonda arica",
                     comuna: "arica",
@@ -114,21 +143,116 @@
                     cierreViernes:"22:30"
                 }
             ]
+     let 
+          map
+          markers = []
 
-            window.onload = function () {
-                initMap();
+// Setup the different icons and shadows
+var iconURLPrefix = 'http://maps.google.com/mapfiles/ms/icons/';
+
+var icons = [
+iconURLPrefix + 'red-dot.png',
+iconURLPrefix + 'green-dot.png',
+iconURLPrefix + 'green-dot.png',
+iconURLPrefix + 'red-dot.png',
+iconURLPrefix + 'purple-dot.png',
+iconURLPrefix + 'green-dot.png']
+var iconsLength = icons.length;
+
+function initialize() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(20.59, 78.96),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        streetViewControl: false,
+        panControl: false,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        }
+    });
+
+
+    var infowindow = new google.maps.InfoWindow({
+        maxWidth: 160
+    });
+
+    var iconCounter = 0;
+
+    // Add the markers and infowindows to the map
+    for (var i = 0; i < locations.length; i++) {
+
+     let 
+          contentString = `<div id="content"><h1> ${locations[i].local}
+                        </h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>`
+
+          marker = new google.maps.Marker({
+            position: locations[i].LatLng[0],
+            map: map,
+            icon: icons[iconCounter],
+            title: 'Click to zoom',
+            id: [i],
+            animation: google.maps.Animation.DROP
+        });
+
+          markers.push(marker);
+
+        google.maps.event.addListener(marker, 'mouseover', (function (marker, i) {
+
+            return function () {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+                //map.setZoom(9);
+                //map.setCenter(marker.getPosition());	
             }
+        })(marker, i))
 
-            //CARGA REGIONES
-            fetch(jsonRegiones)
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+
+          return function () {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+                map.setZoom(9);
+                map.setCenter(marker.getPosition());
+          }
+        })(marker, i))
+
+        iconCounter++
+        // We only have a limited number of possible icon colors, so we may have to restart the counter
+        if (iconCounter >= iconsLength) {
+            iconCounter = 0;
+        }
+
+    }
+    autoCenter();
+}
+google.maps.event.addDomListener(window,'load',initialize)
+
+function triggerClick(i) {
+    google.maps.event.trigger(markers[i], 'click');
+    //map.getBounds();	
+}
+
+function autoCenter() {
+    //  Create a new viewpoint bound
+    var bounds = new google.maps.LatLngBounds();
+    //  Go through each...
+    for (var i = 0; i < markers.length; i++) {
+        bounds.extend(markers[i].position);
+    }
+    //  Fit these bounds to the map
+    map.fitBounds(bounds);
+}
+
+  // CARGA REGIONES //////++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  fetch(jsonRegiones)
                .then(res => res.json())
                .then(region =>
                cargaSelect(region)
                //   console.log(region)
                )
-            .catch(err => console.log(err));
-
-               let  regionesRegistradas = reg => reg.nombreRegion
+            .catch(err => console.log(err))
+            let  regionesRegistradas = reg => reg.nombreRegion
                     comunasRegistradas = reg => reg.comunas
                     templateElegirComuna = lugar => `<option value="${lugar}">${lugar}</option>`
                     templateRegion = reg => `<option class="optionRegion" value="${reg.nombreRegion}">${reg.nombreRegion}</option> `
@@ -180,17 +304,12 @@
                               selectRegiones.addEventListener("change", cargaComunas, false);
                               selectComunas.addEventListener("change", cargaUbicacion, false);
                          }
-                    prueba =  (event) => {
-                                   event.preventDefault()
-                                   console.log('hice click')
-                                   map.setCenter(markers[1].getPosition())
-                                   google.maps.event.trigger(markers[1], 'click');
-                              }  
-                    cargaUbicacion = () => {
+
+                         cargaUbicacion = () => {
                               let localCapturado = event.target.value
                               console.log(` el local capturado es: ${localCapturado}`);
 
-                              //carga locales excel
+                              // carga locales excel //////++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                               fetch(jsonLocales)
                               .then(res => res.json())
@@ -212,22 +331,21 @@
                                    })
                               console.log('los aprobados son: ')
                               console.log(aprobados)
-                              markers.length = 0
-                              markers = [...aprobados]
-                              closeOtherInfo()     
-                              aprobados.map(addMarkerInfo)
+                               markers = []
+                               markers = [...aprobados]
+                               console.log(markers)
+                              // aprobados.map(addMarkerInfo)
 
                                   
                               // AGREGAR SIDEBAR CON PINES EXISTENTES
                             
-
                               panel.innerHTML = ``
                               panel.innerHTML +=
                               `
                               <h2> ${markers.length}</h2>
                               ${markers.map((mar) => 
                                   `
-                                   <a href="#" style="display: block;"class="marker-link" onclick="prueba(event)">
+                                   <a style="display: block;"class="marker-link" onclick="triggerClick(${markers.length - 1});">
                                         <h2>${!mar.local ? `Local` : mar.local}</h2>
                                         <p><b>Dirección:</b> ${mar.direccion}, <span class="text-capitalize">${mar.comuna}</span>.</p>
                                         <p><b>Lunes a Jueves:</b> ${mar.aperturaDiaHabil} - ${mar.cierreDiaHabil}.</p>
@@ -243,78 +361,12 @@
                               //      google.maps.event.trigger(markers[id], 'click');
                               //      } 
                              }
+                         //     function triggerClick(i) {
+                         //      google.maps.event.trigger(markers[i], 'click');
+                         //      //map.getBounds();	
+                         //      }
                          }  
-
-            function addMarkerInfo() {
-                for (let i = 0; i < locales.length; i++) {
-                    let contentString = `<div id="content"><h1> ${locales[i].local}
-                        </h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>`
-
-                    const marker = new google.maps.Marker({
-                         // position: {
-                         //      lat: parseInt(locales[i].latitud[0]),
-                         //      lng: parseInt(locales[i].longitud[0])
-                         // },
-                        position: locales[i].LatLng[0],
-                        map: map,
-                        id: [i],
-                        animation: google.maps.Animation.DROP
-                    })
-
-                    const infowindow = new google.maps.InfoWindow({
-                        content: contentString,
-                        maxWidth: 200
-                    })
-
-                    marker.addListener('click', function () {
-                        closeOtherInfo()
-                        infowindow.open(marker.get('map'), marker)
-                        map.panTo(this.getPosition())
-                        map.setZoom(10)
-                        InforObj[0] = infowindow
-                    })
-                    // marker.addListener('mouseover', function () {
-                    //     closeOtherInfo();
-                    //     infowindow.open(marker.get('map'), marker);
-                    //     InforObj[0] = infowindow;
-                    // })
-                    // marker.addListener('mouseout', function () {
-                    //     closeOtherInfo();
-                    //     infowindow.close();
-                    //     InforObj[0] = infowindow;
-                    // })
-                    // const myClick = id => {
-                    //      map.setCenter(markers[id].getPosition());
-                    //      google.maps.event.trigger(markers[id], 'click');
-
-                    //      }
-                    // let templatePin = pin => `<div id="siteNotice">${!pin.local ? `Local` : pin.local}</div> `
-
-                    
                    
-                }
-            }
-
-            function closeOtherInfo() {
-                if (InforObj.length > 0) {
-                    /* detach the info-window from the marker ... undocumented in the API docs */
-                    InforObj[0].set("marker", null);
-                    /* and close it */
-                    InforObj[0].close();
-                    /* blank the array */
-                    InforObj.length = 0;
-                }
-            }
-
-            function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 4,
-                    scrollwheel: false,
-                    center: chileCords,
-                    mapTypeId: google.maps.MapTypeId.roadmap
-                });
-                addMarkerInfo();
-            }
 </script>
 </body>
 </html>
