@@ -66,6 +66,7 @@
           
           jsonRegiones = "regiones.json"
           jsonLocales = "locales.json"
+          mapCanvas = document.getElementById("map")
           panel = document.getElementById("panel")
           chileCords = {
                 lng: -106.2422428448643,
@@ -156,11 +157,13 @@ iconURLPrefix + 'red-dot.png',
 iconURLPrefix + 'green-dot.png',
 iconURLPrefix + 'green-dot.png',
 iconURLPrefix + 'red-dot.png',
-iconURLPrefix + 'purple-dot.png',
+iconURLPrefix + 'purple-dot.png', 
 iconURLPrefix + 'green-dot.png']
 var iconsLength = icons.length;
 
 function initialize() {
+
+     
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
         center: new google.maps.LatLng(-33.4726900, -70.6472400),
@@ -176,7 +179,7 @@ function initialize() {
 
    
     
-addMarkers(locations)
+// addMarkers(locations)
 //     // Add the markers and infowindows to the map
 //     for (var i = 0; i < locations.length; i++) {
 
@@ -235,8 +238,6 @@ const limpiarPins = () => {
 function addMarkers(locales){
      // Add the markers and infowindows to the map
     for (var i = 0; i < locales.length; i++) {
-
-
       let 
           contentString = `<div id="content"><h1> ${locales[i].local}</h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>`
      console.log(contentString)
@@ -250,10 +251,10 @@ function addMarkers(locales){
        animation: google.maps.Animation.DROP
      })
      
-     limpiarPins
+     limpiarPins()
      // Se agregan markers al array
-     markers.push(marker);
-
+     markers.push(marker)
+     marker.setVisible(true)
      let 
           infowindow = new google.maps.InfoWindow({
            maxWidth: 160
