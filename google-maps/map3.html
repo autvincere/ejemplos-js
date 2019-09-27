@@ -41,6 +41,7 @@
           <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGI_jgIJQXJ-0dsWX-W8yindzXIcwO4fw&language=ee&dummy=dummy.js">
         </script>
+         <script src="https://www.unimarc.cl/wp-content/uploads/assets/xlsx.full_.min_.js"></script>
      <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
      <!-- <ul class="nav">
           <li><a onclick="triggerClick(0)">location1</a>
@@ -63,7 +64,7 @@
       <div id="panel"></div>
 <script>
 
-     const
+     let
           jsonRegiones = "regiones.json"
           jsonLocales = "locales.json"
           mapCanvas = document.getElementById("map")
@@ -73,9 +74,11 @@
                 lng: -71.5429688,
                 lat: -35.675148     
           }
+
           locations = [
                {
                     local:"uno",
+                    id: 0,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud: -72.9428900,
@@ -91,6 +94,7 @@
                 },
                 {
                     local:"dos",
+                    id: 1,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud:  -70.30033919999994,
@@ -106,6 +110,7 @@
                 },
                 {
                     local:"tres",
+                    id: 2,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud:  -71.2788485,
@@ -121,6 +126,7 @@
                 },
                 {
                     local:"cuatro",
+                    id: 3,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud:  -70.1492774,
@@ -143,92 +149,168 @@
                     maxWidth: 200
                })
 
-               function addMarker (locales){
+               let addMarker = (locales) => {
                     for (var i = 0; i < locales.length; i++) {
                     let 
                          contentString = `<div id="content"><h1> ${locales[i].local}</h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>`
-                         // console.log(contentString)
-                                   
-                         // marker = new google.maps.Marker({
-                         //      position: {
-                         //           lat: parseInt(locales.latitud),
-                         //           lng: parseInt(locales.longitud)
-                         //      },
-                         // map: map,
-                         // title: 'Click to zoom',
-                         // id: [i],
-                         // animation: google.maps.Animation.DROP
-                         // })
+                         // console.log(contentString)  
                               let  marker = new google.maps.Marker({ 
                               position: {
                                    lat: parseInt(locales[i].latitud),
                                    lng: parseInt(locales[i].longitud)
                               },
                               map: map,
-                              // type: "point",
-                              // title: 'Click to zoom',
-                              // id: [i],
+                              type: "point",
+                              id: [i],
                               animation: google.maps.Animation.DROP
                          })
                          // console.log(locales[i].latitud)
                          // Se agregan markers al array
-                         // markers.push(marker)
-                         // marker.setVisible(true)
-                        
-
+                         markers.push(marker)
+                         // marker.setVisible(true)  
                     
                          google.maps.event.addListener(marker, 'click', (function (marker, i) {
-
                               return function () {
                                    infowindow.setContent(contentString);
                                    infowindow.open(map, marker);
-                                   map.setZoom(9);
+                                   map.setZoom(13);
                                    map.setCenter(marker.getPosition());
                               }
                          })(marker, i))
+
+                         // panel.innerHTML = ``
+                         panel.innerHTML +=
+                              `
+                              <a style="display: block;"class="marker-link" onclick="myClick(${markers.length -1});">
+                                   <h2>${locales[i].local}</h2>
+                                   <p><b>Dirección:</b> ${locales[i].direccion}, <span class="text-capitalize">${locales[i].comuna}</span>.</p>
+                                   <p><b>Lunes a Jueves:</b> ${locales[i].aperturaDiaHabil} - ${locales[i].cierreDiaHabil}.</p>
+                                   <p><b>Viernes:</b> ${locales[i].aperturaViernes} - ${locales[i].cierreViernes}.</p>
+                                   <p><b>Sábados:</b> ${locales[i].aperturaSabado} - ${locales[i].cierreSabado}.</p>
+                                   <p><b>Domingos:</b> ${locales[i].aperturaDomingo} - ${locales[i].cierreDomingo}.</p>
+                              </a>
+                              `       
                     }
-          
-                    // locales.map((local,i) => {
-                    //      let 
-                    //           contentString = `<div id="siteNotice">${local.local ? local.local : 'Tu ubicación'}</div>`
+               }
 
-                    //           marker = new google.maps.Marker({
-                    //           position: {
-                    //                lat: parseInt(local.latitud),
-                    //                lng: parseInt(local.longitud)
-                    //           },
-                    //           map: map,
-                    //           // type: "point",
-                    //           // title: 'Click to zoom',
-                    //           // id: [i],
-                    //           animation: google.maps.Animation.DROP
-                    //      })
+               let myClick = id => {
+                    map.setCenter(markers[id].getPosition())
+                    google.maps.event.trigger(markers[id], 'click')
+                    console.log('hice click')   
+               } 
 
-                    //           function clickMarker() {
-                    //                map.panTo(this.getPosition())
-                    //                if (infowindow) {
-                    //                infowindow.open(map, marker)
-                    //                infowindow.setContent(contentString);
-                    //                map.setZoom(8)
-                    //                } else {
-                    //                console.log('no hay infowindows')
-                    //                }
-                    //           }
-                    //           google.maps.event.addListener(marker,'click', clickMarker)
-                    //           //marker.addListener('click', clickMarker) 
-                    //           markers.push(marker)
-                    // })
-     }
+               let limpiarPins = () => {
+                    for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                    }
+                    markers.length = 0;
+                    panel.innerHTML =``
+               }
+               
+     // CARGA REGIONES //////++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  fetch(jsonRegiones)
+               .then(res => res.json())
+               .then(region =>
+               cargaSelect(region)
+               //   console.log(region)
+               )
+            .catch(err => console.log(err))
 
+            let  regionesRegistradas = reg => reg.nombreRegion
+                    comunasRegistradas = reg => reg.comunas
+                    templateElegirComuna = lugar => `<option value="${lugar}">${lugar}</option>`
+                    templateRegion = reg => `<option class="optionRegion" value="${reg.nombreRegion}">${reg.nombreRegion}</option> `
+                    // let templatePin = pin =>`<div id="siteNotice">${pin.local}</div> `
+                    
+                    panelTemplate = panel =>
+                         `
+                         <article>
+                         <h2>${panel.local}</h2>
+                              <span class="direccion">${panel.direccion}</span>
+                              <span class="horario uno">Lunes a Jueves: ${panel.aperturaDiaHabil} - ${panel.cierreDiaHabil}</span>
+                              <span class="horario dos">${panel.direccion}Viernes:  - </span>
+                              <span class="horario tres">${panel.direccion}Sábados: 8:30:00 - 22:00:00</span>
+                              <span class="horario cuatro">${panel.direccion}Domingos: 9:00:00 - 21:00:00</span>
+                         </article>
+                         `
+                    cargaSelect = (region) => {
+                    //console.log(region.length); 
+                         app.innerHTML =
+                         `
+                              <select id="regiones"> 
+                              <option value="" disabled selected>Region</option>
+                              ${region.map(templateRegion).join('')}
+                              </select>
+                              <select id="comunas"> 
+                              <option value="">Seleccione una Comuna...</option>
+                              </select>
+                              `
+
+                              function cargaComunas() {
+                              let padre = this.value
+                              // console.log(padre);
+                              let com = region.map(regionesRegistradas)
+                              // console.log(com);
+                              let indice = com.indexOf(padre);
+                              // console.log(indice);
+                              // Mostrar comuna es un array obtenido de un array de objetos
+                              let mostrarComuna = region.map(comunasRegistradas)[indice]
+                              
+                              console.log(mostrarComuna)
+                              //debugger
+                              
+                              selectComunas.innerHTML =
+                                   `<option value="">Seleccione una Comuna...</option>${mostrarComuna.map(templateElegirComuna).join(' ')}`;
+                              }
+
+                              let selectRegiones = document.getElementById("regiones")
+                              let selectComunas = document.getElementById("comunas")
+                              
+                              selectRegiones.addEventListener("change", cargaComunas, false)
+                              selectComunas.addEventListener("change", cargaUbicacion, false)
+                         }
+
+
+                    let cargaUbicacion = () => {
+                    let localCapturado = event.target.value
+                    // console.log(localCapturado)
+
+                    //carga locales excel
+
+                    fetch(jsonLocales)
+                    .then(res => res.json())
+                    .then(locales =>
+                         // console.log(locales)
+                         cargaLocal(locales))
+                    .catch(err => console.log(err))
+
+                         function cargaLocal(locales) {
+                              let aprobados =
+                                   locales.filter(function (local) {
+                                   if (local.comuna == localCapturado) {
+                                        panel.innerHTML = ``
+                                        return true
+                                   } else {
+                                        // console.log('no hay coincidencias')
+                                        return false
+                                   }
+                                   })
+                              console.log('los aprobados son: ')
+                              console.log(aprobados)
+                              limpiarPins()
+                              addMarker(aprobados)
+                         }
+                    }
+        
      function initMap() {
         map = new google.maps.Map(mapCanvas, {
-          zoom: 8,
+          zoom: 18,
           center: chileCords,
           scrollwheel: false,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         })
-        addMarker(locations)
-        
+       //addMarker(locations)
+       //limpiarPins()   
      }
 
      initMap()
