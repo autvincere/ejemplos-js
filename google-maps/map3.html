@@ -16,7 +16,7 @@
      }
      .archive-map {
      width:100%;
-     height:400px;
+     height:800px;
      }
      .nav {
      background:rgba(0, 0, 0, 0.5);
@@ -38,10 +38,12 @@
      </style>
 </head>
 <body>
+          <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGI_jgIJQXJ-0dsWX-W8yindzXIcwO4fw&callback=initMap"
+          async defer></script> -->
           <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGI_jgIJQXJ-0dsWX-W8yindzXIcwO4fw&language=ee&dummy=dummy.js">
         </script>
-         <script src="https://www.unimarc.cl/wp-content/uploads/assets/xlsx.full_.min_.js"></script>
+         <script src="assets/js/xlsx.full.min.js" ></script>
      <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
      <!-- <ul class="nav">
           <li><a onclick="triggerClick(0)">location1</a>
@@ -63,10 +65,17 @@
       <div id="app"></div>
       <div id="panel"></div>
 <script>
+     
+     // function panel() {
+     //      document.getElementById("panel").innerHTML = ''
+     //      console.log('hice caca');   
+     // } 
+     // panel()  
+// (() => panel.innerHTML =``)();
 
      let
           jsonRegiones = "regiones.json"
-          jsonLocales = "locales.json"
+          jsonLocales = "locales.xls"
           mapCanvas = document.getElementById("map")
           panel = document.getElementById("panel")
 
@@ -74,11 +83,24 @@
                 lng: -71.5429688,
                 lat: -35.675148     
           }
-
+          img = {
+               url: "../assets/img/icon-map-u_geo.png",
+               anchor: new google.maps.Point(25, 50),
+               scaledSize: new google.maps.Size(50, 50)
+          }
+          usuario = {
+               url: "assets/img/icon-map-user.png",
+               anchor: new google.maps.Point(25, 50),
+               scaledSize: new google.maps.Size(50, 50)
+          }
+          icon = [
+               {
+                    url:"assets/img/icon-map-user.png"
+               }
+          ]
           locations = [
                {
                     local:"uno",
-                    id: 0,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud: -72.9428900,
@@ -94,7 +116,6 @@
                 },
                 {
                     local:"dos",
-                    id: 1,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud:  -70.30033919999994,
@@ -110,7 +131,6 @@
                 },
                 {
                     local:"tres",
-                    id: 2,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud:  -71.2788485,
@@ -126,7 +146,6 @@
                 },
                 {
                     local:"cuatro",
-                    id: 3,
                     comuna: "arica",
                     direccion: "Av. 18 de Septiembre 2501",
                     longitud:  -70.1492774,
@@ -149,17 +168,19 @@
                     maxWidth: 200
                })
 
-               let addMarker = (locales) => {
+            let addMarker = (locales) => {
+                    map.setZoom(4)
                     for (var i = 0; i < locales.length; i++) {
                     let 
                          contentString = `<div id="content"><h1> ${locales[i].local}</h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>`
                          // console.log(contentString)  
                               let  marker = new google.maps.Marker({ 
                               position: {
-                                   lat: parseInt(locales[i].latitud),
-                                   lng: parseInt(locales[i].longitud)
+                                   lat: parseFloat(locales[i].latitud),
+                                   lng: parseFloat(locales[i].longitud)
                               },
                               map: map,
+                              icon: img.url,
                               type: "point",
                               id: [i],
                               animation: google.maps.Animation.DROP
@@ -171,10 +192,11 @@
                     
                          google.maps.event.addListener(marker, 'click', (function (marker, i) {
                               return function () {
-                                   infowindow.setContent(contentString);
-                                   infowindow.open(map, marker);
-                                   map.setZoom(13);
-                                   map.setCenter(marker.getPosition());
+                                   infowindow.setContent(contentString)
+                                   infowindow.open(map, marker)
+                                   map.panTo(this.getPosition())
+                                   map.setZoom(17)
+                                   map.setCenter(marker.getPosition())
                               }
                          })(marker, i))
 
@@ -236,7 +258,7 @@
                     cargaSelect = (region) => {
                     //console.log(region.length); 
                          app.innerHTML =
-                         `
+                              `
                               <select id="regiones"> 
                               <option value="" disabled selected>Region</option>
                               ${region.map(templateRegion).join('')}
@@ -247,20 +269,20 @@
                               `
 
                               function cargaComunas() {
-                              let padre = this.value
-                              // console.log(padre);
-                              let com = region.map(regionesRegistradas)
-                              // console.log(com);
-                              let indice = com.indexOf(padre);
-                              // console.log(indice);
-                              // Mostrar comuna es un array obtenido de un array de objetos
-                              let mostrarComuna = region.map(comunasRegistradas)[indice]
-                              
-                              console.log(mostrarComuna)
-                              //debugger
-                              
-                              selectComunas.innerHTML =
-                                   `<option value="">Seleccione una Comuna...</option>${mostrarComuna.map(templateElegirComuna).join(' ')}`;
+                                   let padre = this.value
+                                   // console.log(padre);
+                                   let com = region.map(regionesRegistradas)
+                                   // console.log(com);
+                                   let indice = com.indexOf(padre);
+                                   // console.log(indice);
+                                   // Mostrar comuna es un array obtenido de un array de objetos
+                                   let mostrarComuna = region.map(comunasRegistradas)[indice]
+                                   
+                                   console.log(mostrarComuna)
+                                   //debugger
+                                   
+                                   selectComunas.innerHTML =
+                                        `<option value="">Seleccione una Comuna...</option>${mostrarComuna.map(templateElegirComuna).join(' ')}`;
                               }
 
                               let selectRegiones = document.getElementById("regiones")
@@ -277,12 +299,37 @@
 
                     //carga locales excel
 
+                    // fetch(jsonLocales)
+                    // .then(res => res.json())
+                    // .then(locales =>
+                    //      // console.log(locales)
+                    //      cargaLocal(locales))
+                    // .catch(err => console.log(err))
+
                     fetch(jsonLocales)
-                    .then(res => res.json())
-                    .then(locales =>
-                         // console.log(locales)
-                         cargaLocal(locales))
-                    .catch(err => console.log(err))
+                    .then(
+                         fail = (res) => {
+                              /* get the data as a Blob */
+                              if (!res.ok) throw new Error("fetch failed");
+                              return res.arrayBuffer();
+                              }
+                         )
+                         .then(
+                              load = (ab) => {
+                                   /* parse the data when it is received */
+                                   let data = new Uint8Array(ab);
+                                   let workbook = XLSX.read(data, {type: "array"});
+                                   
+                                   /* DO SOMETHING WITH workbook HERE */
+                                   let first_sheet_name = workbook.SheetNames[0];
+                                   /* Get worksheet */
+                                   let worksheet = workbook.Sheets[first_sheet_name];
+                                   locales = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+                                   cargaLocal(locales)
+                                   ,console.log(locales)
+                                   
+                              }
+                         )
 
                          function cargaLocal(locales) {
                               let aprobados =
@@ -301,19 +348,76 @@
                               addMarker(aprobados)
                          }
                     }
-        
-     function initMap() {
+let showPosition = position => {
+  let
+    currentPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      url: "../assets/img/icon-map-u_geo.png"
+    },
+    center = new google.maps.LatLng(currentPosition.lat, currentPosition.lng),
+    mapOptions = {
+      zoom: 5,
+      scrollwheel: false,
+      center: center,
+      mapTypeId: google.maps.MapTypeId.roadmap
+    }
+  map = new google.maps.Map(mapCanvas, mapOptions)
+//   addMarker (currentPosition)
+  //console.log(currentPosition)
+//   addMarker(currentPosition)
+}
+
+let initialize = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log('no llego');
+  }
+  addMarker (locations)
+}   
+     const initMap = () => {
         map = new google.maps.Map(mapCanvas, {
-          zoom: 10,
+          zoom: 5,
           center: chileCords,
           scrollwheel: false,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         })
-       //addMarker(locations)
-       //limpiarPins()   
-     }
+        const iniciarLocales = () => {
+          // fetch(jsonLocales)
+          //      .then(res => res.json())
+          //      .then(locales =>
+          //            addMarker(locales))
+          //           .catch(err => console.log(err))
+          fetch(jsonLocales)
+                    .then(
+                         fail = (res) => {
+                              /* get the data as a Blob */
+                              if (!res.ok) throw new Error("fetch failed");
+                              return res.arrayBuffer();
+                              }
+                         )
+                         .then(
+                              load = (ab) => {
+                                   /* parse the data when it is received */
+                                   let data = new Uint8Array(ab);
+                                   let workbook = XLSX.read(data, {type: "array"});
+                                   /* DO SOMETHING WITH workbook HERE */
+                                   let first_sheet_name = workbook.SheetNames[0];
+                                   /* Get worksheet */
+                                   let worksheet = workbook.Sheets[first_sheet_name];
+                                   locales = XLSX.utils.sheet_to_json(worksheet, { raw: true })
 
-     initMap()
+                                    addMarker(locales)
+                                   ,console.log(locales)     
+                              }
+                         )                
+          
+        }
+          iniciarLocales() 
+     }  
+     initMap() 
+     //  initialize()
      
 </script>
 </body>
