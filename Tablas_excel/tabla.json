@@ -1,0 +1,58 @@
+[
+    {
+      "región": "Región de Arica y Parinacota",
+      "local": "ROTONDA ARICA",
+      "comuna": "Arica",
+      "dirección": "AVDA 18 SEPTIEMBRE 2501",
+      "horario": "9:30 a 19:00"
+    },
+    {
+      "región": "Región de Arica y Parinacota",
+      "local": "SANTA MARIA ARICA",
+      "comuna": "Arica",
+      "dirección": "AV.STA. MARIA  2465",
+      "horario": "9:30 a 19:00"
+    },
+    {
+      "región": "Región de Tarapacá",
+      "local": "AMUNATEGUI",
+      "comuna": "Iquique",
+      "dirección": "Amunategui 902",
+      "horario": "9:30 a 19:00"
+    },
+    {
+      "región": "Región de Tarapacá",
+      "local": "BILBAO",
+      "comuna": "Iquique",
+      "dirección": "Fco.Bilbao 3545",
+      "horario": "9:30 a 19:01"
+    },
+    {
+      "región": "Región de Tarapacá",
+      "local": "JUAN MARTINEZ",
+      "comuna": "Iquique",
+      "dirección": "M. Rodríguez 964",
+      "horario": "9:30 a 19:02"
+    },
+    {
+      "región": "Región de Tarapacá",
+      "local": "VIVAR",
+      "comuna": "Iquique",
+      "dirección": "Vivar 786",
+      "horario": "9:30 a 19:03"
+    },
+    {
+      "región": "Región de Tarapacá",
+      "local": "IQUIQUE CENTRO",
+      "comuna": "Iquique",
+      "dirección": "Tarapacá 579",
+      "horario": "9:30 a 19:04"
+    },
+    {
+      "región": "Región de Antofagasta",
+      "local": "LA TORRE",
+      "comuna": "Antofagasta",
+      "dirección": "Carlos Pezoa Veliz 20-22",
+      "horario": "9:30 a 19:00"
+    }
+   ]
