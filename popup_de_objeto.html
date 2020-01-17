@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>popup de objeto</title>
+     <style>
+          figure {
+               margin: 0px;
+          }
+
+          img {
+               width: 100%;
+               max-width: 400px;
+          }
+
+          .contentProduct {
+               display: flex;
+               padding: 20px;
+               width: 100%;
+               align-items: center;
+               justify-content: center;
+          }
+
+          .product {
+               width: 200px;
+               text-align: center;
+          }
+          .levantar {
+               position: absolute;
+               left: 36%;
+               top: 10vh;
+               z-index: 4;
+               box-shadow: 0px -7px 4px 3000px rgba(0, 0, 0, 0.7);
+               background-color: white;
+          }
+          .cerrar{
+               position: absolute !important;
+               height: 30px !important;
+               width: 30px !important;
+               top: -24px !important;
+               right: -24px !important;
+               background-image: url('https://www.unimarc.cl/wp-content/uploads/2019/09/cancel.png');
+               background-size: contain;
+               background-color: #ffffff91;
+               border-radius: 30px;
+               cursor: pointer;
+          }
+          .next{
+               background-color: #ffffff91;
+               border-radius: 30px;
+               cursor: pointer;
+               position: absolute;
+               height: 30px;
+               width: 30px;
+               right: -30px;
+               bottom: 41%;
+          }
+          .prev{
+               background-color: #ffffff91;
+               border-radius: 30px;
+               cursor: pointer;
+               position: absolute;
+               height: 30px;
+               width: 30px;
+               left: -30px;
+               bottom: 41%;
+          }
+     </style>
+</head>
+
+<body>
+     <div id="app"></div>
+     <script>
+          const
+               datos = [
+
+                    {
+                         producto: 'Arcade Game',
+                         image: 'https://efectusmagnus.github.io/images/arcade-game.png',
+                         id: 0,
+                         descripcion: 'Frogger with lady-bug.',
+                         enlace: 'https://efectusmagnus.github.io/html/arcade-game.html',
+                         code: '#',
+                         legal: '*Aplican términos y condiciones http://t.uber.com/enero12miltyc. Válido por dos pedidos con $6.000 pesos de descuento. Válido para pedidos de mínimo $7.000 pesos (sin incluir el costo de envío). Válido para pedidos realizados entre el jueves 09/01/2020 y el domingo 12/01/2020.'
+                    },
+                    {
+                         producto: 'Memory Game',
+                         image: 'https://efectusmagnus.github.io/images/brain-game.png',
+                         id: 1,
+                         descripcion: 'An icon of a brain.',
+                         enlace: 'https://efectusmagnus.github.io/html/memory-game.html',
+                         code: 'https://github.com/efectusmagnus/memory-game',
+                         legal: '*Aplican términos y condiciones http://t.uber.com/enero12miltyc. Válido por dos pedidos con $6.000 pesos de descuento. Válido para pedidos de mínimo $7.000 pesos (sin incluir el costo de envío). Válido para pedidos realizados entre el jueves 09/01/2020 y el domingo 12/01/2020.'
+                    },
+                    {
+                         producto: 'Neighborhood Map',
+                         image: 'https://efectusmagnus.github.io/images/neighborhood-map.png',
+                         id: 2,
+                         descripcion: "An icon of a map's marker.",
+                         enlace: 'https://efectusmagnus-map.surge.sh/',
+                         code: 'https://github.com/efectusmagnus/neighborhood-map-udacity-p8',
+                         legal: '*Aplican términos y condiciones http://t.uber.com/enero12miltyc. Válido por dos pedidos con $6.000 pesos de descuento. Válido para pedidos de mínimo $7.000 pesos (sin incluir el costo de envío). Válido para pedidos realizados entre el jueves 09/01/2020 y el domingo 12/01/2020.'
+                    }
+               ]
+
+          let
+               productTemplate = (valor) =>
+               `
+                    <div class="product" id="${valor.id}">
+                              <figure class="product-img">
+                                   <img src="${ valor.image}"/>
+                    
+                              </figure>
+                              <article class="text oferta-text">
+                                   <!-- Nombre Producto -->
+                                   ${ !valor.producto ? "" : `<h2 class="nombre-oferta">${valor.producto}</h2>`}
+          
+                                   <!-- Descripcion Producto -->
+                                   ${ !valor.descripcion ? "" : ` <p class="capitalize">${valor.descripcion}.</p>`}
+                              </article>
+                    </div>
+               `
+               
+               productTemplatePopup = (valor) =>
+               `
+                    <div class="product" id="${valor.id}">
+                         <div class="cerrar" id="close"></div>
+                              <figure class="product-img">
+                                   <img src="${ valor.image}"/>
+                    
+                              </figure>
+                              <article class="text oferta-text">
+                                   <!-- Nombre Producto -->
+                                   ${ !valor.producto ? "" : `<h2 class="nombre-oferta">${valor.producto}</h2>`}
+          
+                                   <!-- Descripcion Producto -->
+                                   ${ !valor.descripcion ? "" : ` <p class="capitalize">${valor.descripcion}.</p>`}
+
+                                   ${ !valor.legal ? "" : ` <h5 class="capitalize">${valor.legal}.</h5>`}
+                              </article>
+                         <div class="next" id="next"></div>
+                         <div class="prev" id="prev"></div>
+                    </div>
+               `     
+          content = document.getElementById('app')
+
+// CREACION CONTENEDORES
+          cont = document.createElement("div")
+          cont.setAttribute("class", "contentProduct")
+          cont.setAttribute("id", "contentProduct")
+          content.appendChild(cont)
+          contentProduct = document.getElementById('contentProduct')
+
+          contPopup = document.createElement("div")
+          contPopup.setAttribute("id", "popup")
+          contPopup.setAttribute("class", "popup")
+          content.appendChild(contPopup)
+          pop = document.getElementById('popup')
+
+          contentProduct.innerHTML = `${datos.map(productTemplate).join("")}`
+
+          producto = document.getElementsByClassName('product')
+
+          const popUp = (info) => {
+               for (i = 0; i < producto.length; i++) {
+                    producto[i].addEventListener("click", function(){
+                    // console.log('hice click')
+                    pop.classList.add("levantar") 
+                    
+                    let 
+                         valorPop = this.getAttribute('id')
+                         idPop = parseInt(valorPop)
+                         console.log(idPop)
+
+                         res = info.filter( productos => productos.id == idPop)
+                         console.log(res)
+                         popup.innerHTML = ''
+                         popup.innerHTML = `${ res.map(productTemplatePopup).join("")}`
+
+                         cerrar = document.getElementById('close')
+                         cerrar.addEventListener("click", function(){
+                              popup.innerHTML = ''
+                              popup.classList.remove("levantar")
+                              console.log('cerre')
+                         },false)
+
+                         next = document.getElementById('next')
+                         next.addEventListener("click", function(){
+                         let   
+                              nextContent = info.filter( productos => productos.id == idPop)
+                              total = nextContent +1
+                              console.log(nextContent)
+                              popup.innerHTML = ''
+                              popup.innerHTML = `${ total.map(productTemplatePopup).join("")}`
+                              //   let next = document.getElementById('next')
+                              console.log('hice next')
+                         },false)
+
+
+                     },false);
+               }
+          }
+  popUp(datos)
+
+     </script>
+</body>
+
+</html>

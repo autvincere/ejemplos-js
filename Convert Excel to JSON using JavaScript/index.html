@@ -167,6 +167,26 @@
     .aparece{
       display: block;
     }
+    .next{
+      background-color: #ffffff91;
+      border-radius: 30px;
+      cursor: pointer;
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      right: -30px;
+      bottom: 41%;
+    }
+    .prev{
+      background-color: #ffffff91;
+      border-radius: 30px;
+      cursor: pointer;
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      left: -30px;
+      bottom: 41%;
+    }
     div#pop > div.grid-item{
       max-width: 321px; 
       width: 100% !important;
@@ -209,6 +229,7 @@
       url = "test.xls"
       app = document.getElementById('col')
       productosPorPagina = 8
+      posicionActual = 0
 
     // import { createNewElement } from './auxiliarfunctions.js'
 
@@ -365,40 +386,140 @@
                </div>
       </div>
       `
+      let productTemplatePopup = (valor) =>
+      `
+      <div class="grid-item col product" id="${valor.id}">
+        <div class="cerrar" id="close"></div>
+                <div class="product-img">
+	                <img src="${ valor.imgHeader ? 'https://www.unimarc.cl/wp-content/uploads/img-header/' + valor.imgHeader : "" }"/>
+	  
+                <a class="inline cboxElement">
+                    <img src="${ valor.img ? 'https://www.unimarc.cl/wp-content/uploads/img-ofertas/' + valor.img : "" }"/>
+                    </a>
+                </div>
+                <div class="text oferta-text">
+                  <a class="inline cboxElement">
+                    <!-- Nombre Producto -->
+                    ${ !valor.producto ? "" : `<h4 class="nombre-oferta">${valor.producto}</h4>`}
+                  </a>
+
+                  <!-- Descripcion Producto -->
+                  ${ !valor.descripcion ? "" : ` <p class="capitalize">${valor.descripcion}.</p>`}
+                </div>
+
+                <div class="oferta">
+
+                  <!-- Cantidad -->
+                    ${ !valor.cantidad ? "" : `<h4>${valor.cantidad} $${punto(valor.precioCantidad)}</h4>` }
+
+                  <!-- Precio Oferta -->
+                  <h2>${ !valor.detallePrecioOferta ? "" : valor.detallePrecioOferta} ${ !valor.precioOfertaPorcentaje ? "" : `${valor.precioOfertaPorcentaje}% dcto <br>`} 
+                 ${ !valor.PrecioOferta ? "" : `$${punto(valor.PrecioOferta)}` } ${ !valor.unidadPrecioOferta ? "" : valor.unidadPrecioOferta }</h2>
+
+                  <!-- Precio normal -->
+                  ${ !valor.tipoPrecio ? "" : `<h4>${valor.tipoPrecio} ${!valor.precioNormal ? "" : `$${punto(valor.precioNormal)}`} ${ !valor.unidad ? "" : valor.unidad } ${ !valor.medida ? "" : valor.medida } </h4>` }
+
+                  <!-- Ahorras -->
+                  ${ !valor.ahorras ? "" : `<h3 style="text-transform: uppercase;"> AHORRAS: $${punto(valor.ahorras)}</h3>`}
+                  
+                  <!-- Precio con tarjeta -->
+                 ${ !valor.precioConTarjeta ? "" : `<h4>Precio con tarjeta: $${punto(valor.precioConTarjeta)} ${ !valor.medida ? "" : valor.medida } </h4>` }
+                  
+                 <!-- comentarioUno -->
+                 ${ !valor.comentarioUno ? "" : `<h4>${valor.comentarioUno} $${punto(valor.precioComentarioUno)}</h4>` }
+
+                 <!-- comentarioDos -->
+                 ${ !valor.comentarioDos ? "" : `<h4>${valor.comentarioDos} $${punto(valor.precioComentarioDos)}</h4>` }
+
+                  <!-- legal -->
+                  ${ !valor.legal ? "" : `<p class="legal desaparece">${valor.legal}</p>`}
+                
+               </div>
+        <div class="next" id="next"></div>
+        <div class="prev" id="prev"></div>
+      </div>
+      `
 const popUp = () => {
   let producto = document.getElementsByClassName('grid-item')
+
       for (i = 0; i < document.getElementsByClassName('grid-item').length; i++) {
         document.getElementsByClassName('grid-item')[i].addEventListener("click", function(){
         //console.log('hice click')
         popup.classList.add("levantar")
+        
 
         let 
           valorPop = this.getAttribute('id')
           idPop = parseInt(valorPop)
+          posicionActual
           console.log(idPop)
 
-          let res = excel.filter( productos => productos.id == idPop)
+        let 
+          res = excel.filter( productos => productos.id == idPop)
           console.log(res)
           popup.innerHTML = ''
-          popup.innerHTML += `${ res.map(productTemplate).join("")}`
-          const legal =  document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece')
+          popup.innerHTML += `${ res.map(productTemplatePopup).join("")}`
+
+        let
+          // close = document.createElement("div")
+          // close.setAttribute("class", "cerrar")
+          // close.setAttribute("id", "close")
+          // popup.appendChild(close)
+          cerrar = document.getElementById('close')
+
+          // let 
+              // createNext = document.createElement("div")
+              // createNext.setAttribute("class", "next")
+              // createNext.setAttribute("id", "next")
+              // popup.appendChild(createNext)
+              // next = document.getElementById('next')
+          let 
+              // createPrev = document.createElement("div")
+              // createPrev.setAttribute("class", "prev")
+              // createPrev.setAttribute("id", "prev")
+              // popup.appendChild(createPrev)
+              prev = document.getElementById('prev')
+
+          // let legal =  document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece')
           // console.log(document.getElementById('pop').firstElementChild.lastElementChild.lastElementChild.classList.toggle('desaparece'));
 
           // createNewElement ('close','close','pagination')
           
-          let
-            
-            close = document.createElement("div")
-            close.setAttribute("class", "cerrar")
-            close.setAttribute("id", "close")
-            popup.appendChild(close)
-            cerrar = document.getElementById('close')
+        
 
-            cerrar.addEventListener("click", function(){
+          cerrar.addEventListener("click", function(){
                 popup.innerHTML = ''
                 popup.classList.remove("levantar")
-                console.log('hice click')
+                console.log('cerre')
               },false)
+          
+          
+        for (i = 0; i < document.getElementsByClassName('next').length; i++) {
+          document.getElementsByClassName('next')[i].addEventListener("click", function(){
+            console.log('hice next')
+            let nextContent = excel.filter( productos => productos.id == idPop++)
+            console.log(nextContent)
+            // popup.innerHTML = ''
+            // popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
+          },false)
+        }  
+              // next.addEventListener("click", function(){
+              //   nextContent = excel.filter( productos => productos.id == idPop + 1)
+              //   console.log(nextContent)
+              //   popup.innerHTML = ''
+              //   popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
+              //   let next = document.getElementById('next')
+              //   console.log('hice next')
+
+
+              // },false)
+
+          
+
+              prev.addEventListener("click", function(){
+
+                console.log('hice prev')
+              },false)    
 
           
         },false);

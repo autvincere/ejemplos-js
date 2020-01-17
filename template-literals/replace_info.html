@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>replace</title>
+</head>
+<body>
+     <div id="hello"></div>
+     <script>
+          let 
+               el = document.getElementById('hello')
+               dato = {name:'alisha', age:18 , count}
+
+          function doReplace(count) {
+               var object = {name:'alisha', age:18 , count};
+
+               var a = `<div class="nav">
+                         <span>name:</span><span>${object.name}<span><br>
+                         <span>age:</span><span>${object.age}<span><br>
+                         <span>count:</span><span>${object.count}<span><br>
+                         <input type="text">
+                    </div>`;
+               el.innerHTML = a;
+          }
+
+          var replace_count = 0
+          doReplace(replace_count)
+
+          // setInterval(function(){
+          // replace_count = replace_count + 1;
+          // doReplace(replace_count);
+          // },200)
+
+          </script>
+</body>
+</html>
