@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>slider-template</title>
+     <style>
+           .carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+        }
+        #imagen {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+        }
+     </style>
+</head>
+<body>
+     <button id="popup"></button>
+     <div id="app"></div>
+     <script>
+     const
+          content = document.getElementById('app')
+          IMAGENES = [
+                    'https://www.w3schools.com/howto/img_nature_wide.jpg',
+                    'https://www.w3schools.com/howto/img_snow_wide.jpg',
+                    'https://www.w3schools.com/howto/img_lights_wide.jpg'
+                    ]
+     let
+          //CREACION DE CONTENEDOR
+          cont = document.createElement("div")
+          // cont.setAttribute("class", "contentProduct")
+          cont.setAttribute("id", "contentProduct")
+          content.appendChild(cont)
+          contentProduct = document.getElementById('contentProduct')
+          //CIERRE CREACION DE CONTENEDOR 
+
+          //CREACION DE CONTENEDOR
+          contNext = document.createElement("div")
+          // cont.setAttribute("class", "contentProduct")
+          contNext.setAttribute("id", "next")
+          content.appendChild(contNext)
+          next = document.getElementById('contentProduct')
+          //CIERRE CREACION DE CONTENEDOR 
+
+           //CREACION DE CONTENEDOR
+           contPrev = document.createElement("div")
+          // cont.setAttribute("class", "contentProduct")
+          contPrev.setAttribute("id", "prev")
+          content.appendChild(contPrev)
+          prev = document.getElementById('contentPrev')
+          //CIERRE CREACION DE CONTENEDOR 
+
+     </script>
+</body>
+</html>

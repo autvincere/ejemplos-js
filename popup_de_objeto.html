@@ -189,12 +189,13 @@
 
                          next = document.getElementById('next')
                          next.addEventListener("click", function(){
-                         let   
-                              nextContent = info.filter( productos => productos.id == idPop)
-                              total = nextContent +1
-                              console.log(nextContent)
-                              popup.innerHTML = ''
-                              popup.innerHTML = `${ total.map(productTemplatePopup).join("")}`
+                         let  
+                              incremento = idPop+1
+                              console.log(`valor de incremento es: ${incremento}`)
+                              nextContent = info.filter( productos => productos.id == incremento)
+                              
+                              // popup.innerHTML = ''
+                              popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
                               //   let next = document.getElementById('next')
                               console.log('hice next')
                          },false)
