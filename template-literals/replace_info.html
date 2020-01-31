@@ -15,12 +15,12 @@
      </style>
 </head>
 <body>
-     <div class="next" id="next"></div>
-     <div id="hello"></div>
+    
+           <div id="content"></div>
+           <div class="next" id="next"></div>
      <script>
           let 
-               el = document.getElementById('hello')
-               next = document.getElementById('next')
+               content = document.getElementById('content')
                dato = [
                          {
                               "id":0,
@@ -45,73 +45,79 @@
                               "name":'safiro', 
                               "age":34 , 
                               "count":30
-                         }
-                         
+                         }    
                     ]
 
 
-               productTemplate = (valor) => `<div class="nav" data="${valor.id}">
+               productTemplate = (valor) => 
+               `
+               <div class="nav" data="${valor.id}">
                     <span>id:</span><span>${valor.id}<span><br>
                          <span>name:</span><span>${valor.name}<span><br>
                          <span>age:</span><span>${valor.age}<span><br>
                          <span>count:</span><span>${valor.count}<span><br>
                          <input type="text">
-                    </div>`
-
-
+               </div>
+               `
          
-               datoCero = dato.filter(function(dat){
-                    if(dat.id == 0){
+               let datoCero = dato.filter(function(dat){
+                    if(dat.id == 3){
                          return dat;
-                    }
-                    
+                    } 
                });
 
-       
-          el.innerHTML = `${ datoCero.map(productTemplate).join("")}`
+               // numUser = 2
+               // datoEscogido = dato.filter((dat) => dat.id == numUser );
+               // console.log(datoEscogido);
+               
+               // content.innerHTML = `${ datoEscogido.map(productTemplate).join("")}`
 
-         next.addEventListener("click", function(){
-                     
-                     for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
-                         let 
-                              valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
-                              idPop = parseInt(valorPop)
-                              incremento = idPop++
+               function next(numUser,dato){
+               // numUser = 1
+               datoEscogido = dato.filter((dat) => dat.id == numUser );
+               content.innerHTML = `${ datoEscogido.map(productTemplate).join("")}`
+               }
+
+               next(1,dato)
+               // let next = document.getElementById('next')
+
+               function siguiente(){  
+               console.log('hice siguiente')  
+                    for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
+                              let 
+                                   valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
+                                   
+                                   idPop = parseInt(valorPop)
+                                   // console.log(idPop)
+                                   incremento = idPop++
                               console.log(incremento)
-                              // valor
-                              // el.innerHTML = `${ dato[0].map(productTemplate).join("")}`
-                         // ("click", function(){
+                    }
+                    content.innerHTML = `${ dato.map(productTemplate).join("")}`
+               }
 
-                         //      let 
-                         //           valorPop = this.getAttribute('id')
-                         //           idPop = parseInt(valorPop)
-                         //           console.log(idPop)
-                         // })
-         }})
-                    //  let 
-                    //      content = document.getElementById('nav').getAttribute('data')
-                    // //  valorPop = content.getAttribute('id')
-                    //      idPop = parseInt(content)
-                    //      console.log(idPop)
-                    //  let incremento = dato[dat.id ++]
-               //       let datoMas= datoCero.filter(function(dat){
-               //      if(dat.id ++){
-               //           return dat;
-               //      }
-                    
-               // });
-                    
-                    //  el.innerHTML = `${ incremento.map(productTemplate).join("")}`
-               // })
-         
-          // var replace_count = 0
-          // doReplace(replace_count)
+// next.addEventListener('click', siguiente,false)
 
-          // setInterval(function(){
-          // replace_count = replace_count + 1;
-          // doReplace(replace_count);
-          // },200)
+// document.addEventListener("DOMContentLoaded", function(dato) {
 
-          </script>
+//      let next = document.getElementById('next')
+// next.onclick = function(dato) {
+//       for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
+//                               let 
+//                                    valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
+                                   
+//                                    idPop = parseInt(valorPop)
+//                                    // console.log(idPop)
+//                                    incremento = idPop ++
+//                               console.log(incremento)
+//                     }
+//                     content.innerHTML = `${ dato.map(productTemplate).join("")}`
+//                }  
+// })
+
+
+// next.addEventListener('click', siguiente);
+     </script>
+
+           
 </body>
 </html>

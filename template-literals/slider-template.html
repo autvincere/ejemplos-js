@@ -22,37 +22,84 @@
      <button id="popup"></button>
      <div id="app"></div>
      <script>
-     const
+     let
           content = document.getElementById('app')
+          dato = [
+                         {
+                              "id":0,
+                              "name":'alisha', 
+                              "age":18 , 
+                              "count":30
+                         },
+                         {
+                              "id":1,
+                              "name":'ruby', 
+                              "age":18 , 
+                              "count":0
+                         },
+                         {
+                              "id":2,
+                              "name":'kimberly', 
+                              "age":25 , 
+                              "count":30
+                         },
+                         {
+                              "id":3,
+                              "name":'safiro', 
+                              "age":34 , 
+                              "count":30
+                         }    
+                    ]
           IMAGENES = [
                     'https://www.w3schools.com/howto/img_nature_wide.jpg',
                     'https://www.w3schools.com/howto/img_snow_wide.jpg',
                     'https://www.w3schools.com/howto/img_lights_wide.jpg'
                     ]
-     let
-          //CREACION DE CONTENEDOR
-          cont = document.createElement("div")
-          // cont.setAttribute("class", "contentProduct")
-          cont.setAttribute("id", "contentProduct")
-          content.appendChild(cont)
-          contentProduct = document.getElementById('contentProduct')
-          //CIERRE CREACION DE CONTENEDOR 
+          
+          productTemplate = (valor) => 
+               `
+               <div class="next" id="next"></div>
+               <div class="nav" data="${valor.id}">
+                    <span>id:</span><span>${valor.id}<span><br>
+                         <span>name:</span><span>${valor.name}<span><br>
+                         <span>age:</span><span>${valor.age}<span><br>
+                         <span>count:</span><span>${valor.count}<span><br>
+                         <input type="text">
+               </div>
+               `
+          datoCero = dato.filter(function(dat){
+                    if(dat.id == 0){
+                         return dat;
+                    } 
+          });
 
-          //CREACION DE CONTENEDOR
-          contNext = document.createElement("div")
-          // cont.setAttribute("class", "contentProduct")
-          contNext.setAttribute("id", "next")
-          content.appendChild(contNext)
-          next = document.getElementById('contentProduct')
-          //CIERRE CREACION DE CONTENEDOR 
+          datoContenedor = dato[0]
+          content.innerHTML = datoCero.map(productTemplate).join("")     
 
-           //CREACION DE CONTENEDOR
-           contPrev = document.createElement("div")
-          // cont.setAttribute("class", "contentProduct")
-          contPrev.setAttribute("id", "prev")
-          content.appendChild(contPrev)
-          prev = document.getElementById('contentPrev')
-          //CIERRE CREACION DE CONTENEDOR 
+     // let
+     //      //CREACION DE CONTENEDOR
+     //      cont = document.createElement("div")
+     //      // cont.setAttribute("class", "contentProduct")
+     //      cont.setAttribute("id", "contentProduct")
+     //      content.appendChild(cont)
+     //      contentProduct = document.getElementById('contentProduct')
+     //      //CIERRE CREACION DE CONTENEDOR 
+
+     //      //CREACION DE BOTON
+     //      contNext = document.createElement("div")
+     //      // cont.setAttribute("class", "contentProduct")
+     //      contNext.setAttribute("id", "next")
+     //      content.appendChild(contNext)
+     //      next = document.getElementById('contentProduct')
+     //      //CIERRE CREACION DE CONTENEDOR 
+
+     //       //CREACION DE BOTON
+     //       contPrev = document.createElement("div")
+     //      // cont.setAttribute("class", "contentProduct")
+     //      contPrev.setAttribute("id", "prev")
+     //      content.appendChild(contPrev)
+     //      prev = document.getElementById('contentPrev')
+     //      //CIERRE CREACION DE CONTENEDOR 
 
      </script>
 </body>
