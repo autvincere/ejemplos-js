@@ -59,12 +59,8 @@
                          <input type="text">
                </div>
                `
-         
-               let datoCero = dato.filter(function(dat){
-                    if(dat.id == 3){
-                         return dat;
-                    } 
-               });
+               let datoCero = dato.filter((dat) => dat.id == 0 )
+               content.innerHTML = `${ datoCero.map(productTemplate).join("")}`
 
                // numUser = 2
                // datoEscogido = dato.filter((dat) => dat.id == numUser );
@@ -72,30 +68,40 @@
                
                // content.innerHTML = `${ datoEscogido.map(productTemplate).join("")}`
 
-               function next(numUser,dato){
+               function sig(numUser,dato){
                // numUser = 1
-               datoEscogido = dato.filter((dat) => dat.id == numUser );
+               datoEscogido = dato.filter((dat) => dat.id == numUser )
                content.innerHTML = `${ datoEscogido.map(productTemplate).join("")}`
                }
 
-               next(1,dato)
-               // let next = document.getElementById('next')
+              
+               let next = document.getElementById('next')
 
                function siguiente(){  
-               console.log('hice siguiente')  
+               console.log('hice siguiente')
+               // let 
+               //                     valorPop = document.getElementsByClassName('nav').getAttribute('data')
+                                   
+               //                     idPop = parseInt(valorPop)
+               //                     // console.log(idPop)  
+               // sig(idPop,dato)
+
+               
                     for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
                               let 
                                    valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
                                    
                                    idPop = parseInt(valorPop)
-                                   // console.log(idPop)
-                                   incremento = idPop++
-                              console.log(incremento)
+                                  console.log(idPop)
+                              //      incremento = idPop++
+                              // console.log(incremento)
+                              sig(idPop+=1,dato)
+                              // content.innerHTML = `${ dato.map(productTemplate).join("")}`
                     }
-                    content.innerHTML = `${ dato.map(productTemplate).join("")}`
+                    
                }
 
-// next.addEventListener('click', siguiente,false)
+ next.addEventListener('click', siguiente,false)
 
 // document.addEventListener("DOMContentLoaded", function(dato) {
 

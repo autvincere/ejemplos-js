@@ -187,23 +187,50 @@
                               console.log('cerre')
                          },false)
 
-                         next = document.getElementById('next')
-                         next.addEventListener("click", function(){
-                         let  
-                              incremento = idPop+1
-                              console.log(`valor de incremento es: ${incremento}`)
-                              nextContent = info.filter( productos => productos.id == incremento)
-                              
-                              // popup.innerHTML = ''
-                              popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
-                              //   let next = document.getElementById('next')
+                         function sig(numUser,datos){
+                         // numUser = 1
+                         let datoEscogido = datos.filter((dat) => dat.id == numUser+1)
+                         popup.innerHTML =''
+                         popup.innerHTML = `${ datoEscogido.map(productTemplatePopup).join("")}`
+                         }
+
+
+                         // next = document.getElementById('next')
+                         for (i = 0; i < document.getElementsByClassName('next').length; i++) {
+                              document.getElementsByClassName('next')[i].addEventListener("click", function(){
                               console.log('hice next')
-                         },false)
+                              console.log(idPop)
+                              // let  
+                              //      incremento = idPop
+                              let datoEscogido = datos.filter((dat) => dat.id == idPop+1)
+                              console.log(datoEscogido);
+                              
+                         popup.innerHTML =''
+                         // popup.innerHTML = `${ datoEscogido.map(productTemplatePopup).join("")}`
+                              // popup.innerHTML = ''
+                              // popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
+                              },false)
+                         }
+
+                         // next.addEventListener("click", function(){
+                              
+                         // let  
+                         //      incremento = idPop
+                         //      sig(idPop,datos)
+                         //      console.log(`valor de incremento es: ${incremento}`)
+                         //      // nextContent = info.filter( productos => productos.id == incremento)
+                              
+                         //      // popup.innerHTML = ''
+                         //      // popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
+                         //      //   let next = document.getElementById('next')
+                         //      console.log('hice next')
+                         // },false)
 
 
                      },false);
                }
           }
+
   popUp(datos)
 
      </script>
