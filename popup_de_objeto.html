@@ -24,6 +24,10 @@
                justify-content: center;
           }
 
+          .productopopup {
+               width: 200px;
+               text-align: center;
+          }
           .product {
                width: 200px;
                text-align: center;
@@ -73,6 +77,7 @@
 
 <body>
      <div id="app"></div>
+     <div class="next" id="next" style="display: block;background-color: red;position: relative;"></div>
      <script>
           const
                datos = [
@@ -126,7 +131,7 @@
                
                productTemplatePopup = (valor) =>
                `
-                    <div class="product" id="${valor.id}">
+                    <div class="productopopup" id="${valor.id}">
                          <div class="cerrar" id="close"></div>
                               <figure class="product-img">
                                    <img src="${ valor.image}"/>
@@ -187,46 +192,71 @@
                               console.log('cerre')
                          },false)
 
-                         function sig(numUser,datos){
-                         // numUser = 1
-                         let datoEscogido = datos.filter((dat) => dat.id == numUser+1)
-                         popup.innerHTML =''
+                         next = document.getElementById('next')
+                         prev = document.getElementById('prev')
+
+                    const loadTemplate = (numUser,dato) => {
+                         datoEscogido = dato.filter((dat) => dat.id == numUser )
                          popup.innerHTML = `${ datoEscogido.map(productTemplatePopup).join("")}`
+                         console.log(numUser)
                          }
 
+                         const sig = (numUser,dato) => {
+                    if(numUser == dato.length-1){
+                         numUser = 0
+                         loadTemplate(numUser,dato)  
+                    }
+                    else 
+                       if(numUser < dato.length){
+                         numUser++
+                         loadTemplate(numUser,dato)
+                    }
+                    else{
+                         console.log('no pasa nada');    
+                    }
+               }
+               const ant = (numUser,dato) => {
+                    if(numUser == 0){
+                         numUser = dato.length-1
+                         loadTemplate(numUser,dato)  
+                    }
+                    else 
+                       if(numUser < dato.length){
+                         numUser--
+                         loadTemplate(numUser,dato)
+                    }
+                    else{
+                         console.log('no pasa nada');    
+                    }
+               }
+               let siguiente =()=>{ 
+                   
+                     for (i = 0; i < document.getElementsByClassName('productopopup').length; i++) {
+                              let 
+                                   valorPop = document.getElementsByClassName('productopopup')[i].getAttribute('id')
+                                   idPop = parseInt(valorPop)
+                                   console.log(valorPop);
+                                   
+                              sig(idPop,datos)
+                     } 
+              
+               }
 
-                         // next = document.getElementById('next')
-                         for (i = 0; i < document.getElementsByClassName('next').length; i++) {
-                              document.getElementsByClassName('next')[i].addEventListener("click", function(){
-                              console.log('hice next')
-                              console.log(idPop)
-                              // let  
-                              //      incremento = idPop
-                              let datoEscogido = datos.filter((dat) => dat.id == idPop+1)
-                              console.log(datoEscogido);
-                              
-                         popup.innerHTML =''
-                         // popup.innerHTML = `${ datoEscogido.map(productTemplatePopup).join("")}`
-                              // popup.innerHTML = ''
-                              // popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
-                              },false)
-                         }
+               // let anterior =()=>{                
+               //      for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
+               //                let 
+               //                     valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
+               //                     idPop = parseInt(valorPop)
+               //                ant(idPop,datos)
+               //      }    
+               // }
 
-                         // next.addEventListener("click", function(){
-                              
-                         // let  
-                         //      incremento = idPop
-                         //      sig(idPop,datos)
-                         //      console.log(`valor de incremento es: ${incremento}`)
-                         //      // nextContent = info.filter( productos => productos.id == incremento)
-                              
-                         //      // popup.innerHTML = ''
-                         //      // popup.innerHTML = `${ nextContent.map(productTemplatePopup).join("")}`
-                         //      //   let next = document.getElementById('next')
-                         //      console.log('hice next')
-                         // },false)
+               // loadTemplate(0,dato)
+          // next.addEventListener('click', siguiente,false)
 
-
+          for (i = 0; i < document.getElementsByClassName('next').length; i++) {
+               document.getElementsByClassName('next')[i].addEventListener('click', siguiente,false)   
+                     } 
                      },false);
                }
           }

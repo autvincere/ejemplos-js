@@ -6,21 +6,28 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <title>replace</title>
      <style>
-          .next{
+          .next,.prev{
                background-color: red;
                height: 50px;
                width: 50px;
                cursor: pointer;
+          }
+          .prev{
+               background-color: green;
+               
           }
      </style>
 </head>
 <body>
     
            <div id="content"></div>
-           <div class="next" id="next"></div>
+           <!-- <div class="next" id="next">>></div>
+           <div class="prev" id="prev"><<</div> -->
      <script>
           let 
                content = document.getElementById('content')
+               // next = document.getElementById('next')
+               // prev = document.getElementById('prev')
                dato = [
                          {
                               "id":0,
@@ -45,9 +52,14 @@
                               "name":'safiro', 
                               "age":34 , 
                               "count":30
+                         },
+                         {
+                              "id":4,
+                              "name":'Shakira', 
+                              "age":42 , 
+                              "count":20000
                          }    
                     ]
-
 
                productTemplate = (valor) => 
                `
@@ -56,72 +68,74 @@
                          <span>name:</span><span>${valor.name}<span><br>
                          <span>age:</span><span>${valor.age}<span><br>
                          <span>count:</span><span>${valor.count}<span><br>
-                         <input type="text">
+                              <div class="next" id="next">>></div>
+           <div class="prev" id="prev"><<</div>
                </div>
                `
-               let datoCero = dato.filter((dat) => dat.id == 0 )
-               content.innerHTML = `${ datoCero.map(productTemplate).join("")}`
+               let   
+               next = document.getElementById('next')
+               prev = document.getElementById('prev')
 
-               // numUser = 2
-               // datoEscogido = dato.filter((dat) => dat.id == numUser );
-               // console.log(datoEscogido);
-               
-               // content.innerHTML = `${ datoEscogido.map(productTemplate).join("")}`
-
-               function sig(numUser,dato){
-               // numUser = 1
+               const loadTemplate = (numUser,dato) => {
                datoEscogido = dato.filter((dat) => dat.id == numUser )
                content.innerHTML = `${ datoEscogido.map(productTemplate).join("")}`
+               console.log(numUser)
                }
 
-              
-               let next = document.getElementById('next')
-
-               function siguiente(){  
-               console.log('hice siguiente')
-               // let 
-               //                     valorPop = document.getElementsByClassName('nav').getAttribute('data')
-                                   
-               //                     idPop = parseInt(valorPop)
-               //                     // console.log(idPop)  
-               // sig(idPop,dato)
-
-               
+               const sig = (numUser,dato) => {
+                    if(numUser == dato.length-1){
+                         numUser = 0
+                         loadTemplate(numUser,dato)  
+                    }
+                    else 
+                       if(numUser < dato.length){
+                         numUser++
+                         loadTemplate(numUser,dato)
+                    }
+                    else{
+                         console.log('no pasa nada');    
+                    }
+               }
+               const ant = (numUser,dato) => {
+                    if(numUser == 0){
+                         numUser = dato.length-1
+                         loadTemplate(numUser,dato)  
+                    }
+                    else 
+                       if(numUser < dato.length){
+                         numUser--
+                         loadTemplate(numUser,dato)
+                    }
+                    else{
+                         console.log('no pasa nada');    
+                    }
+               }
+               let siguiente =()=>{ 
+                   
                     for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
                               let 
                                    valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
-                                   
                                    idPop = parseInt(valorPop)
-                                  console.log(idPop)
-                              //      incremento = idPop++
-                              // console.log(incremento)
-                              sig(idPop+=1,dato)
-                              // content.innerHTML = `${ dato.map(productTemplate).join("")}`
-                    }
-                    
+                                   console.log('hice clic');
+                                   
+                              sig(idPop,dato)
+                    } 
+              
                }
 
- next.addEventListener('click', siguiente,false)
+               let anterior =()=>{                
+                    for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
+                              let 
+                                   valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
+                                   idPop = parseInt(valorPop)
+                              ant(idPop,dato)
+                    }    
+               }
 
-// document.addEventListener("DOMContentLoaded", function(dato) {
+          loadTemplate(0,dato)
+          next.addEventListener('click', siguiente,false)
+          prev.addEventListener('click', anterior,false)
 
-//      let next = document.getElementById('next')
-// next.onclick = function(dato) {
-//       for (i = 0; i < document.getElementsByClassName('nav').length; i++) {
-//                               let 
-//                                    valorPop = document.getElementsByClassName('nav')[i].getAttribute('data')
-                                   
-//                                    idPop = parseInt(valorPop)
-//                                    // console.log(idPop)
-//                                    incremento = idPop ++
-//                               console.log(incremento)
-//                     }
-//                     content.innerHTML = `${ dato.map(productTemplate).join("")}`
-//                }  
-// })
-
-
-// next.addEventListener('click', siguiente);
      </script>
 
            
