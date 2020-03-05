@@ -30,8 +30,21 @@ const cargarJSON = () => {
           .catch(error => console.log(error))
 }
 
-const cargarREST
+const cargarREST = () => {
+fetch('https://picsum.photos/list')
+.then( res => res.json())
+.then (data => {
+     let html = `<ul>`
+     html += data.map(dato => {
+          return `<li><h4>Nombre: ${dato.author}</h4>
+          <a href="${dato.author_url}" target="_blank">Ver imagen</a></li>`
+     }).join('')
+     html += `</ul>` 
+     return document.getElementById('resultado').innerHTML = html
+     })
+.catch(error => console.log(error))
+}
 
 document.getElementById('txtBtn').addEventListener('click', cargarTXT)
-
 document.getElementById('jsonBtn').addEventListener('click', cargarJSON)
+document.getElementById('apiBTN').addEventListener('click', cargarREST)
