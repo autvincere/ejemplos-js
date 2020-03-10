@@ -2,8 +2,10 @@
 
 const
      ui = new Interfaz()
+     cotizador = new API('dfdda60b9dab6c098d37fe8a8d42cb4fabbaee2c0ee1e728860e0226b3b21dff')
      formulario = document.getElementById('formulario')
-
+     
+cotizador.obtenerMonedasAPI();
 ui.mostrarMensaje()
 
 formulario.addEventListener('submit',(e) => {

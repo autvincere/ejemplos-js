@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Clases en Javascript | www.cosasdigitales.com</title>
+	<meta charset="utf-8">
+</head>
+
+<body>
+
+	<h1>Resultados en consola</h1>
+
+	<script type="text/javascript">
+	class Cliente{
+		constructor(nombre,saldo){
+			this.nombre = nombre
+			this.saldo = saldo
+		}
+		imprimirSaldo = () => `Hola ${this.nombre}, tu saldo es de: ${this.saldo}`
+
+		// tipoCliente(){
+		// 	let tipo
+
+		// 	if (this.saldo > 10000) {
+		// 		tipo = 'Gold'
+		// 	} else if(this.saldo > 5000){
+		// 		tipo = 'Platinum'
+		// 	}else {
+		// 		tipo = 'Normal'
+		// 	}
+		// 	return tipo
+		// }
+
+		// retirarSaldo= (retiro) => this.saldo -= retiro
+		
+		//Metodo estatico de la clase que se setea por defecto
+		static bienvenida= () => `bienvenido al cajero`
+		
+		
+	}
+
+	const maria = new Cliente('maria','Perez',100000)
+	// maria.retirarSaldo(300000)
+	// console.log(maria.tipoCliente())
+
+	console.log(maria.imprimirSaldo())
+		
+	class Empresa extends Cliente {
+		constructor(nombre,saldo,telefono,tipo){
+			//super es una palabra reservada para acceder a la clase padre y obtener sus metodos
+			super(nombre,saldo)
+			//no existe en el constructor padre:
+			// const {telefono, tipo} = this;
+			this.telefono = telefono
+			this.tipo = tipo
+		}
+	}
+	const empresa = new Empresa ('Empresa_1',100000, 12091002,'construccion')
+	console.log(empresa.imprimirSaldo());
+	
+	</script>
+
+</body>
+</html>
