@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+     <script>
+// let 
+//      autos = [{
+//      Modelo: "Mazda",
+//      Referencia: "Mazda 6",
+//      Precio: 73710
+//      }, {
+//      Modelo: "Audi",
+//      Referencia: "R8",
+//      Precio: 73710
+//      }]
+
+//      precioDescuento = 6120
+//      modelo = "Mazda"
+
+// const minus= autos.map(dato => dato.Modelo.toLowerCase())
+
+// console.log(minus)
+     const array = [
+     { id: 1, username: "Mapper"},
+     { id: 2, username: "Finder"},
+     { id: 2, username: "CACA"},
+     { id: 3, username: "Eaching"}
+     ]
+
+     const filtered = array.filter(element => {
+     return element.id == 2
+     })
+
+     const miles = array.map(element => {
+  return element.id * 1000
+})
+console.log(filtered)
+
+     </script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+//cosntructor para seguro
 function Seguro(){
 
 }
