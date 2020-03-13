@@ -24,22 +24,135 @@
 // const minus= autos.map(dato => dato.Modelo.toLowerCase())
 
 // console.log(minus)
-     const array = [
-     { id: 1, username: "Mapper"},
-     { id: 2, username: "Finder"},
-     { id: 2, username: "CACA"},
-     { id: 3, username: "Eaching"}
+     let datos = [
+     { id: 1, name: "Mapper"},
+     { id: 2, name: "Finder"},
+     { id: 3, name: "CACA"},
+     { id: 4, name: "Eaching"}
      ]
 
-     const filtered = array.filter(element => {
-     return element.id == 2
-     })
+//      const filtered = array.filter(element => {
+//      return element.id == 2
+//      })
 
-     const miles = array.map(element => {
-  return element.id * 1000
-})
-console.log(filtered)
+//      const miles = array.map(element => {
+//   return element.id * 1000
+// })
 
+// function nomMayus(array){
+// let nombre = array[i].name.toUpperCase()
+// console.log(nombre)
+
+// }
+let almacenar =[]
+let nombreMayuscula = (array) => {
+     for (let i = 0; i < array.length; i++) {
+          const element = array[i].name.toUpperCase() 
+          // console.log(element)
+          almacenar.push(element)
+     }
+}
+
+// let result = datos.map((dat,i) =>{
+//     return dat[i].name.toUpperCase() 
+// })
+
+function masId(array){
+     array[0].name.toLowerCase()
+}
+let res = masId(datos)
+//  console.log(res)
+
+// nombreMayuscula(datos)
+// console.log(filtered)
+
+// DESTRUCTURAR OBJETO Y CAMBIARLO A MAYUSCULA   
+     // const myUsers = [
+     //     { name: 'shark', likes: 'ocean' },
+     //     { name: 'turtle', likes: 'pond' },
+     //     { name: 'otter', likes: 'fish biscuits' }
+     // ]
+
+     // const usersByLikes = myUsers.map(item => {
+     //     const container = {}
+
+     //     container["name"] = item.name.toLowerCase()
+     //     container["likes"] = item.likes
+
+     //     return container;
+     // })
+
+     // console.log(usersByLikes)
+//CIERRE
+
+const locales = [
+     {
+          tienda: 3
+          ,local: "OLMUE"
+          ,Nombre: "Unimarc"
+          ,direccion: "DIEGO PORTALES # 2090"
+          ,localidad: "OLMUÉ"
+          ,area: "Valparaiso"
+          ,País: "CL"
+          ,latitud: -32.995639
+          ,longitud: -71.186354
+          ,Teléfono: "600 600 0025"
+          ,Sitio: "https://www.unimarc.cl/"
+          ,Categoría: "Supermercado"
+          ,Horario: "9:00 - 21:00 "
+          ,lunes: "9:00 - 21:00 "
+          ,martes: "9:00 - 21:00 "
+          ,Horario: "9:00 - 21:00 "
+          ,Horario: "9:00 - 21:00 "
+          ,Horario: "9:00 - 21:00 "
+          ,sabado: "9:00 - 21:00 "
+          ,feriados: "9:00 - 21:00 "
+     },
+     {
+          tienda: 4555
+          ,local: "OLMUE"
+          ,Nombre: "Unimarc"
+          ,direccion: "DIEGO PORTALES # 2090"
+          ,localidad: "MICASA"
+          ,area: "Valparaiso"
+          ,País: "CL"
+          ,latitud: -32.995639
+          ,longitud: -71.186354
+          ,Teléfono: "600 600 0025"
+          ,Sitio: "https://www.unimarc.cl/"
+          ,Categoría: "Supermercado"
+          ,Horario: "9:00 - 21:00 "
+          ,lunes: "9:00 - 21:00 "
+          ,martes: "9:00 - 21:00 "
+          ,Horario: "9:00 - 21:00 "
+          ,Horario: "9:00 - 21:00 "
+          ,Horario: "9:00 - 21:00 "
+          ,sabado: "9:00 - 21:00 "
+          ,feriados: "9:00 - 21:00 "
+     }
+]
+// let container = [...locales]
+// const cambioDato = container.map(item => {
+//     let ,
+//     [...locales]  = container
+     // return item.localidad = item.localidad.toLowerCase()
+     //     container["likes"] = item.likes
+    
+
+     //     return container
+     // return {
+     // ...locales,
+     // tienda: locales.tienda += 1
+     // }
+     // })
+     // console.log(container)
+ 
+      const cambioDato = container.map(item =>item.localidad = item.localidad.toLowerCase())
+
+let container = [...locales]
+const cambioDato = item => item.localidad = item.localidad.toLowerCase()
+container.map(cambioDato)
+     console.log(container)
      </script>
 </body>
 </html>
