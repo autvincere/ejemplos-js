@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>recorrer objeto
+     </title>
+     <meta charset="utf-8">
+    
+</head>
+
+<body>
+
+	<h1>Resultados en consola</h1>
+	<div id= 'contenedor' class="contenedor"></div>
+	<div id= 'app' class="app"></div>
+     
+     <script type="text/javascript">
+
+     // const telefono = {
+     //      marca:'Huawei'
+     //      ,color: 'Negro'
+     //      // ,pantalla: 5.5
+     // };
+     // function chekPhone({marca = 'Samsung', color = 'Blanco',pantalla = 5.0})
+     // {
+     //      console.log(marca);
+     //      console.log(color)
+     //      console.log(pantalla)
+          
+     // }
+     // chekPhone(telefono)
+
+     
+     //TUTORIAL FRANCISCO HERRERA
+
+     //   const crearPersona = (nombre, apellido) => {
+     //      return {
+     //           nombre: nombre, 
+     //           apellido: apellido
+     //      }
+     // }  
+     
+     // const crearPersona = (nombre, apellido) => {
+     //      return {
+     //           nombre, 
+     //           apellido
+     //      }
+     // }   
+      const crearPersona = (nombre, apellido) => ({ nombre, apellido })  
+     
+
+     // const persona = crearPersona('Fernando', 'Herrera')
+     // console.log(persona)
+
+     function imprimeArgumentos() {
+          console.log(arguments)
+     }
+
+     //De esta manera activamos la funcion flecha
+     // cabe destacar que despues del parametro rest(...) no podemos colocar nada, porque no sera leido
+     const imprimeArgumentos2 = (edad,...arguments) => {
+          console.log({ edad, arguments })
+     }
+     // imprimeArgumentos2(10, true, false, 'Fernando', 'Hola')
+
+     const imprimeArgumentos3 = (...args) => args
+     const [casado, vivo, nombre, saludo] = imprimeArgumentos3(true, false, 'Fernando', 'Hola')
+
+     //objeto
+     const array = {casado, vivo, nombre, saludo}
+     //Array de objetos
+     const arrayObject = [{casado, vivo, nombre, saludo}]
+     const object = imprimeArgumentos3(true, false, 'Fernando', 'Hola')
+     // console.log('array'+ array);
+     // console.log(arrayObject);
+
+     // console.log({casado, vivo, nombre, saludo});
+     // console.log(casado,vivo,nombre);
+     
+     //Para guardar en una variable un valor especifico
+     const { apellido: apellid} = crearPersona('fernando','herrera')
+     // console.log(`${apellido}`);
+     // console.log( apellid );
+
+     const tony = {
+     nombre: 'Tony Stark',
+     codeName: 'Ironman',
+     vivo: false,
+     edad: 40,
+     trajes: ['Mark I', 'Mark V', 'Hulkbuster'],
+     };
+
+     // //objeto
+     // console.table(tony);
+     // //objeto con template literal
+     // console.log(`el objeto tony es:${JSON.stringify(tony)}`);
+     // //Indica que tipo es
+     // console.log(typeof(JSON.stringify(tony)));
+     
+     const imprimePropiedades = ( personaje ) => {
+          console.log(tony)
+          
+     }
+         imprimePropiedades(tony)     
+     </script>
+
+</body>
+</html>

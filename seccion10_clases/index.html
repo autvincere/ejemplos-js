@@ -43,21 +43,25 @@
 	// maria.retirarSaldo(300000)
 	// console.log(maria.tipoCliente())
 
-	console.log(maria.imprimirSaldo())
+	// console.log(maria.imprimirSaldo())
 		
 	class Empresa extends Cliente {
 		constructor(nombre,saldo,telefono,tipo){
 			//super es una palabra reservada para acceder a la clase padre y obtener sus metodos
 			super(nombre,saldo)
 			//no existe en el constructor padre:
-			// const {telefono, tipo} = this;
-			this.telefono = telefono
-			this.tipo = tipo
+			// ({telefono, tipo} = this);
+			 this.telefono = telefono
+			 this.tipo = tipo
 		}
+		imprimirSaldo = () => { return `Hola ${this.tipo}, tu saldo es de: ${this.saldo}`}
+
+		static bienvenida = () => { return`bienvenida empresa de ${this.tipo}`}
 	}
 	const empresa = new Empresa ('Empresa_1',100000, 12091002,'construccion')
 	console.log(empresa.imprimirSaldo());
-	
+	// notese que el metodo static solo funciona llamando al class padre "Empresa"
+	console.log(Empresa.bienvenida());
 	</script>
 
 </body>
