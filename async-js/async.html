@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>async</title>
+     <style>
+          body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f6bd20;
+            font-size: 50px;
+            font-weight: bold;
+            font-family: system-ui;
+          }
+        </style>
+</head>
+<body>
+     <img src="" id="pokemon" height="200">
+     <p id="message"></p>
+     <script>
+          const info = document.getElementById(message)
+          // const obtenerPokemones = async() => {
+          //      try {
+          //           const res = await fetch('https://pokeapi.co/api/v2/pokemon')
+          //           const data = await res.json()
+
+          //           const arrayNombres = data.results.map( item => item.name)
+          //           console.log(arrayNombres);
+          //      } catch (error) {
+          //           console.log(error);
+          //      }
+          // }
+          // obtenerPokemones()
+
+          const obtenerPokemones = async (year) => {
+               try {
+                    const res = await fetch(`https://jsonmock.hackerrank.com/api/movies?Year=${year}`)
+                    const data = await res.json()
+                    // const array = data.map( item => item.Title)
+                    const array = data.data.map( item => item.Title)
+                    console.log(array);
+               } catch (error) {
+                    console.log(error)
+               }
+          }
+          obtenerPokemones(2015)
+     </script>
+</body>
+</html>

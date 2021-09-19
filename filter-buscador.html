@@ -2,25 +2,25 @@
 <html>
 
 <head>
-	<title>
+     <title>
           filter
      </title>
      <meta charset="utf-8">
-    
+
 </head>
 
 <body>
-          <div class="col" id="app"></div>               
- <script type="text/javascript">
-  let
-      app = document.getElementById('app');
-      buscador = document.createElement("div")
-      buscador.setAttribute("id", "buscador-component")
-      buscador.setAttribute("class", "container");
-      app.appendChild(buscador)
-      buscadorComponent = document.getElementById('buscador-component')
-      buscadorComponent.innerHTML = 
-      `
+     <div class="col" id="app"></div>
+     <script type="text/javascript">
+          let
+               app = document.getElementById('app');
+          buscador = document.createElement("div")
+          buscador.setAttribute("id", "buscador-component")
+          buscador.setAttribute("class", "container");
+          app.appendChild(buscador)
+          buscadorComponent = document.getElementById('buscador-component')
+          buscadorComponent.innerHTML =
+               `
       <div class="row">
         <form class="col s12">
           <div class="row">
@@ -33,47 +33,105 @@
         </form>
       </div>
       `
-const 
-     objeto =[ 
-          {imgHeader: "header_tarjeta_CAU.jpg", img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg", fechaPublicacion: "2019-06-20 23:00:00.000", fechaDespublicacion: "2019-06-28 23:00:00.000", categoria: "fin-de-semana"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "chocman-Costa.jpg", fechaPublicacion: "2019-06-20 23:00:00.001", fechaDespublicacion: "2019-06-28 23:00:00.001", categoria: "botilleros"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "papas-fritas-Kryzpo.jpg", fechaPublicacion: "2019-06-20 23:00:00.002", fechaDespublicacion: "2019-06-28 23:00:00.002", categoria: "dias-del-socio"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg", fechaPublicacion: "2019-06-20 23:00:00.003", fechaDespublicacion: "2019-06-28 23:00:00.003", categoria: "fin-de-semana"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "chocman-Costa.jpg", fechaPublicacion: "2019-06-20 23:00:00.004", fechaDespublicacion: "2019-06-28 23:00:00.004", categoria: "botilleros"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "papas-fritas-Kryzpo.jpg", fechaPublicacion: "2019-06-20 23:00:00.005", fechaDespublicacion: "2019-06-25 23:00:00.005", categoria: "dias-del-socio"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg", fechaPublicacion: "2019-06-20 23:00:00.006", fechaDespublicacion: "2019-06-28 23:00:00.006", categoria: "fin-de-semana"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "chocman-Costa.jpg", fechaPublicacion: "2019-06-20 23:00:00.007", fechaDespublicacion: "2019-06-28 23:00:00.007", categoria: "botilleros"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "papas-fritas-Kryzpo.jpg", fechaPublicacion: "2019-06-20 23:00:00.008", fechaDespublicacion: "2019-06-28 23:00:00.008", categoria: "dias-del-socio"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg", fechaPublicacion: "2019-06-20 23:00:00.009", fechaDespublicacion: "2019-06-28 23:00:00.009", categoria: "fin-de-semana"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "chocman-Costa.jpg", fechaPublicacion: "2019-06-20 23:00:00.010", fechaDespublicacion: "2019-06-28 23:00:00.010", categoria: "botilleros"}
-          ,{imgHeader: "header_tarjeta_CAU.jpg", img: "papas-fritas-Kryzpo.jpg", fechaPublicacion: "2019-06-20 23:00:00.011", fechaDespublicacion: "2019-06-25 23:00:00.011", categoria: "dias-del-socio"}
-     ]
-     console.log(objeto);
+          const
+               objeto = [{
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.000",
+                    fechaDespublicacion: "2019-06-28 23:00:00.000",
+                    categoria: "fin-de-semana"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "chocman-Costa.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.001",
+                    fechaDespublicacion: "2019-06-28 23:00:00.001",
+                    categoria: "botilleros"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "papas-fritas-Kryzpo.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.002",
+                    fechaDespublicacion: "2019-06-28 23:00:00.002",
+                    categoria: "dias-del-socio"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.003",
+                    fechaDespublicacion: "2019-06-28 23:00:00.003",
+                    categoria: "fin-de-semana"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "chocman-Costa.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.004",
+                    fechaDespublicacion: "2019-06-28 23:00:00.004",
+                    categoria: "botilleros"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "papas-fritas-Kryzpo.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.005",
+                    fechaDespublicacion: "2019-06-25 23:00:00.005",
+                    categoria: "dias-del-socio"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.006",
+                    fechaDespublicacion: "2019-06-28 23:00:00.006",
+                    categoria: "fin-de-semana"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "chocman-Costa.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.007",
+                    fechaDespublicacion: "2019-06-28 23:00:00.007",
+                    categoria: "botilleros"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "papas-fritas-Kryzpo.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.008",
+                    fechaDespublicacion: "2019-06-28 23:00:00.008",
+                    categoria: "dias-del-socio"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "galletas-mini-Arcor-o-Dos-en-Uno-35g-variedades.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.009",
+                    fechaDespublicacion: "2019-06-28 23:00:00.009",
+                    categoria: "fin-de-semana"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "chocman-Costa.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.010",
+                    fechaDespublicacion: "2019-06-28 23:00:00.010",
+                    categoria: "botilleros"
+               }, {
+                    imgHeader: "header_tarjeta_CAU.jpg",
+                    img: "papas-fritas-Kryzpo.jpg",
+                    fechaPublicacion: "2019-06-20 23:00:00.011",
+                    fechaDespublicacion: "2019-06-25 23:00:00.011",
+                    categoria: "dias-del-socio"
+               }]
+          console.log(objeto);
 
-     //      let res = objeto.filter(it => it.categoria.includes('botilleros'))
-     // console.log(res);
-     
-     const displayMatches = ( n ) => { (n) =>{
-          const texto = campoBuscar.value.toLowerCase()
-          
-          let res = n.filter( productos => productos.categoria.includes(texto))
-          console.log(res);
-          
-     }
-}
-     document.getElementById('campoBuscar').addEventListener("keyup",
-     function(){
-          //console.log('hola');
-          const texto = campoBuscar.value.toLowerCase()
-          let res = objeto.filter(it => it.categoria.includes(texto))
-          console.log(res);
-     }
-     ,
-     false);
-// res is []
+          //      let res = objeto.filter(it => it.categoria.includes('botilleros'))
+          // console.log(res);
 
+          const displayMatches = (n) => {
+               (n) => {
+                    const texto = campoBuscar.value.toLowerCase()
 
+                    let res = n.filter(productos => productos.categoria.includes(texto))
+                    console.log(res);
+
+               }
+          }
+          document.getElementById('campoBuscar').addEventListener("keyup",
+               function () {
+                    // console.log('hola');
+                   const texto = campoBuscar.value.toLowerCase()
+                     let res = objeto.filter( it => it.categoria.includes(texto))
+                     console.log(res);
+               },
+               false);
+          // res is []
      </script>
 
 </body>
+
 </html>

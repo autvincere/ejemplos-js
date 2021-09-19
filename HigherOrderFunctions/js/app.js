@@ -127,8 +127,8 @@ const autos = [
 // antiguamente
 
 let colorNegro = []
-for (let i = 0; i < autos.length; i++) {
-	 const element = autos[i].marca;
+// for (let i = 0; i < autos.length; i++) {
+// 	 const element = autos[i].marca;
 	// console.log(element);
 	// if (autos[i].precio > 40000){
 	// 	console.log(autos[i]);	
@@ -142,7 +142,7 @@ for (let i = 0; i < autos.length; i++) {
 	// if (autos[i].color === 'Negro') {
 	// 	colorNegro.push(autos[i])	
 	// }		
-}
+// }
 // console.log(colorNegro);
 
 // forEach
@@ -173,12 +173,12 @@ for (let i = 0; i < autos.length; i++) {
 // console.log(resultado)
 
 // filter
-// let resultado = autos.filter(auto => {
-// 	return auto.marca == 'BMW'
-// })
-// let resultado = autos.filter(auto => auto.year >= 2015 && auto.year <= 2017)
+let resultado = autos.filter(auto => {
+	return auto.marca == 'BMW'
+})
+let resultado = autos.filter(auto => auto.year >= 2015 && auto.year <= 2017)
 // let resultado = autos.filter(auto => auto.transmision == 'manual')
-// console.table(resultado);
+console.table(resultado);
 
 // find
 // el find retorna el 'primer elemento' que encuentre en el arreglo
@@ -197,6 +197,6 @@ for (let i = 0; i < autos.length; i++) {
 
 // some
 // Es muy similar a filter, pero devuelve solo 1 valor "true" o "false"
-let resultado = autos.some(auto => auto.marca === 'caca')
-console.log(resultado);
+// let resultado = autos.some(auto => auto.marca === 'caca')
+// console.log(resultado);
 

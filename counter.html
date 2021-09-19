@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>contador</title>
+</head>
+<body>
+     <div id="number">0</div>
+     <!-- <input type="text" id="number" > -->
+     <script>
+          const timedCount = () => {
+             let contador = 0;
+
+             const saludo = () => {
+                  contador++
+                  console.log(contador);
+                  document.getElementById("number").innerHTML = contador;  
+                  if (contador === 30 ) {
+                       clearInterval(intervalo)
+                  }
+             }
+             let intervalo = setInterval(saludo, 100)
+          }
+          timedCount()
+    
+
+     
+
+          // for (let counter = 0; counter <= 30; counter++) {
+          //      // counter = +1;
+          //    console.log(counter);
+          //    document.getElementById("number").innerHTML = counter;  
+          // }
+          // let c = 0;
+          // let t;
+          // let timer_is_on = 0;
+          
+
+          // function timedText() {
+               
+          //      c += 1
+          //      t = setTimeout( timedText, 100); 
+          //      let x =  document.getElementById("number").value = c
+          //      console.log(t);
+
+          //      if (c === 30) {
+          //           x =  document.getElementById("number").value= 0
+                    
+          //      }else{
+          //           timedText() 
+          //      }
+          //      }
+// timedText()
+          // const startCount = () => {
+          //      if (c === 30) {
+          //           x =  document.getElementById("number").value= 0
+                    
+          //      }else{
+          //           timedText() 
+          //      }
+          // }
+          // startCount()
+               //   timedText();
+     </script>
+</body>
+</html>

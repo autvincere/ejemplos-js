@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>fitler and replace</title>
+</head>
+<body>
+     <script>
+          const state = [
+{
+    userId: 1,
+    id: 100,
+    title: "delectus aut autem",
+    completed: false
+},
+{
+    userId: 1,
+    id: 101,
+    title: "quis ut nam facilis et officia qui",
+    completed: false
+},
+{
+    userId: 1,
+    id: 102,
+    title: "fugiat veniam minus",
+    completed: false
+},
+{
+    userId: 1,
+    id: 103,
+    title: "et porro tempora",
+    completed: true
+}]
+const newState = state.map( item => item.id === 101 ? { ...item, completed: true } : item
+);
+console.log({state});
+console.log({newState});
+
+     </script>
+</body>
+</html>

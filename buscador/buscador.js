@@ -1,4 +1,3 @@
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 const ofertas = 'ofertas.json';
 const cities = [];
 
@@ -22,7 +21,7 @@ function displayMatches() {
     
     const regex = new RegExp(this.value, 'gi');
     const cityName = place.producto.replace(regex, `<span class="highlight">${this.value}</span>`);
-    
+    console.log(cityName);
     return `
       <li>
         <span class="name">${cityName}</span>
