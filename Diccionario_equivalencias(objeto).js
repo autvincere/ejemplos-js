@@ -84,3 +84,4 @@ const MEDIO_DE_PAGO_HIPOTECARIO = {
 };
 const medioDePago = 'NP'
 console.log(MEDIO_DE_PAGO_HIPOTECARIO[medioDePago.toString()]);
+console.log(MEDIO_DE_PAGO_HIPOTECARIO['NP']);
