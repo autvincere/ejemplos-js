@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>fetch image</title>
+</head>
+
+<body>
+     <img width="400" height="600">
+
+     <script>
+          let data = null
+          let fetching = false
+          let error = null
+
+          let myImage = document.querySelector('img');
+
+          const obtenerUrl = async (url) => {
+               const myRequest = new Request(url);
+               try {
+                    fetching = true
+                    const res = await fetch(url)
+                    if (res.status === 200) {
+                         myImage.src = res.url;
+                         data = res.url
+                    } else {
+                         myImage.src = String('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI3daMAcGQVeUuoIzXXxNDYRb1qSMymmLijOayhr0N7AS4VNuKRaGjJWENs7GZPq_N_OM&usqp=CAU')
+                         myImage.width = 150;
+                         myImage.height = 200;
+                    }
+               } catch (e) {
+                    console.log(e)
+                    error = e
+               } finally {
+                    fetching = false;
+               }
+          }
+          obtenerUrl('https://readcomicsonline.ru/uploads/manga/batman-2016/chapters/1/18.jpg')
+     </script>
+</body>
+
+</html>
