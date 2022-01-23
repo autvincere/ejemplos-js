@@ -41,6 +41,8 @@ const data =[
          descripcion: "Comercio"
      }
 ]
+
+const years = [2022, 2021, 2020, 2019, 2018, 2017]
  /**
   * 
   * @param {Array.<Object>}
@@ -60,8 +62,11 @@ const formatArrayForSelect = (data,keyA='',keyB='') => data.map(item => ({
     [keyB] : item.descripcion
 }))
 
+// console.log(
+//     formatArrayForSelect(data, 'value', 'label')
+// );
 console.log(
-    formatArrayForSelect(data, 'value', 'label')
+    formatArrayForSelect(years, 'value', 'label')
 );
 
 /**
@@ -74,5 +79,11 @@ const changeValuesDataMap = (data,keyA = '', keyB = '') => data.map(item => ({
     [keyB]: item.id,
     ...item
 }))
-
 // console.log(changeValuesDataMap(data,'label','value'));
+
+const formatArrForSelect = (data,keyA='',keyB='') => data.map(item => ({
+    [keyA] : item,
+    [keyB] : item
+}))
+
+console.log(formatArrForSelect(years,'label','value'));

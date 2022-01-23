@@ -9,32 +9,33 @@
      <div id="number">0</div>
      <!-- <input type="text" id="number" > -->
      <script>
-          const timedCount = () => {
-             let contador = 0;
 
-             const saludo = () => {
-                  contador++
-                  console.log(contador);
-                  document.getElementById("number").innerHTML = contador;  
-                  if (contador === 30 ) {
-                       clearInterval(intervalo)
-                  }
-             }
-             let intervalo = setInterval(saludo, 100)
-          }
-          timedCount()
+          // const timedCount = () => {
+          //    let contador = 0;
+
+          //    const saludo = () => {
+          //         contador++
+          //         console.log(contador);
+          //         document.getElementById("number").innerHTML = contador;  
+          //         if (contador === 30 ) {
+          //              clearInterval(intervalo)
+          //         }
+          //    }
+          //    let intervalo = setInterval(saludo, 100)
+          // }
+          // timedCount()
     
 
      
 
-          // for (let counter = 0; counter <= 30; counter++) {
-          //      // counter = +1;
-          //    console.log(counter);
-          //    document.getElementById("number").innerHTML = counter;  
-          // }
-          // let c = 0;
-          // let t;
-          // let timer_is_on = 0;
+          for (let counter = 0; counter <= 30; counter++) {
+               counter = +1;
+             console.log(counter);
+             document.getElementById("number").innerHTML = counter;  
+          }
+          let c = 0;
+          let t;
+          let timer_is_on = 0;
           
 
           // function timedText() {
