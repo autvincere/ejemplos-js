@@ -4,3 +4,4 @@ const seleccion = months.splice(months[0], 1);
 
 const newArr = [...months, ...seleccion];
 console.log(newArr);
+

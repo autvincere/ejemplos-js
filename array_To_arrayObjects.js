@@ -1,5 +1,3 @@
-console.log("array");
-
 const regiones = [
   "Región Metropolitana",
   "XV Árica y Parinacota",
@@ -10,6 +8,7 @@ const regiones = [
 const nuevo = regiones.map((region) => ({
   label: region,
   value: region,
+  region,
 }));
 
-// console.log(nuevo);
+ console.log(nuevo);

@@ -1,7 +1,8 @@
 
 // se borra el parentesis
 const array = [...[1, 2, 3]]
-//console.log(array);
+// console.log(array);
+// [ 1, 2, 3 ]
 
 const array1 = [1, 2, 3];
 
@@ -12,7 +13,7 @@ const attemptToMerge = [array1, array];
 //console.log(attemptToMerge);
 // [ [ 1, 2, 3 ], [ 1, 2, 3 ] ]
 
-// para unirlos en un solo array se hacer con el spread
+// para unirlos en un solo array se hace con el spread
 const mergedArray = [...array1, ...array2]
 // console.log(mergedArray);
 // [ 1, 2, 3, 4, 5, 6 ]
@@ -25,5 +26,5 @@ const mergedArray = [...array1, ...array2]
 var obj1 = { foo: 'bar', x: 42 };
 var obj2 = { foo: 'baz', y: 13 };
 var mergedObj = { ...obj1, ...obj2 };
-console.log(mergedObj);
+// console.log(mergedObj);
 // { foo: 'baz', x: 42, y: 13 }

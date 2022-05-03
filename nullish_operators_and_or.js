@@ -69,5 +69,5 @@ const getUserdefinedSettings = () => {
      }
 }
 
-const cash = getUserdefinedSettings().startingCash ?? 500
+const cash = getUserdefinedSettings().startingCash || 500
 console.log(cash);
